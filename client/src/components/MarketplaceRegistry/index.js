@@ -29,6 +29,8 @@ export default class MarketplaceRegistry extends Component {
     this.getTestData = this.getTestData.bind(this);
     this.mintTo = this.mintTo.bind(this);
     this.tokenURI = this.tokenURI.bind(this);
+
+    this.stakeholderRegistry = this.stakeholderRegistry.bind(this);
   }
 
   getTestData = async () => {
@@ -63,6 +65,17 @@ export default class MarketplaceRegistry extends Component {
       let response = await marketplace_registry.methods.buyTicket(_gameId, _clubTeam, _player).send({ from: accounts[0] })
       console.log('=== response of buyTicket() function ===', response);
   }
+
+  stakeholderRegistry = async () => {
+      const { accounts, marketplace_registry, web3 } = this.state;
+
+      const _stakeholderAddr = accounts[0];
+      const _stakeholderType = 0;
+
+      let response = await marketplace_registry.methods.stakeholderRegistry(_stakeholderAddr, _stakeholderType).send({ from: accounts[0] });
+      console.log('=== response of stakeholderRegistry() function ===', response);
+  }
+
 
   //////////////////////////////////// 
   ///// Refresh Values
@@ -225,6 +238,7 @@ export default class MarketplaceRegistry extends Component {
 
               <Button size={'small'} mt={3} mb={2} onClick={this.buyTicket}> Buy Ticket </Button> <br />
 
+             <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> Stakeholder Registry </Button> <br />
             </Card>
           </Grid>
 
