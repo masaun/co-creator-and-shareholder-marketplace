@@ -7,7 +7,7 @@ contract OpObjects {
     
     struct Stakeholder {
         address addr;
-        StakeholderType;
+        StakeholderType stakeholderType;
     }
     
 

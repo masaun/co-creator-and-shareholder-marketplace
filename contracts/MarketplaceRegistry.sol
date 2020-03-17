@@ -38,7 +38,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     /***
      * @dev - 
      **/
-    function stakeholderRegistry() public returns (bool) {
+    function stakeholderRegistry(StakeholderType stakeholderType) public returns (bool) {
         // In progress
     }
     
