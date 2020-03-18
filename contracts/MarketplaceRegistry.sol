@@ -10,7 +10,7 @@ import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "./storage/OpStorage.sol";
 import "./storage/OpConstants.sol";
 
-import "./NftTicket.sol";
+import "./NftItemsCreatedByStakeholders.sol";
 
 
 
@@ -23,11 +23,11 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     IERC20 public erc20;
     IERC721 public erc721;
 
-    NftTicket public nftTicket;
+    NftItemsCreatedByStakeholders public nftItem;
 
 
     constructor(address _nftTicket) public {
-        nftTicket = NftTicket(_nftTicket);
+        nftItem = NftItemsCreatedByStakeholders(_nftTicket);
     }
 
     function testFunc() public returns (bool) {
