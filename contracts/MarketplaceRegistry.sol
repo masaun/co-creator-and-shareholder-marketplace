@@ -80,17 +80,23 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         ownershipTransferOrderedItem(_itemId, _stakeholderAddr, _buyer);
 
         //@dev - Distribute rewards to stakeholders
-        distributeReward(_itemId);
+        distributeReward(_itemId, item.itemPrice);
     }
 
     function ownershipTransferOrderedItem(uint256 _itemId, address _oldOwner, address _newOwner) internal returns (bool) {
         // in progress
     }
 
-    function distributeReward(uint256 _itemId) internal returns (bool) {
+    function distributeReward(uint256 _itemId, uint256 _itemPrice) internal returns (bool) {
         //@dev - Sorts stakeholders who receive reward 
         address[] memory _stakeholdersGroups = getStakeholdersGroup(_itemId);
 
+        //@dev - This is distributed amount each stakeholders
+        uint256 distributedAmount = _itemPrice.div(_stakeholdersGroups.length);
+
+        for (uint256 i; i < _stakeholdersGroups.length; i++) {
+            //@dev - Transfer distributed amount to each stakeholders
+        }
     }
     
 
