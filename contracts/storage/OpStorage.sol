@@ -16,7 +16,9 @@ contract OpStorage is OpObjects, OpEvents {
     //////////////////////////////////
     // @dev - Define as storage
     ///////////////////////////////////
-    mapping (address => Stakeholder) stakeholders;
+    Stakeholder[] public stakeholders;
+
+    //mapping (address => Stakeholder) stakeholders;
     
     mapping (uint256 => Item) items;
     

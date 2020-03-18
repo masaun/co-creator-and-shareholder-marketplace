@@ -6,7 +6,8 @@ contract OpObjects {
     enum StakeholderType { Player, Worker, Organizer }
     
     struct Stakeholder {
-        address addr;
+        uint256 itemId;
+        address stakeholderAddr;
         StakeholderType stakeholderType;
     }
 

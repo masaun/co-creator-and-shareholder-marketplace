@@ -36,21 +36,26 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
 
 
     /***
-     * @dev - 
+     * @dev - This is registry for all of stakeholders
      **/
     function stakeholderRegistry(
         address _stakeholderAddr, 
         StakeholderType _stakeholderType
     ) public returns (address, StakeholderType) {
         // In progress
-        Stakeholder storage stakeholder = stakeholders[_stakeholderAddr];
-        stakeholder.addr = _stakeholderAddr;
-        stakeholder.stakeholderType = _stakeholderType;
+        Stakeholder memory stakeholder = Stakeholder({
+            itemId: 0,  // It mean is initialize (equal to "null")
+            stakeholderAddr: _stakeholderAddr,
+            stakeholderType: _stakeholderType
+        });
+        stakeholders.push(stakeholder);
 
-        emit StakeholderRegistry(stakeholder.addr, stakeholder.stakeholderType);
+        emit StakeholderRegistry(_stakeholderAddr, _stakeholderType);
 
-        return (stakeholder.addr, stakeholder.stakeholderType);
+        return (_stakeholderAddr, _stakeholderType);
     }
+
+
 
 
     /***
