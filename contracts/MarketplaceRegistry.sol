@@ -55,6 +55,9 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         return (_stakeholderAddr, _stakeholderType);
     }
 
+    /***
+     * @dev - Get stakeholders who work in same item design process by sorting by itemId
+     **/
     function getStakeholdersGroup(uint256 _itemId) public returns (address[] memory) {
         //@dev - Do grouping of stakeholders by specified itemId
         for (uint i; i < stakeholders.length; i++) {
@@ -77,15 +80,17 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         ownershipTransferOrderedItem(_itemId, _stakeholderAddr, _buyer);
 
         //@dev - Distribute rewards to stakeholders
-        distributeReward(_stakeholderAddr);
+        distributeReward(_itemId);
     }
 
     function ownershipTransferOrderedItem(uint256 _itemId, address _oldOwner, address _newOwner) internal returns (bool) {
         // in progress
     }
 
-    function distributeReward(address _stakeholderAddr) internal returns (bool) {
-        // In progress        
+    function distributeReward(uint256 _itemId) internal returns (bool) {
+        //@dev - Sorts stakeholders who receive reward 
+        address[] memory _stakeholdersGroups = getStakeholdersGroup(_itemId);
+
     }
     
 
