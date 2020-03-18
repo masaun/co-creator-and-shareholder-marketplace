@@ -26,8 +26,9 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     NftItemsCreatedByStakeholders public nftItem;
 
 
-    constructor(address _nftTicket) public {
-        nftItem = NftItemsCreatedByStakeholders(_nftTicket);
+    constructor(address _erc20, address _nftItem) public {
+        erc20 = IERC20(_erc20);
+        nftItem = NftItemsCreatedByStakeholders(_nftItem);
     }
 
     function testFunc() public returns (bool) {
@@ -94,8 +95,9 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         //@dev - This is distributed amount each stakeholders
         uint256 distributedAmount = _itemPrice.div(_stakeholdersGroups.length);
 
+        //@dev - Transfer distributed amount to each stakeholders
         for (uint256 i; i < _stakeholdersGroups.length; i++) {
-            //@dev - Transfer distributed amount to each stakeholders
+            erc20.transfer(_stakeholdersGroups[i], distributedAmount);
         }
     }
     
