@@ -5,9 +5,9 @@ import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 /**
  * @title NftTicket
- * NftTicket - a contract for my non-fungible tickets.
+ * @dev - NftItemsCreatedByStakeholders - a contract for my non-fungible items which are created by stakeholders.
  */
-contract NftTicket is TradeableERC721Token {
+contract NftItemsCreatedByStakeholders is TradeableERC721Token {
 
     using Strings for string;
 
@@ -17,16 +17,11 @@ contract NftTicket is TradeableERC721Token {
     constructor(
         address _proxyRegistryAddress
     ) 
-        TradeableERC721Token("Ticket for watching sports", "TKT", _proxyRegistryAddress) 
+        TradeableERC721Token("Items which are created by stakeholders", "IBS", _proxyRegistryAddress) 
         public 
     {
         // Nothing   
     }
-
-    function baseTokenURI() public view returns (string memory) {
-        return "https://opensea-creatures-api.herokuapp.com/api/nft-ticket/";
-    }
-
 
     /**
      * @dev Mints a token to an address with a tokenURI.
@@ -60,6 +55,11 @@ contract NftTicket is TradeableERC721Token {
             Strings.uint2str(_tokenId)
         );
     }
+
+    function baseTokenURI() public view returns (string memory) {
+        return "https://opensea-creatures-api.herokuapp.com/api/nft-item-by-stakeholders/";
+    }
+
 
     /**
      * Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.
