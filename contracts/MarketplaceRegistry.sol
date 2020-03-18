@@ -56,10 +56,12 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     }
 
     function getStakeholdersGroup(uint256 _itemId) public returns (address[] memory) {
+        //@dev - Do grouping of stakeholders by specified itemId
         for (uint i; i < stakeholders.length; i++) {
-            // In progress
+            if (stakeholders[i].itemId == _itemId) {
+                stakeholdersGroups.push(stakeholders[i].stakeholderAddr);
+            }
         }
-
         return stakeholdersGroups;
     }
 
