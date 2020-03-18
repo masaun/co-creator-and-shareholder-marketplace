@@ -11,6 +11,12 @@ contract OpObjects {
     }
     
 
+    struct Item {
+        uint256 itemId;
+        string itemName;
+        uint256 itemPrice;
+    }
+
 
     struct Ticket {
         uint256 gameId;

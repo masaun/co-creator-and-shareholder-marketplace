@@ -9,7 +9,8 @@ contract OpStorage is OpObjects, OpEvents {
 
     mapping (address => Stakeholder) stakeholders;
     
-
+    mapping (uint256 => Item) items;
+    
 
     mapping (uint256 => Ticket) tickets;
 
