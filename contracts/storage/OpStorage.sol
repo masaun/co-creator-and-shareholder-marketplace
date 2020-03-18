@@ -7,8 +7,15 @@ import "./OpEvents.sol";
 // shared storage
 contract OpStorage is OpObjects, OpEvents {
 
-    // StakeholdersGroup[] public stakeholdersGroup;
+    ///////////////////////////////////
+    // @dev - Define as memory
+    ///////////////////////////////////
+    address[] stakeholdersGroups;
 
+    
+    //////////////////////////////////
+    // @dev - Define as storage
+    ///////////////////////////////////
     mapping (address => Stakeholder) stakeholders;
     
     mapping (uint256 => Item) items;

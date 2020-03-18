@@ -10,9 +10,6 @@ contract OpObjects {
         StakeholderType stakeholderType;
     }
 
-    //struct StakeholdersGroup {}
-
-
     struct Item {
         uint256 itemId;
         string itemName;
