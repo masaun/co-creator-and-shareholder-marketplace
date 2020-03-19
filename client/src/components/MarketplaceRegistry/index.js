@@ -12,6 +12,8 @@ import { zeppelinSolidityHotLoaderOptions } from '../../../config/webpack';
 import styles from '../../App.module.scss';
 //import './App.css';
 
+import { walletAddressList } from '../../data/testWalletAddress'
+
 
 
 export default class MarketplaceRegistry extends Component {
@@ -51,7 +53,7 @@ export default class MarketplaceRegistry extends Component {
   buyItem = async () => {
       const { accounts, marketplace_registry, web3 } = this.state;
       const _itemId = 0
-      const _buyer = accounts[1]
+      const _buyer = walletAddressList.addressList.address1;
 
       let response = await marketplace_registry.methods.buyItem(_itemId, _buyer).send({ from: accounts[0] })
       console.log('=== response of buyItem() function ===', response);
