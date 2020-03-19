@@ -51,10 +51,9 @@ export default class MarketplaceRegistry extends Component {
   buyItem = async () => {
       const { accounts, marketplace_registry, web3 } = this.state;
       const _itemId = 0
-      const _stakeholderAddr = accounts[0]
       const _buyer = accounts[1]
 
-      let response = await marketplace_registry.methods.buyItem(_itemId, _stakeholderAddr, _buyer).send({ from: accounts[0] })
+      let response = await marketplace_registry.methods.buyItem(_itemId, _buyer).send({ from: accounts[0] })
       console.log('=== response of buyItem() function ===', response);
   }
 

@@ -73,7 +73,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     /***
      * @dev - This function is that distribute reward to stackholders who joined making process of item design (Masic Moment)
      **/
-    function buyItem(uint256 _itemId, address _stakeholderAddr, address _buyer) public returns (bool) {
+    function buyItem(uint256 _itemId, address _buyer) public returns (bool) {
         //@dev - Identify ordered item
         Item memory item = items[_itemId];
 
