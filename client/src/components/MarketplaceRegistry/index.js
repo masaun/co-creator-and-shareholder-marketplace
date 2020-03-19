@@ -48,6 +48,9 @@ export default class MarketplaceRegistry extends Component {
 
       let response = await nft_item.methods.mintTo(_publisherAddr).send({ from: accounts[0] });
       console.log('=== response of _mintTo() function ===', response);
+
+      var tokenId = response.events.Transfer.returnValues.tokenId;
+      console.log('=== tokenId of event of _mintTo() function ===', tokenId);
   }
 
   buyItem = async () => {
