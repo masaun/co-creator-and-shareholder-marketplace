@@ -84,7 +84,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         distributeReward(_itemId, item.itemPrice);
     }
 
-    function ownershipTransferOrderedItem(uint256 _itemId, address _newOwner) internal returns (bool) {
+    function ownershipTransferOrderedItem(uint256 _itemId, address _newOwner) public returns (bool) {
         //@return - current owner address
         address _oldOwner = nftItem.ownerOf(_itemId);
 
@@ -92,7 +92,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         nftItem.transferFrom(_oldOwner, _newOwner, _itemId);
     }
 
-    function distributeReward(uint256 _itemId, uint256 _itemPrice) internal returns (bool) {
+    function distributeReward(uint256 _itemId, uint256 _itemPrice) public returns (bool) {
         //@dev - Sorts stakeholders who receive reward 
         address[] memory _stakeholdersGroups = getStakeholdersGroup(_itemId);
 
