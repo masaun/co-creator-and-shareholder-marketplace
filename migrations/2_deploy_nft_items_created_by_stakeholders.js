@@ -1,4 +1,4 @@
-const NftTicket = artifacts.require("./NftTicket.sol");
+const NftItemsCreatedByStakeholders = artifacts.require("./NftItemsCreatedByStakeholders.sol");
 
 
 module.exports = function(deployer, network) {
