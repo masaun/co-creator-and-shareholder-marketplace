@@ -1,4 +1,4 @@
-const NftItemsCreatedByStakeholders = artifacts.require("./NftItemsCreatedByStakeholders.sol");
+const NftItem = artifacts.require("./NftItemsCreatedByStakeholders.sol");
 
 
 module.exports = function(deployer, network) {
@@ -10,7 +10,7 @@ module.exports = function(deployer, network) {
     proxyRegistryAddress = "0xa5409ec958c83c3f309868babaca7c86dcb077c1";
   }
 
-  deployer.deploy(NftTicket, proxyRegistryAddress, { gas: 5000000 });
+  deployer.deploy(NftItem, proxyRegistryAddress, { gas: 5000000 });
   
   // Uncomment this if you want initial item sale support.
   // deployer.deploy(Creature, proxyRegistryAddress, {gas: 5000000}).then(() => {
