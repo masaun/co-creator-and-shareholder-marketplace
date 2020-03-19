@@ -55,7 +55,7 @@ export default class MarketplaceRegistry extends Component {
 
   buyItem = async () => {
       const { accounts, marketplace_registry, web3 } = this.state;
-      const _itemId = 0
+      const _itemId = 1
       const _buyer = walletAddressList.addressList.address1;
 
       let response = await marketplace_registry.methods.buyItem(_itemId, _buyer).send({ from: accounts[0] })
@@ -65,7 +65,7 @@ export default class MarketplaceRegistry extends Component {
   stakeholderRegistry = async () => {
       const { accounts, marketplace_registry, web3 } = this.state;
 
-      const _itemId = 0;
+      const _itemId = 1;
       const _stakeholderAddr = accounts[0];
       const _stakeholderType = 0;
 
