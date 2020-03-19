@@ -1,8 +1,18 @@
 pragma solidity ^0.5.11;
 
+// Library
+import "../lib/EthAddressLib.sol";
+
 
 /// @title Shared constants
 contract OpConstants {
+
+    /**
+     * @notice Eth address
+     */
+    address ethAddress = EthAddressLib.ethAddress();
+
+
 
     /**
      * @notice In Exp terms, 1e18 is 1, or 100%
