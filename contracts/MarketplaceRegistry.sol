@@ -78,14 +78,18 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         Item memory item = items[_itemId];
 
         //@dev - Ordered item is bought by buyer (It is equal to be done Ownership transfer)
-        ownershipTransferOrderedItem(_itemId, _stakeholderAddr, _buyer);
+        ownershipTransferOrderedItem(_itemId, _buyer);
 
         //@dev - Distribute rewards to stakeholders
         distributeReward(_itemId, item.itemPrice);
     }
 
-    function ownershipTransferOrderedItem(uint256 _itemId, address _oldOwner, address _newOwner) internal returns (bool) {
-        // in progress
+    function ownershipTransferOrderedItem(uint256 _itemId, address _newOwner) internal returns (bool) {
+        //@return - current owner address
+        address _oldOwner = nftItem.ownerOf(_itemId);
+
+        //@dev - Execute transfer ownership
+        nftItem.transferFrom(_oldOwner, _newOwner, _itemId);
     }
 
     function distributeReward(uint256 _itemId, uint256 _itemPrice) internal returns (bool) {
