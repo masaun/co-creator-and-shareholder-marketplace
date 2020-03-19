@@ -103,7 +103,7 @@ export default class MarketplaceRegistry extends Component {
     let NftItem = {};
     try {
       MarketplaceRegistry = require("../../../../build/contracts/MarketplaceRegistry.json");  // Load artifact-file of MarketplaceRegistry
-      NftItem = require("../../../../build/contracts/NftItemsCreatedByStakeholders.json");
+      NftItem = require("../../../../build/contracts/NftItem.json");
 
     } catch (e) {
       console.log(e);

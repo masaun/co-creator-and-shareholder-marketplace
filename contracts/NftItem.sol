@@ -4,10 +4,10 @@ import "./opensea/TradeableERC721Token.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 /**
- * @title NftTicket
- * @dev - NftItemsCreatedByStakeholders - a contract for my non-fungible items which are created by stakeholders.
+ * @title NftItem
+ * @dev - This is a contract for my non-fungible items which are created by stakeholders.
  */
-contract NftItemsCreatedByStakeholders is TradeableERC721Token {
+contract NftItem is TradeableERC721Token {
 
     using Strings for string;
 
