@@ -65,10 +65,11 @@ export default class MarketplaceRegistry extends Component {
   stakeholderRegistry = async () => {
       const { accounts, marketplace_registry, web3 } = this.state;
 
+      const _itemId = 0;
       const _stakeholderAddr = accounts[0];
       const _stakeholderType = 0;
 
-      let response = await marketplace_registry.methods.stakeholderRegistry(_stakeholderAddr, _stakeholderType).send({ from: accounts[0] });
+      let response = await marketplace_registry.methods.stakeholderRegistry(_itemId, _stakeholderAddr, _stakeholderType).send({ from: accounts[0] });
       console.log('=== response of stakeholderRegistry() function ===', response);
   }
 
