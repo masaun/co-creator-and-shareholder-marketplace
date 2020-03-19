@@ -43,10 +43,10 @@ export default class MarketplaceRegistry extends Component {
   }
 
   mintTo = async () => {
-      const { accounts, nft_ticket, web3 } = this.state;
-      const _clubTeam = '0x718E3ea0B8C2911C5e54Cb4b9B2075fdd87B55a7'
+      const { accounts, nft_item, web3 } = this.state;
+      const _publisherAddr = '0x718E3ea0B8C2911C5e54Cb4b9B2075fdd87B55a7'
 
-      let response = await nft_ticket.methods.mintTo(_clubTeam).send({ from: accounts[0] });
+      let response = await nft_item.methods.mintTo(_publisherAddr).send({ from: accounts[0] });
       console.log('=== response of _mintTo() function ===', response);
   }
 
@@ -100,10 +100,10 @@ export default class MarketplaceRegistry extends Component {
     const hotLoaderDisabled = zeppelinSolidityHotLoaderOptions.disabled;
  
     let MarketplaceRegistry = {};
-    let NftTicket = {};
+    let NftItem = {};
     try {
       MarketplaceRegistry = require("../../../../build/contracts/MarketplaceRegistry.json");  // Load artifact-file of MarketplaceRegistry
-      NftTicket = require("../../../../build/contracts/NftTicket.json");
+      NftItem = require("../../../../build/contracts/NftItemsCreatedByStakeholders.json");
 
     } catch (e) {
       console.log(e);
@@ -132,7 +132,7 @@ export default class MarketplaceRegistry extends Component {
         balance = web3.utils.fromWei(balance, 'ether');
 
         let instanceMarketplaceRegistry = null;
-        let instanceNftTicket = null;
+        let instanceNftItem = null;
         let deployedNetwork = null;
 
         // Create instance of contracts
@@ -147,18 +147,18 @@ export default class MarketplaceRegistry extends Component {
           }
         }
 
-        if (NftTicket.networks) {
-          deployedNetwork = NftTicket.networks[networkId.toString()];
+        if (NftItem.networks) {
+          deployedNetwork = NftItem.networks[networkId.toString()];
           if (deployedNetwork) {
-            instanceNftTicket = new web3.eth.Contract(
-              NftTicket.abi,
+            instanceNftItem = new web3.eth.Contract(
+              NftItem.abi,
               deployedNetwork && deployedNetwork.address,
             );
-            console.log('=== instanceNftTicket ===', instanceNftTicket);
+            console.log('=== instanceNftItem ===', instanceNftItem);
           }
         }
 
-        if (MarketplaceRegistry, NftTicket) {
+        if (MarketplaceRegistry, NftItem) {
           // Set web3, accounts, and contract to the state, and then proceed with an
           // example of interacting with the contract's methods.
           this.setState({ 
@@ -171,13 +171,13 @@ export default class MarketplaceRegistry extends Component {
             hotLoaderDisabled,
             isMetaMask, 
             marketplace_registry: instanceMarketplaceRegistry,
-            nft_ticket: instanceNftTicket
+            nft_item: instanceNftItem
           }, () => {
             this.refreshValues(
               instanceMarketplaceRegistry
             );
             setInterval(() => {
-              this.refreshValues(instanceMarketplaceRegistry, instanceNftTicket);
+              this.refreshValues(instanceMarketplaceRegistry, instanceNftItem);
             }, 5000);
           });
         }
@@ -225,11 +225,12 @@ export default class MarketplaceRegistry extends Component {
 
               <Button size={'small'} mt={3} mb={2} onClick={this.getTestData}> Get TestData </Button> <br />
 
-              <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> Publish NFT Ticket（Mint To） </Button> <br />
+              <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> Stakeholder Registry </Button> <br />
+
+              <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> Publish NFT Item（Mint To） </Button> <br />
 
               <Button size={'small'} mt={3} mb={2} onClick={this.buyItem}> Buy Item </Button> <br />
 
-             <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> Stakeholder Registry </Button> <br />
             </Card>
           </Grid>
 
