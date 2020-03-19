@@ -3,7 +3,8 @@ var MarketplaceRegistry = artifacts.require("MarketplaceRegistry");
 var NftItem = artifacts.require("NftItem");
 const _nftItem = NftItem.address;
 
-import { tokenAddressList } from './tokenAddress/tokenAddress.js';
+//@dev - Import from exported file
+var tokenAddressList = require('./tokenAddress/tokenAddress.js');
 
 //const _erc20 = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';    // ETH address
 const _erc20 = '0xad6d458402f60fd3bd25163575031acdce07538d';      // DAI address on Ropsten

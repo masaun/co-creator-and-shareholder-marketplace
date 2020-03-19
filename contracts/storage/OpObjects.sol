@@ -18,11 +18,6 @@ contract OpObjects {
     }
 
 
-    struct Ticket {
-        uint256 gameId;
-        uint256 ticketId;
-    }
-
     struct ExampleObject {
         address addr;
         uint amount;
