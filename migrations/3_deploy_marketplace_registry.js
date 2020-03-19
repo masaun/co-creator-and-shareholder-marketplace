@@ -7,7 +7,8 @@ const _nftItem = NftItem.address;
 var tokenAddressList = require('./tokenAddress/tokenAddress.js');
 
 //const _erc20 = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';    // ETH address
-const _erc20 = '0xad6d458402f60fd3bd25163575031acdce07538d';      // DAI address on Ropsten
+//const _erc20 = '0xad6d458402f60fd3bd25163575031acdce07538d';    // DAI address on Ropsten
+const _erc20 = tokenAddressList["Ropsten"]["DAI"];                // DAI address on Ropsten
 
 module.exports = function(deployer) {
     deployer.deploy(MarketplaceRegistry, _erc20, _nftItem);
