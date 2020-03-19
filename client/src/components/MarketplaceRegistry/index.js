@@ -28,7 +28,7 @@ export default class MarketplaceRegistry extends Component {
 
     this.getTestData = this.getTestData.bind(this);
     this.mintTo = this.mintTo.bind(this);
-    this.tokenURI = this.tokenURI.bind(this);
+    this.buyItem = this.buyItem.bind(this);
 
     this.stakeholderRegistry = this.stakeholderRegistry.bind(this);
   }
@@ -48,22 +48,14 @@ export default class MarketplaceRegistry extends Component {
       console.log('=== response of _mintTo() function ===', response);
   }
 
-  tokenURI = async () => {
-      const { accounts, nft_ticket, web3 } = this.state;
-      const _tokenId = 0
-
-      let response = await nft_ticket.methods.tokenURI(_tokenId).call();
-      console.log('=== response of tokenURI() function ===', response);
-  }
-
-  buyTicket = async () => {
+  buyItem = async () => {
       const { accounts, marketplace_registry, web3 } = this.state;
-      const _gameId = 1
-      const _clubTeam = '0x8Fc9d07b1B9542A71C4ba1702Cd230E160af6EB3'
-      const _player = '0x0fED8b3f1024f6577E563c29CB8B8829EE2b87ef'
+      const _itemId = 0
+      const _stakeholderAddr = accounts[0]
+      const _buyer = accounts[1]
 
-      let response = await marketplace_registry.methods.buyTicket(_gameId, _clubTeam, _player).send({ from: accounts[0] })
-      console.log('=== response of buyTicket() function ===', response);
+      let response = await marketplace_registry.methods.buyItem(_itemId, _stakeholderAddr, _buyer).send({ from: accounts[0] })
+      console.log('=== response of buyItem() function ===', response);
   }
 
   stakeholderRegistry = async () => {
@@ -234,9 +226,7 @@ export default class MarketplaceRegistry extends Component {
 
               <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> Publish NFT Ticket（Mint To） </Button> <br />
 
-              <Button size={'small'} mt={3} mb={2} onClick={this.tokenURI}> NFT Ticket's URI </Button> <br />
-
-              <Button size={'small'} mt={3} mb={2} onClick={this.buyTicket}> Buy Ticket </Button> <br />
+              <Button size={'small'} mt={3} mb={2} onClick={this.buyItem}> Buy Item </Button> <br />
 
              <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> Stakeholder Registry </Button> <br />
             </Card>
