@@ -144,9 +144,9 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         uint256 distributedAmount = _itemPrice.div(_stakeholdersGroups.length);
 
         //@dev - Transfer distributed amount to each stakeholders
-        for (uint256 i; i < _stakeholdersGroups.length; i++) {
-            erc20.transfer(_stakeholdersGroups[i], distributedAmount);
-        }
+        // for (uint256 i; i < _stakeholdersGroups.length; i++) {
+        //     erc20.transfer(_stakeholdersGroups[i], distributedAmount);
+        // }
     }
     
 
