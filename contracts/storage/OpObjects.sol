@@ -11,17 +11,16 @@ contract OpObjects {
         StakeholderType stakeholderType;
     }
 
+    enum ItemType { Weapon, Character, Clothes, Others }
+
     struct Item {
         uint256 itemId;
+        address itemOwnerAddr;
         string itemName;
         uint256 itemPrice;
+        ItemType itemType;
     }
 
-
-    struct Ticket {
-        uint256 gameId;
-        uint256 ticketId;
-    }
 
     struct ExampleObject {
         address addr;

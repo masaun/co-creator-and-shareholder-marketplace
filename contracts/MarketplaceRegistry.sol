@@ -10,7 +10,7 @@ import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "./storage/OpStorage.sol";
 import "./storage/OpConstants.sol";
 
-import "./NftItemsCreatedByStakeholders.sol";
+import "./NftItem.sol";
 
 
 
@@ -23,12 +23,12 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     IERC20 public erc20;
     IERC721 public erc721;
 
-    NftItemsCreatedByStakeholders public nftItem;
+    NftItem public nftItem;
 
 
     constructor(address _erc20, address _nftItem) public {
         erc20 = IERC20(_erc20);
-        nftItem = NftItemsCreatedByStakeholders(_nftItem);
+        nftItem = NftItem(_nftItem);
     }
 
     function testFunc() public returns (bool) {
@@ -40,12 +40,16 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
      * @dev - This is registry for all of stakeholders
      **/
     function stakeholderRegistry(
+        uint256 _itemId,
         address _stakeholderAddr, 
-        StakeholderType _stakeholderType
+        StakeholderType _stakeholderType,
+        //@dev - parameter below are for executing itemRegistry function
+        string memory _itemName,
+        uint256 _itemPrice,
+        ItemType _itemType
     ) public returns (address, StakeholderType) {
-        // In progress
         Stakeholder memory stakeholder = Stakeholder({
-            itemId: 0,  // It mean is initialize (equal to "null")
+            itemId: _itemId,  // It mean is initialize (equal to "null")
             stakeholderAddr: _stakeholderAddr,
             stakeholderType: _stakeholderType
         });
@@ -53,8 +57,40 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
 
         emit StakeholderRegistry(_stakeholderAddr, _stakeholderType);
 
+        //@dev - Call internal function
+        itemRegistry(_itemId, _stakeholderAddr, _itemName, _itemPrice, _itemType);
+
         return (_stakeholderAddr, _stakeholderType);
     }
+
+    function itemRegistry(
+        uint256 _itemId,
+        address _itemOwnerAddr,  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        string memory _itemName,
+        uint256 _itemPrice,
+        ItemType _itemType
+    ) internal returns (uint256, address, string memory, uint256, ItemType) {
+        Item storage item = items[_itemId];
+        item.itemId = _itemId;
+        item.itemOwnerAddr = _itemOwnerAddr;  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        item.itemName = _itemName;
+        item.itemPrice = _itemPrice;
+        item.itemType = _itemType;
+
+        emit ItemRegistry(item.itemId, 
+                          item.itemOwnerAddr, 
+                          item.itemName, 
+                          item.itemPrice, 
+                          item.itemType);
+
+        return (item.itemId, 
+                item.itemOwnerAddr,
+                item.itemName,
+                item.itemPrice,
+                item.itemType);
+    }
+    
+
 
     /***
      * @dev - Get stakeholders who work in same item design process by sorting by itemId
@@ -73,7 +109,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     /***
      * @dev - This function is that distribute reward to stackholders who joined making process of item design (Masic Moment)
      **/
-    function buyItem(uint256 _itemId, address _stakeholderAddr, address _buyer) public returns (bool) {
+    function buyItem(uint256 _itemId, address _buyer) public returns (bool) {
         //@dev - Identify ordered item
         Item memory item = items[_itemId];
 
@@ -84,7 +120,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         distributeReward(_itemId, item.itemPrice);
     }
 
-    function ownershipTransferOrderedItem(uint256 _itemId, address _newOwner) internal returns (bool) {
+    function ownershipTransferOrderedItem(uint256 _itemId, address _newOwner) public returns (bool) {
         //@return - current owner address
         address _oldOwner = nftItem.ownerOf(_itemId);
 
@@ -92,7 +128,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         nftItem.transferFrom(_oldOwner, _newOwner, _itemId);
     }
 
-    function distributeReward(uint256 _itemId, uint256 _itemPrice) internal returns (bool) {
+    function distributeReward(uint256 _itemId, uint256 _itemPrice) public returns (bool) {
         //@dev - Sorts stakeholders who receive reward 
         address[] memory _stakeholdersGroups = getStakeholdersGroup(_itemId);
 

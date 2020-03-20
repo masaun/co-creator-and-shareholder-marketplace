@@ -12,6 +12,8 @@ import { zeppelinSolidityHotLoaderOptions } from '../../../config/webpack';
 import styles from '../../App.module.scss';
 //import './App.css';
 
+import { walletAddressList } from '../../data/testWalletAddress'
+
 
 
 export default class MarketplaceRegistry extends Component {
@@ -28,7 +30,7 @@ export default class MarketplaceRegistry extends Component {
 
     this.getTestData = this.getTestData.bind(this);
     this.mintTo = this.mintTo.bind(this);
-    this.tokenURI = this.tokenURI.bind(this);
+    this.buyItem = this.buyItem.bind(this);
 
     this.stakeholderRegistry = this.stakeholderRegistry.bind(this);
   }
@@ -41,38 +43,43 @@ export default class MarketplaceRegistry extends Component {
   }
 
   mintTo = async () => {
-      const { accounts, nft_ticket, web3 } = this.state;
-      const _clubTeam = '0x718E3ea0B8C2911C5e54Cb4b9B2075fdd87B55a7'
+      const { accounts, nft_item, web3 } = this.state;
+      const _publisherAddr = '0x718E3ea0B8C2911C5e54Cb4b9B2075fdd87B55a7'
 
-      let response = await nft_ticket.methods.mintTo(_clubTeam).send({ from: accounts[0] });
+      let response = await nft_item.methods.mintTo(_publisherAddr).send({ from: accounts[0] });
       console.log('=== response of _mintTo() function ===', response);
+
+      var itemId = response.events.Transfer.returnValues.tokenId;
+      console.log('=== itemId of event of _mintTo() function ===', itemId);
   }
 
-  tokenURI = async () => {
-      const { accounts, nft_ticket, web3 } = this.state;
-      const _tokenId = 0
-
-      let response = await nft_ticket.methods.tokenURI(_tokenId).call();
-      console.log('=== response of tokenURI() function ===', response);
-  }
-
-  buyTicket = async () => {
+  buyItem = async () => {
       const { accounts, marketplace_registry, web3 } = this.state;
-      const _gameId = 1
-      const _clubTeam = '0x8Fc9d07b1B9542A71C4ba1702Cd230E160af6EB3'
-      const _player = '0x0fED8b3f1024f6577E563c29CB8B8829EE2b87ef'
+      const _itemId = 1
+      const _buyer = walletAddressList.addressList.address1;
 
-      let response = await marketplace_registry.methods.buyTicket(_gameId, _clubTeam, _player).send({ from: accounts[0] })
-      console.log('=== response of buyTicket() function ===', response);
+      let response = await marketplace_registry.methods.buyItem(_itemId, _buyer).send({ from: accounts[0] })
+      console.log('=== response of buyItem() function ===', response);
   }
 
   stakeholderRegistry = async () => {
       const { accounts, marketplace_registry, web3 } = this.state;
 
+      const _itemId = 1;
       const _stakeholderAddr = accounts[0];
       const _stakeholderType = 0;
 
-      let response = await marketplace_registry.methods.stakeholderRegistry(_stakeholderAddr, _stakeholderType).send({ from: accounts[0] });
+      //@dev - parameter below are for executing itemRegistry function
+      const _itemName = 'Sample Item';
+      const _itemPrice = 100;
+      const _itemType = 0;
+
+      let response = await marketplace_registry.methods.stakeholderRegistry(_itemId, 
+                                                                            _stakeholderAddr, 
+                                                                            _stakeholderType,
+                                                                            _itemName,
+                                                                            _itemPrice,
+                                                                            _itemType).send({ from: accounts[0] });
       console.log('=== response of stakeholderRegistry() function ===', response);
   }
 
@@ -107,10 +114,10 @@ export default class MarketplaceRegistry extends Component {
     const hotLoaderDisabled = zeppelinSolidityHotLoaderOptions.disabled;
  
     let MarketplaceRegistry = {};
-    let NftTicket = {};
+    let NftItem = {};
     try {
       MarketplaceRegistry = require("../../../../build/contracts/MarketplaceRegistry.json");  // Load artifact-file of MarketplaceRegistry
-      NftTicket = require("../../../../build/contracts/NftTicket.json");
+      NftItem = require("../../../../build/contracts/NftItem.json");
 
     } catch (e) {
       console.log(e);
@@ -139,7 +146,7 @@ export default class MarketplaceRegistry extends Component {
         balance = web3.utils.fromWei(balance, 'ether');
 
         let instanceMarketplaceRegistry = null;
-        let instanceNftTicket = null;
+        let instanceNftItem = null;
         let deployedNetwork = null;
 
         // Create instance of contracts
@@ -154,18 +161,18 @@ export default class MarketplaceRegistry extends Component {
           }
         }
 
-        if (NftTicket.networks) {
-          deployedNetwork = NftTicket.networks[networkId.toString()];
+        if (NftItem.networks) {
+          deployedNetwork = NftItem.networks[networkId.toString()];
           if (deployedNetwork) {
-            instanceNftTicket = new web3.eth.Contract(
-              NftTicket.abi,
+            instanceNftItem = new web3.eth.Contract(
+              NftItem.abi,
               deployedNetwork && deployedNetwork.address,
             );
-            console.log('=== instanceNftTicket ===', instanceNftTicket);
+            console.log('=== instanceNftItem ===', instanceNftItem);
           }
         }
 
-        if (MarketplaceRegistry, NftTicket) {
+        if (MarketplaceRegistry, NftItem) {
           // Set web3, accounts, and contract to the state, and then proceed with an
           // example of interacting with the contract's methods.
           this.setState({ 
@@ -178,13 +185,13 @@ export default class MarketplaceRegistry extends Component {
             hotLoaderDisabled,
             isMetaMask, 
             marketplace_registry: instanceMarketplaceRegistry,
-            nft_ticket: instanceNftTicket
+            nft_item: instanceNftItem
           }, () => {
             this.refreshValues(
               instanceMarketplaceRegistry
             );
             setInterval(() => {
-              this.refreshValues(instanceMarketplaceRegistry, instanceNftTicket);
+              this.refreshValues(instanceMarketplaceRegistry, instanceNftItem);
             }, 5000);
           });
         }
@@ -227,18 +234,17 @@ export default class MarketplaceRegistry extends Component {
                 borderRadius={8}
                 height="100%"
                 maxWidth='100%'
-                src="https://source.unsplash.com/random/1280x720"
+                src="https://siasky.net/vAPszlRA6sQoA7nzuYwFoEuLhWLcSOqCcECqLBYxyhRUmw"
               />
 
               <Button size={'small'} mt={3} mb={2} onClick={this.getTestData}> Get TestData </Button> <br />
 
-              <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> Publish NFT Ticket（Mint To） </Button> <br />
+              <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> ① Publish NFT Item（Mint To） </Button> <br />
 
-              <Button size={'small'} mt={3} mb={2} onClick={this.tokenURI}> NFT Ticket's URI </Button> <br />
+              <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button> <br />
 
-              <Button size={'small'} mt={3} mb={2} onClick={this.buyTicket}> Buy Ticket </Button> <br />
+              <Button size={'small'} mt={3} mb={2} onClick={this.buyItem}> ③ Buy Item </Button> <br />
 
-             <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> Stakeholder Registry </Button> <br />
             </Card>
           </Grid>
 

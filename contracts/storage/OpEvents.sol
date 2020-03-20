@@ -9,6 +9,14 @@ contract OpEvents {
         address _stakeholderAddr, 
         OpObjects.StakeholderType _stakeholderType
     );
+
+    event ItemRegistry(
+        uint256 _itemId,
+        address _itemOwnerAddr,  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        string _itemName,
+        uint256 _itemPrice,
+        OpObjects.ItemType _itemType
+    );
     
 
     event Example(
