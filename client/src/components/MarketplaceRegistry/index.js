@@ -59,8 +59,20 @@ export default class MarketplaceRegistry extends Component {
       const _itemId = 1;
 
       let response = await marketplace_registry.methods.itemOwnerOf(_itemId).call();
-      console.log('=== response of itemOwnerOf() function ===', response);      
+      console.log('=== response of itemOwnerOf() function ===', response);
   } 
+
+  itemTransferFrom = async () => {
+      const { accounts, marketplace_registry, web3 } = this.state;
+
+      const _oldOwner = accounts[0];
+      const _newOwner = walletAddressList.addressList.address1;
+      const _itemId = 1;
+
+      let response = await marketplace_registry.methods.itemTransferFrom(_oldOwner, _newOwner, _itemId).send({ from: accounts[0] });
+      console.log('=== response of itemTransferFrom() function ===', response);      
+  }
+
 
   ownershipTransferOrderedItem = async () => {
       const { accounts, marketplace_registry, web3 } = this.state;
@@ -260,6 +272,8 @@ export default class MarketplaceRegistry extends Component {
               <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> ① Publish NFT Item（Mint To） </Button> <br />
 
               <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.itemOwnerOf}> Item Owner Of </Button> <br />
+
+              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.itemTransferFrom}> Item TransferFrom </Button> <br />
 
               <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.ownershipTransferOrderedItem}> Ownership Transfer Ordered Item </Button> <br />
 
