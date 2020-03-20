@@ -43,7 +43,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         uint256 _itemId,
         address _stakeholderAddr, 
         StakeholderType _stakeholderType,
-
+        //@dev - parameter below are for executing itemRegistry function
         string memory _itemName,
         uint256 _itemPrice,
         ItemType _itemType

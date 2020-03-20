@@ -69,7 +69,17 @@ export default class MarketplaceRegistry extends Component {
       const _stakeholderAddr = accounts[0];
       const _stakeholderType = 0;
 
-      let response = await marketplace_registry.methods.stakeholderRegistry(_itemId, _stakeholderAddr, _stakeholderType).send({ from: accounts[0] });
+      //@dev - parameter below are for executing itemRegistry function
+      const _itemName = 'Sample Item';
+      const _itemPrice = 100;
+      const _itemType = 0;
+
+      let response = await marketplace_registry.methods.stakeholderRegistry(_itemId, 
+                                                                            _stakeholderAddr, 
+                                                                            _stakeholderType,
+                                                                            _itemName,
+                                                                            _itemPrice,
+                                                                            _itemType).send({ from: accounts[0] });
       console.log('=== response of stakeholderRegistry() function ===', response);
   }
 
@@ -229,11 +239,11 @@ export default class MarketplaceRegistry extends Component {
 
               <Button size={'small'} mt={3} mb={2} onClick={this.getTestData}> Get TestData </Button> <br />
 
-              <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> Stakeholder Registry </Button> <br />
+              <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> ① Publish NFT Item（Mint To） </Button> <br />
 
-              <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> Publish NFT Item（Mint To） </Button> <br />
+              <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button> <br />
 
-              <Button size={'small'} mt={3} mb={2} onClick={this.buyItem}> Buy Item </Button> <br />
+              <Button size={'small'} mt={3} mb={2} onClick={this.buyItem}> ③ Buy Item </Button> <br />
 
             </Card>
           </Grid>
