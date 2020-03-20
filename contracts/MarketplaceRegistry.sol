@@ -141,12 +141,12 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         address[] memory _stakeholdersGroups = getStakeholdersGroup(_itemId);
 
         //@dev - This is distributed amount each stakeholders
-        uint256 distributedAmount = _itemPrice.div(_stakeholdersGroups.length);
+        uint256 distributedAmount = _itemPrice.div(_stakeholdersGroups.length).div(10**18);
 
         //@dev - Transfer distributed amount to each stakeholders
-        // for (uint256 i; i < _stakeholdersGroups.length; i++) {
-        //     erc20.transfer(_stakeholdersGroups[i], distributedAmount);
-        // }
+        for (uint256 i; i < _stakeholdersGroups.length; i++) {
+            erc20.transfer(_stakeholdersGroups[i], distributedAmount);
+        }
     }
     
 

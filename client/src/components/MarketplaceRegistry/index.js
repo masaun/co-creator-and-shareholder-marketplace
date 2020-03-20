@@ -101,7 +101,7 @@ export default class MarketplaceRegistry extends Component {
 
       //@dev - parameter below are for executing itemRegistry function
       const _itemName = 'Sample Item';
-      const _itemPrice = 100;
+      const _itemPrice = 5;
       const _itemType = 0;
 
       let response = await marketplace_registry.methods.stakeholderRegistry(_itemId, 
