@@ -30,8 +30,9 @@ export default class MarketplaceRegistry extends Component {
 
     this.getTestData = this.getTestData.bind(this);
     this.mintTo = this.mintTo.bind(this);
+    this.itemOwnerOf = this.itemOwnerOf.bind(this);
+    this.ownershipTransferOrderedItem = this.ownershipTransferOrderedItem.bind(this);
     this.buyItem = this.buyItem.bind(this);
-
     this.stakeholderRegistry = this.stakeholderRegistry.bind(this);
   }
 
@@ -51,6 +52,23 @@ export default class MarketplaceRegistry extends Component {
 
       var itemId = response.events.Transfer.returnValues.tokenId;
       console.log('=== itemId of event of _mintTo() function ===', itemId);
+  }
+
+  itemOwnerOf = async () => {
+      const { accounts, marketplace_registry, web3 } = this.state;
+      const _itemId = 1;
+
+      let response = await marketplace_registry.methods.itemOwnerOf(_itemId).call();
+      console.log('=== response of itemOwnerOf() function ===', response);      
+  } 
+
+  ownershipTransferOrderedItem = async () => {
+      const { accounts, marketplace_registry, web3 } = this.state;
+      const _itemId = 1;
+      const _newOwner = walletAddressList.addressList.address1;
+
+      let response = await marketplace_registry.methods.ownershipTransferOrderedItem(_itemId, _newOwner).send({ from: accounts[0] })
+      console.log('=== response of ownershipTransferOrderedItem() function ===', response);
   }
 
   buyItem = async () => {
@@ -240,6 +258,10 @@ export default class MarketplaceRegistry extends Component {
               <Button size={'small'} mt={3} mb={2} onClick={this.getTestData}> Get TestData </Button> <br />
 
               <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> ① Publish NFT Item（Mint To） </Button> <br />
+
+              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.itemOwnerOf}> Item Owner Of </Button> <br />
+
+              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.ownershipTransferOrderedItem}> Ownership Transfer Ordered Item </Button> <br />
 
               <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button> <br />
 

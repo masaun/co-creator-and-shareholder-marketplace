@@ -50,7 +50,7 @@ contract NftItem is TradeableERC721Token {
     }
 
 
-    function itemOwnerOf(uint256 _itemId) public view returns (address) {
+    function _itemOwnerOf(uint256 _itemId) public view returns (address) {
         address _itemOwner = ownerOf(_itemId);
         return _itemOwner;
     }
