@@ -133,7 +133,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         address _oldOwner = itemOwnerOf(_itemId);
 
         //@dev - Execute transfer ownership
-        //nftItem.transferFrom(_oldOwner, _newOwner, _itemId);
+        itemTransferFrom(_oldOwner, _newOwner, _itemId);
     }
 
     function distributeReward(uint256 _itemId, uint256 _itemPrice) public returns (bool) {
