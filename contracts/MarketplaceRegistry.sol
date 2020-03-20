@@ -44,7 +44,6 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         address _stakeholderAddr, 
         StakeholderType _stakeholderType
     ) public returns (address, StakeholderType) {
-        // In progress
         Stakeholder memory stakeholder = Stakeholder({
             itemId: _itemId,  // It mean is initialize (equal to "null")
             stakeholderAddr: _stakeholderAddr,
@@ -56,6 +55,35 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
 
         return (_stakeholderAddr, _stakeholderType);
     }
+
+    function itemRegistry(
+        uint256 _itemId,
+        address _itemOwnerAddr,  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        string memory _itemName,
+        uint256 _itemPrice,
+        ItemType _itemType
+    ) internal returns (uint256, address, string memory, uint256, ItemType) {
+        Item storage item = items[_itemId];
+        item.itemId = _itemId;
+        item.itemOwnerAddr = _itemOwnerAddr;  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        item.itemName = _itemName;
+        item.itemPrice = _itemPrice;
+        item.itemType = _itemType;
+
+        emit ItemRegistry(item.itemId, 
+                          item.itemOwnerAddr, 
+                          item.itemName, 
+                          item.itemPrice, 
+                          item.itemType);
+
+        return (item.itemId, 
+                item.itemOwnerAddr,
+                item.itemName,
+                item.itemPrice,
+                item.itemType);
+    }
+    
+
 
     /***
      * @dev - Get stakeholders who work in same item design process by sorting by itemId
