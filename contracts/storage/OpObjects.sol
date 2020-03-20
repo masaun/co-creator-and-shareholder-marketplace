@@ -11,10 +11,13 @@ contract OpObjects {
         StakeholderType stakeholderType;
     }
 
+    enum ItemType { Weapon, Character, Clothes, Others }
+
     struct Item {
         uint256 itemId;
         string itemName;
         uint256 itemPrice;
+        ItemType itemType;
     }
 
 
