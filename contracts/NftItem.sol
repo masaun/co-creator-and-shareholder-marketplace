@@ -49,6 +49,14 @@ contract NftItem is TradeableERC721Token {
         _currentTokenId++;
     }
 
+
+    function itemOwnerOf(uint256 _itemId) public view returns (address) {
+        address _itemOwner = ownerOf(_itemId);
+        return _itemOwner;
+    }
+    
+
+
     function tokenURI(uint256 _tokenId) external view returns (string memory) {
         return Strings.strConcat(
             baseTokenURI(),
