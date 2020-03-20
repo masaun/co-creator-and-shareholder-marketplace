@@ -42,7 +42,11 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     function stakeholderRegistry(
         uint256 _itemId,
         address _stakeholderAddr, 
-        StakeholderType _stakeholderType
+        StakeholderType _stakeholderType,
+
+        string memory _itemName,
+        uint256 _itemPrice,
+        ItemType _itemType
     ) public returns (address, StakeholderType) {
         Stakeholder memory stakeholder = Stakeholder({
             itemId: _itemId,  // It mean is initialize (equal to "null")
@@ -52,6 +56,9 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         stakeholders.push(stakeholder);
 
         emit StakeholderRegistry(_stakeholderAddr, _stakeholderType);
+
+        //@dev - Call internal function
+        itemRegistry(_itemId, _stakeholderAddr, _itemName, _itemPrice, _itemType);
 
         return (_stakeholderAddr, _stakeholderType);
     }
