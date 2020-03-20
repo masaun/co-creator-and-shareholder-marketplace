@@ -81,9 +81,11 @@ contract TradeableERC721Token is ERC721Full, Ownable {
   }
 
 
-  // function itemOwnerOf(uint256 _itemId) public view returns (address) {
-  //   address _itemOwner = ownerOf(_itemId);
-  //   return _itemOwner;
-  // }
+  /***
+   * @dev - Overwritten
+   **/
+  function transferFrom(address _from, address _to, uint256 _tokenId) public {
+      _transferFrom(_from, _to, _tokenId);
+  }
   
 }

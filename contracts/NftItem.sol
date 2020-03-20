@@ -29,7 +29,6 @@ contract NftItem is TradeableERC721Token {
      */
     function mintTo(address _to) public {
         uint256 newTokenId = _getNextTokenId();
-        //_mint(msg.sender, newTokenId);
         _mint(_to, newTokenId);
         _incrementTokenId();
     }
@@ -89,4 +88,10 @@ contract NftItem is TradeableERC721Token {
         return super.isApprovedForAll(owner, operator);
     }    
     
+    /***
+     * @dev - Overwritten
+     **/
+    function transferFrom(address _from, address _to, uint256 _tokenId) public {
+        _transferFrom(_from, _to, _tokenId);
+    }
 }
