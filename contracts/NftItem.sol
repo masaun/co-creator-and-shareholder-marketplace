@@ -29,8 +29,8 @@ contract NftItem is TradeableERC721Token {
      * @param _to address of player who propose a idea.
      */
     function mintTo(address _to) public {
-        uint256 newTokenId = _getNextTokenId();
-        _mint(_to, newTokenId);
+        uint256 newItemId = _getNextTokenId();
+        _mint(_to, newItemId);
         _incrementTokenId();
     }
 
