@@ -33,12 +33,20 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
      * @dev Mints a item to an address with a itemURI.
      * @param _to address of player who propose a idea.
      */
-    function mintTo(address _to) public {
+    function mintTo(
+        address _to,             //@notice - Original parameter
+        uint256 _itemId,
+        address _itemOwnerAddr,  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        string memory _itemName,
+        string memory _itemDescription,
+        uint256 _itemPrice,
+        ItemType _itemType
+    ) public {
         uint256 newItemId = _getNextItemId();
         _mint(_to, newItemId);
 
         //@dev - Call internal function (OverWritten)
-        itemRegistry(_itemId, _stakeholderAddr, _itemName, _itemDescription, _itemPrice, _itemType);
+        itemRegistry(_itemId, _itemOwnerAddr, _itemName, _itemDescription, _itemPrice, _itemType);
 
         _incrementItemId();
     }
