@@ -14,7 +14,7 @@ import "./storage/OpConstants.sol";
 
 
 /***
- * @notice - This contract is that ...
+ * @notice - This WishList contract is that players propose design ideas they want to
  **/
 contract WishList is Ownable, OpStorage, OpConstants {
     using SafeMath for uint;
@@ -26,4 +26,13 @@ contract WishList is Ownable, OpStorage, OpConstants {
         return OpConstants.CONFIRMED;
     }
 
+
+    /***
+     * @notice - 
+     * @param - _proposeFrom is address of player 
+     **/
+    function proposeIdea(address _proposeFrom) public returns (bool) {
+        return OpConstants.CONFIRMED;
+    }
+    
 }
