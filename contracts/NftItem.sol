@@ -3,12 +3,17 @@ pragma solidity ^0.5.10;
 import "./opensea/TradeableERC721Token.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
+// Storage
+import "./storage/OpStorage.sol";
+import "./storage/OpConstants.sol";
+
+
 /**
  * @title NftItem
  * @dev - This is a contract for non-fungible items which are created by stakeholders.
  * @dev - This items are added to Wish-List
  */
-contract NftItem is TradeableERC721Token {
+contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
 
     using Strings for string;
 
@@ -31,8 +36,49 @@ contract NftItem is TradeableERC721Token {
     function mintTo(address _to) public {
         uint256 newItemId = _getNextItemId();
         _mint(_to, newItemId);
+
+        //@dev - Call internal function (OverWritten)
+        itemRegistry(_itemId, _stakeholderAddr, _itemName, _itemDescription, _itemPrice, _itemType);
+
         _incrementItemId();
     }
+
+
+    /**
+     * @dev - OverWrriten
+     */
+    function itemRegistry(
+        uint256 _itemId,
+        address _itemOwnerAddr,  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        string memory _itemName,
+        string memory _itemDescription,
+        uint256 _itemPrice,
+        ItemType _itemType
+    ) internal returns (uint256, address, string memory, string memory, uint256, ItemType) {
+        Item storage item = items[_itemId];
+        item.itemId = _itemId;
+        item.itemOwnerAddr = _itemOwnerAddr;  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        item.itemName = _itemName;
+        item.itemDescription = _itemDescription;
+        item.itemPrice = _itemPrice;
+        item.itemType = _itemType;
+
+        emit ItemRegistry(item.itemId, 
+                          item.itemOwnerAddr, 
+                          item.itemName, 
+                          item.itemDescription,
+                          item.itemPrice, 
+                          item.itemType);
+
+        return (item.itemId, 
+                item.itemOwnerAddr,
+                item.itemName,
+                item.itemDescription,
+                item.itemPrice,
+                item.itemType);
+    }
+
+
 
     /**
      * @dev calculates the next item ID based on value of _currentItemId 
