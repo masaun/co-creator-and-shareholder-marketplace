@@ -57,10 +57,10 @@ contract NftItem is TradeableERC721Token {
     
 
 
-    function itemURI(uint256 _tokenId) external view returns (string memory) {
+    function itemURI(uint256 _itemId) external view returns (string memory) {
         return Strings.strConcat(
             baseTokenURI(),
-            Strings.uint2str(_tokenId)
+            Strings.uint2str(_itemId)
         );
     }
 
@@ -92,7 +92,7 @@ contract NftItem is TradeableERC721Token {
     /***
      * @dev - Overwritten
      **/
-    function transferFrom(address _from, address _to, uint256 _tokenId) public {
-        _transferFrom(_from, _to, _tokenId);
+    function transferFrom(address _from, address _to, uint256 _itemId) public {
+        _transferFrom(_from, _to, _itemId);
     }
 }
