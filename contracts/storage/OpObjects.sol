@@ -17,10 +17,10 @@ contract OpObjects {
         uint256 itemId;
         address itemOwnerAddr;
         string itemName;
+        string itemDescription;
         uint256 itemPrice;
         ItemType itemType;
     }
-
 
     struct ExampleObject {
         address addr;

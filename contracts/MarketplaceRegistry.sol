@@ -67,6 +67,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         uint256 _itemId,
         address _itemOwnerAddr,  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         string memory _itemName,
+        string memory _itemDescription,
         uint256 _itemPrice,
         ItemType _itemType
     ) internal returns (uint256, address, string memory, uint256, ItemType) {
@@ -74,18 +75,21 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         item.itemId = _itemId;
         item.itemOwnerAddr = _itemOwnerAddr;  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         item.itemName = _itemName;
+        item.itemDescription = _itemDescription;
         item.itemPrice = _itemPrice;
         item.itemType = _itemType;
 
         emit ItemRegistry(item.itemId, 
                           item.itemOwnerAddr, 
                           item.itemName, 
+                          item.itemDescription,
                           item.itemPrice, 
                           item.itemType);
 
         return (item.itemId, 
                 item.itemOwnerAddr,
                 item.itemName,
+                item.itemDescription,
                 item.itemPrice,
                 item.itemType);
     }

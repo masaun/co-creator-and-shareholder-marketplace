@@ -5,7 +5,8 @@ import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 /**
  * @title NftItem
- * @dev - This is a contract for my non-fungible items which are created by stakeholders.
+ * @dev - This is a contract for non-fungible items which are created by stakeholders.
+ * @dev - This items are added to Wish-List
  */
 contract NftItem is TradeableERC721Token {
 
@@ -25,7 +26,7 @@ contract NftItem is TradeableERC721Token {
 
     /**
      * @dev Mints a token to an address with a tokenURI.
-     * @param _to address of the future owner of the token => Club Team
+     * @param _to address of player who propose a idea.
      */
     function mintTo(address _to) public {
         uint256 newTokenId = _getNextTokenId();
