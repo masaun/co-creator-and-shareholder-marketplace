@@ -31,7 +31,7 @@ contract NftItem is TradeableERC721Token {
     function mintTo(address _to) public {
         uint256 newItemId = _getNextItemId();
         _mint(_to, newItemId);
-        _incrementTokenId();
+        _incrementItemId();
     }
 
     /**
@@ -45,7 +45,7 @@ contract NftItem is TradeableERC721Token {
     /**
      * @dev increments the value of _currentItemId 
      */
-    function _incrementTokenId() private  {
+    function _incrementItemId() private  {
         _currentItemId++;
     }
 
