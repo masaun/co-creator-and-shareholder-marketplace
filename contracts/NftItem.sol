@@ -13,7 +13,7 @@ contract NftItem is TradeableERC721Token {
     using Strings for string;
 
     address proxyRegistryAddress;
-    uint256 private _currentTokenId = 0;
+    uint256 private _currentItemId = 0;
 
     constructor(
         address _proxyRegistryAddress
@@ -35,18 +35,18 @@ contract NftItem is TradeableERC721Token {
     }
 
     /**
-     * @dev calculates the next token ID based on value of _currentTokenId 
+     * @dev calculates the next token ID based on value of _currentItemId 
      * @return uint256 for the next token ID
      */
     function _getNextTokenId() private view returns (uint256) {
-        return _currentTokenId.add(1);
+        return _currentItemId.add(1);
     }
 
     /**
-     * @dev increments the value of _currentTokenId 
+     * @dev increments the value of _currentItemId 
      */
     function _incrementTokenId() private  {
-        _currentTokenId++;
+        _currentItemId++;
     }
 
 
