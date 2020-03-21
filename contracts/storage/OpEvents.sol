@@ -12,7 +12,8 @@ contract OpEvents {
 
     event ItemRegistry(
         uint256 _itemId,
-        address _itemOwnerAddr,  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        address _itemProposerAddr, //@notice - _itemProposerAddr is a player who propose idea
+        address _itemOwnerAddr,    //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         string _itemName,
         string _itemDescription,
         uint256 _itemPrice,

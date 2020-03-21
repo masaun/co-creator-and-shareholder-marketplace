@@ -34,9 +34,10 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
      * @param _to address of player who propose a idea.
      */
     function mintTo(
-        address _to,             //@notice - Original parameter
+        address _to,                //@notice - _to is original parameter of mintTo() function
         uint256 _itemId,
-        address _itemOwnerAddr,  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        address _itemProposerAddr,  //@notice - _itemProposerAddr is a player who propose idea
+        address _itemOwnerAddr,     //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         string memory _itemName,
         string memory _itemDescription,
         uint256 _itemPrice,
@@ -46,7 +47,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         _mint(_to, newItemId);
 
         //@dev - Call internal function (OverWritten)
-        itemRegistry(_itemId, _itemOwnerAddr, _itemName, _itemDescription, _itemPrice, _itemType);
+        itemRegistry(_itemId, _itemProposerAddr, _itemOwnerAddr, _itemName, _itemDescription, _itemPrice, _itemType);
 
         _incrementItemId();
     }
@@ -57,21 +58,24 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
      */
     function itemRegistry(
         uint256 _itemId,
-        address _itemOwnerAddr,  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        address _itemProposerAddr,  //@notice - _itemProposerAddr is a player who propose idea
+        address _itemOwnerAddr,     //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         string memory _itemName,
         string memory _itemDescription,
         uint256 _itemPrice,
         ItemType _itemType
-    ) internal returns (uint256, address, string memory, string memory, uint256, ItemType) {
+    ) internal returns (uint256, address, address, string memory, string memory, uint256, ItemType) {
         Item storage item = items[_itemId];
         item.itemId = _itemId;
-        item.itemOwnerAddr = _itemOwnerAddr;  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        item.itemProposerAddr = _itemProposerAddr;  //@notice - _itemProposerAddr is a player who propose idea
+        item.itemOwnerAddr = _itemOwnerAddr;        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         item.itemName = _itemName;
         item.itemDescription = _itemDescription;
         item.itemPrice = _itemPrice;
         item.itemType = _itemType;
 
         emit ItemRegistry(item.itemId, 
+                          item.itemProposerAddr,
                           item.itemOwnerAddr, 
                           item.itemName, 
                           item.itemDescription,
@@ -79,6 +83,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                           item.itemType);
 
         return (item.itemId, 
+                item.itemProposerAddr,
                 item.itemOwnerAddr,
                 item.itemName,
                 item.itemDescription,
