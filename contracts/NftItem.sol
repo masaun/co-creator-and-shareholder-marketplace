@@ -57,7 +57,7 @@ contract NftItem is TradeableERC721Token {
     
 
 
-    function tokenURI(uint256 _tokenId) external view returns (string memory) {
+    function itemURI(uint256 _tokenId) external view returns (string memory) {
         return Strings.strConcat(
             baseTokenURI(),
             Strings.uint2str(_tokenId)
