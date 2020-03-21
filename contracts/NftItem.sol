@@ -29,7 +29,7 @@ contract NftItem is TradeableERC721Token {
      * @param _to address of player who propose a idea.
      */
     function mintTo(address _to) public {
-        uint256 newItemId = _getNextTokenId();
+        uint256 newItemId = _getNextItemId();
         _mint(_to, newItemId);
         _incrementTokenId();
     }
@@ -38,7 +38,7 @@ contract NftItem is TradeableERC721Token {
      * @dev calculates the next token ID based on value of _currentItemId 
      * @return uint256 for the next token ID
      */
-    function _getNextTokenId() private view returns (uint256) {
+    function _getNextItemId() private view returns (uint256) {
         return _currentItemId.add(1);
     }
 
