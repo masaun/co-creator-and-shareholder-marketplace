@@ -25,7 +25,7 @@ contract NftItem is TradeableERC721Token {
     }
 
     /**
-     * @dev Mints a token to an address with a tokenURI.
+     * @dev Mints a item to an address with a itemURI.
      * @param _to address of player who propose a idea.
      */
     function mintTo(address _to) public {
@@ -35,8 +35,8 @@ contract NftItem is TradeableERC721Token {
     }
 
     /**
-     * @dev calculates the next token ID based on value of _currentItemId 
-     * @return uint256 for the next token ID
+     * @dev calculates the next item ID based on value of _currentItemId 
+     * @return uint256 for the next item ID
      */
     function _getNextItemId() private view returns (uint256) {
         return _currentItemId.add(1);
@@ -59,12 +59,12 @@ contract NftItem is TradeableERC721Token {
 
     function itemURI(uint256 _itemId) external view returns (string memory) {
         return Strings.strConcat(
-            baseTokenURI(),
+            baseItemURI(),
             Strings.uint2str(_itemId)
         );
     }
 
-    function baseTokenURI() public view returns (string memory) {
+    function baseItemURI() public view returns (string memory) {
         return "https://opensea-creatures-api.herokuapp.com/api/nft-item-by-stakeholders/";
     }
 
