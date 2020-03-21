@@ -45,6 +45,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         StakeholderType _stakeholderType,
         //@dev - parameter below are for executing itemRegistry function
         string memory _itemName,
+        string memory _itemDescription,
         uint256 _itemPrice,
         ItemType _itemType
     ) public returns (address, StakeholderType) {
@@ -58,7 +59,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         emit StakeholderRegistry(_stakeholderAddr, _stakeholderType);
 
         //@dev - Call internal function
-        itemRegistry(_itemId, _stakeholderAddr, _itemName, _itemPrice, _itemType);
+        itemRegistry(_itemId, _stakeholderAddr, _itemName, _itemDescription, _itemPrice, _itemType);
 
         return (_stakeholderAddr, _stakeholderType);
     }
@@ -70,7 +71,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         string memory _itemDescription,
         uint256 _itemPrice,
         ItemType _itemType
-    ) internal returns (uint256, address, string memory, uint256, ItemType) {
+    ) internal returns (uint256, address, string memory, string memory, uint256, ItemType) {
         Item storage item = items[_itemId];
         item.itemId = _itemId;
         item.itemOwnerAddr = _itemOwnerAddr;  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
