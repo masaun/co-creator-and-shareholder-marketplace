@@ -35,7 +35,6 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
      */
     function mintTo(
         address _to,                //@notice - _to is original parameter of mintTo() function
-        address _itemProposerAddr,  //@notice - _itemProposerAddr is a player who propose idea
         address _itemOwnerAddr,     //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         string memory _itemName,
         //string memory _itemDescription,
@@ -47,7 +46,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
 
         //@dev - Call internal function (OverWritten)
         itemRegistry(newItemId, 
-                     _itemProposerAddr, 
+                     _to,  //@notice - _to is equal to _itemProposerAddr which is a player who propose idea
                      _itemOwnerAddr, 
                      _itemName, 
                      //_itemDescription, 
