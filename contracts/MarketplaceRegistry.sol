@@ -44,10 +44,10 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         address _stakeholderAddr, 
         StakeholderType _stakeholderType,
         //@dev - parameter below are for executing itemRegistry function
-        string memory _itemName,
-        string memory _itemDescription,
-        uint256 _itemPrice,
-        ItemType _itemType
+        //string memory _itemName,
+        //string memory _itemDescription,
+        //uint256 _itemPrice,
+        //ItemType _itemType
     ) public returns (address, StakeholderType) {
         Stakeholder memory stakeholder = Stakeholder({
             itemId: _itemId,  // It mean is initialize (equal to "null")
