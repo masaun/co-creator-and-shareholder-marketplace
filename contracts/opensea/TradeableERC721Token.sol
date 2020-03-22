@@ -79,4 +79,13 @@ contract TradeableERC721Token is ERC721Full, Ownable {
 
     return super.isApprovedForAll(owner, operator);
   }
+
+
+  /***
+   * @dev - Overwritten
+   **/
+  function transferFrom(address _from, address _to, uint256 _tokenId) public {
+      _transferFrom(_from, _to, _tokenId);
+  }
+  
 }

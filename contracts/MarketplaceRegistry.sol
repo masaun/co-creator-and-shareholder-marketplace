@@ -42,11 +42,12 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     function stakeholderRegistry(
         uint256 _itemId,
         address _stakeholderAddr, 
-        StakeholderType _stakeholderType,
+        StakeholderType _stakeholderType
         //@dev - parameter below are for executing itemRegistry function
-        string memory _itemName,
-        uint256 _itemPrice,
-        ItemType _itemType
+        //string memory _itemName,
+        //string memory _itemDescription,
+        //uint256 _itemPrice,
+        //ItemType _itemType
     ) public returns (address, StakeholderType) {
         Stakeholder memory stakeholder = Stakeholder({
             itemId: _itemId,  // It mean is initialize (equal to "null")
@@ -58,37 +59,41 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         emit StakeholderRegistry(_stakeholderAddr, _stakeholderType);
 
         //@dev - Call internal function
-        itemRegistry(_itemId, _stakeholderAddr, _itemName, _itemPrice, _itemType);
+        //itemRegistry(_itemId, _stakeholderAddr, _itemName, _itemDescription, _itemPrice, _itemType);
 
         return (_stakeholderAddr, _stakeholderType);
     }
 
-    function itemRegistry(
-        uint256 _itemId,
-        address _itemOwnerAddr,  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
-        string memory _itemName,
-        uint256 _itemPrice,
-        ItemType _itemType
-    ) internal returns (uint256, address, string memory, uint256, ItemType) {
-        Item storage item = items[_itemId];
-        item.itemId = _itemId;
-        item.itemOwnerAddr = _itemOwnerAddr;  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
-        item.itemName = _itemName;
-        item.itemPrice = _itemPrice;
-        item.itemType = _itemType;
+    // function itemRegistry(
+    //     uint256 _itemId,
+    //     address _itemOwnerAddr,  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+    //     string memory _itemName,
+    //     string memory _itemDescription,
+    //     uint256 _itemPrice,
+    //     ItemType _itemType
+    // ) internal returns (uint256, address, string memory, string memory, uint256, ItemType) {
+    //     Item storage item = items[_itemId];
+    //     item.itemId = _itemId;
+    //     item.itemOwnerAddr = _itemOwnerAddr;  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+    //     item.itemName = _itemName;
+    //     item.itemDescription = _itemDescription;
+    //     item.itemPrice = _itemPrice;
+    //     item.itemType = _itemType;
 
-        emit ItemRegistry(item.itemId, 
-                          item.itemOwnerAddr, 
-                          item.itemName, 
-                          item.itemPrice, 
-                          item.itemType);
+    //     emit ItemRegistry(item.itemId, 
+    //                       item.itemOwnerAddr, 
+    //                       item.itemName, 
+    //                       item.itemDescription,
+    //                       item.itemPrice, 
+    //                       item.itemType);
 
-        return (item.itemId, 
-                item.itemOwnerAddr,
-                item.itemName,
-                item.itemPrice,
-                item.itemType);
-    }
+    //     return (item.itemId, 
+    //             item.itemOwnerAddr,
+    //             item.itemName,
+    //             item.itemDescription,
+    //             item.itemPrice,
+    //             item.itemType);
+    // }
     
 
 
@@ -120,12 +125,20 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         distributeReward(_itemId, item.itemPrice);
     }
 
+    function itemOwnerOf(uint256 _itemId) public view returns (address)  {
+        return nftItem.ownerOf(_itemId);
+    }
+
+    function itemTransferFrom(address _oldOwner, address _newOwner, uint256 _itemId) public returns (bool) {
+        nftItem.transferFrom(_oldOwner, _newOwner, _itemId);
+    }
+
     function ownershipTransferOrderedItem(uint256 _itemId, address _newOwner) public returns (bool) {
         //@return - current owner address
-        address _oldOwner = nftItem.ownerOf(_itemId);
+        address _oldOwner = itemOwnerOf(_itemId);
 
         //@dev - Execute transfer ownership
-        nftItem.transferFrom(_oldOwner, _newOwner, _itemId);
+        itemTransferFrom(_oldOwner, _newOwner, _itemId);
     }
 
     function distributeReward(uint256 _itemId, uint256 _itemPrice) public returns (bool) {
@@ -133,7 +146,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         address[] memory _stakeholdersGroups = getStakeholdersGroup(_itemId);
 
         //@dev - This is distributed amount each stakeholders
-        uint256 distributedAmount = _itemPrice.div(_stakeholdersGroups.length);
+        uint256 distributedAmount = _itemPrice.div(_stakeholdersGroups.length).div(10**18);
 
         //@dev - Transfer distributed amount to each stakeholders
         for (uint256 i; i < _stakeholdersGroups.length; i++) {
