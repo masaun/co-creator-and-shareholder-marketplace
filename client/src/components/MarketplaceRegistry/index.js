@@ -50,14 +50,15 @@ export default class MarketplaceRegistry extends Component {
       //@dev - parameter below are for executing itemRegistry function
       const _itemOwnerAddr = '0x718E3ea0B8C2911C5e54Cb4b9B2075fdd87B55a7'   //@notice - _itemOwnerAddr is equal to _stakeholderAddr
       const _itemName = 'Sample Item';
-      //const _itemDescription = '';
+      const _itemDescription = "My idea is this item. The name of this item is Sample Item. The color of this item is green. Are any designers interested in which design this idea?";
       const _itemPrice = 5;
       const _itemType = 0;
 
 
       let response = await nft_item.methods.mintTo(_to, 
                                                    _itemOwnerAddr, 
-                                                   _itemName, 
+                                                   _itemName,
+                                                   _itemDescription, 
                                                    _itemPrice, 
                                                    _itemType).send({ from: accounts[0] });
       console.log('=== response of _mintTo() function ===', response);
