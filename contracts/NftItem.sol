@@ -78,11 +78,16 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                         uint256, 
                         ItemType) 
     {
+        //@dev - Value below is empty value of itemDescription property in ItemDetail struct
+        ItemDetail memory _itemDetails;
+
+        //@dev - Save value in Item struct
         Item memory item = Item({
             itemId: _itemId,
             itemProposerAddr: _itemProposerAddr,  //@notice - _itemProposerAddr is a player who propose idea
             itemOwnerAddr: _itemOwnerAddr,        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
             itemName: _itemName,
+            itemDetails: _itemDetails,
             itemPrice: _itemPrice,
             itemType: _itemType
         });
