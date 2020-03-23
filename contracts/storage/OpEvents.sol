@@ -20,6 +20,10 @@ contract OpEvents {
         OpObjects.ItemType _itemType
     );
     
+    event ItemDetailRegistry(
+        uint256 _itemId,
+        string _itemDescription
+    );
 
     event Example(
         uint256 indexed Id, 

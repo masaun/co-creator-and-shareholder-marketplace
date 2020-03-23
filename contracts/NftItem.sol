@@ -107,9 +107,13 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
     function itemDetailRegistry(
         uint256 _itemId,
         string memory _itemDescription
-    ) internal returns (string memory) {
+    ) internal returns (uint256, string memory) {
         ItemDetail storage itemDetail = itemDetails[_itemId];
         itemDetail.itemDescription = _itemDescription;
+
+        emit ItemDetailRegistry(_itemId, _itemDescription);
+
+        return (_itemId, itemDetail.itemDescription);
     }
     
 
