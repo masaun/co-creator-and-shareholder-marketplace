@@ -67,7 +67,6 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         address _itemProposerAddr,  //@notice - _itemProposerAddr is a player who propose idea
         address _itemOwnerAddr,     //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         string memory _itemName,
-        //string memory _itemDescription,
         uint256 _itemPrice,
         ItemType _itemType
     ) internal returns (uint256, 
@@ -83,7 +82,6 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         item.itemProposerAddr = _itemProposerAddr;  //@notice - _itemProposerAddr is a player who propose idea
         item.itemOwnerAddr = _itemOwnerAddr;        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         item.itemName = _itemName;
-        //item.itemDescription = _itemDescription;
         item.itemPrice = _itemPrice;
         item.itemType = _itemType;
 
@@ -91,7 +89,6 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                           item.itemProposerAddr,
                           item.itemOwnerAddr, 
                           item.itemName, 
-                          //item.itemDescription,
                           item.itemPrice, 
                           item.itemType);
 
@@ -99,7 +96,6 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                 item.itemProposerAddr,
                 item.itemOwnerAddr,
                 item.itemName,
-                //item.itemDescription,
                 item.itemPrice,
                 item.itemType);
     }

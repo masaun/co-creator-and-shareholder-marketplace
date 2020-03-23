@@ -18,7 +18,6 @@ contract OpObjects {
         address itemProposerAddr;
         address itemOwnerAddr;
         string itemName;
-        //string itemDescription;
         ItemDetail itemDetails;
         uint256 itemPrice;
         ItemType itemType;
