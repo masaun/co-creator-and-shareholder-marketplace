@@ -1,4 +1,5 @@
 pragma solidity ^0.5.11;
+pragma experimental ABIEncoderV2;
 
 import "./OpObjects.sol";
 import "./OpEvents.sol";
@@ -20,7 +21,9 @@ contract OpStorage is OpObjects, OpEvents {
 
     //mapping (address => Stakeholder) stakeholders;
     
-    mapping (uint256 => Item) items;
+
+    Item[] public items;
+    //mapping (uint256 => Item) items;
 
     mapping (uint256 => ItemDetail) itemDetails;
     

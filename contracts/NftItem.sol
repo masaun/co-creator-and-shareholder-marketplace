@@ -1,4 +1,5 @@
 pragma solidity ^0.5.10;
+pragma experimental ABIEncoderV2;
 
 import "./opensea/TradeableERC721Token.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
@@ -77,13 +78,23 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                         uint256, 
                         ItemType) 
     {
-        Item storage item = items[_itemId];
-        item.itemId = _itemId;
-        item.itemProposerAddr = _itemProposerAddr;  //@notice - _itemProposerAddr is a player who propose idea
-        item.itemOwnerAddr = _itemOwnerAddr;        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
-        item.itemName = _itemName;
-        item.itemPrice = _itemPrice;
-        item.itemType = _itemType;
+        Item memory item = Item({
+            itemId: _itemId,
+            itemProposerAddr: _itemProposerAddr,  //@notice - _itemProposerAddr is a player who propose idea
+            itemOwnerAddr: _itemOwnerAddr,        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+            itemName: _itemName,
+            itemPrice: _itemPrice,
+            itemType: _itemType
+        });
+        items.push(item);
+
+        // Item storage item = items[_itemId];
+        // item.itemId = _itemId;
+        // item.itemProposerAddr = _itemProposerAddr;  //@notice - _itemProposerAddr is a player who propose idea
+        // item.itemOwnerAddr = _itemOwnerAddr;        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        // item.itemName = _itemName;
+        // item.itemPrice = _itemPrice;
+        // item.itemType = _itemType;
 
         emit ItemRegistry(item.itemId, 
                           item.itemProposerAddr,
@@ -92,12 +103,26 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                           item.itemPrice, 
                           item.itemType);
 
+        // emit ItemRegistry(item.itemId, 
+        //                   item.itemProposerAddr,
+        //                   item.itemOwnerAddr, 
+        //                   item.itemName, 
+        //                   item.itemPrice, 
+        //                   item.itemType);
+
         return (item.itemId, 
                 item.itemProposerAddr,
                 item.itemOwnerAddr,
                 item.itemName,
                 item.itemPrice,
                 item.itemType);
+
+        // return (item.itemId, 
+        //         item.itemProposerAddr,
+        //         item.itemOwnerAddr,
+        //         item.itemName,
+        //         item.itemPrice,
+        //         item.itemType);
     }
 
     function itemDetailRegistry(
