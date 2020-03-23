@@ -108,13 +108,6 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                           item.itemPrice, 
                           item.itemType);
 
-        // emit ItemRegistry(item.itemId, 
-        //                   item.itemProposerAddr,
-        //                   item.itemOwnerAddr, 
-        //                   item.itemName, 
-        //                   item.itemPrice, 
-        //                   item.itemType);
-
         return (item.itemId, 
                 item.itemProposerAddr,
                 item.itemOwnerAddr,
@@ -122,12 +115,6 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                 item.itemPrice,
                 item.itemType);
 
-        // return (item.itemId, 
-        //         item.itemProposerAddr,
-        //         item.itemOwnerAddr,
-        //         item.itemName,
-        //         item.itemPrice,
-        //         item.itemType);
     }
 
     function itemDetailRegistry(
