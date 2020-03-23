@@ -217,6 +217,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         uint256 i = 0;
         do {
             Item memory item = items[i]; 
+            return item;
         } while (i < currentItemIdCount);
     }
 }
