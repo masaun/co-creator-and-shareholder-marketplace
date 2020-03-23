@@ -120,10 +120,10 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
     }
 
 
-    function _itemOwnerOf(uint256 _itemId) public view returns (address) {
-        address _itemOwner = ownerOf(_itemId);
-        return _itemOwner;
-    }
+    // function _itemOwnerOf(uint256 _itemId) public view returns (address) {
+    //     address _itemOwner = ownerOf(_itemId);
+    //     return _itemOwner;
+    // }
     
 
 
