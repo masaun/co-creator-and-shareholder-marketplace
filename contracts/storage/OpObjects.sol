@@ -19,9 +19,15 @@ contract OpObjects {
         address itemOwnerAddr;
         string itemName;
         //string itemDescription;
+        ItemDetail itemDetails;
         uint256 itemPrice;
         ItemType itemType;
     }
+
+    struct ItemDetail {
+        string itemDescription;
+    }
+
 
     struct ExampleObject {
         address addr;

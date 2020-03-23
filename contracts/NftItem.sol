@@ -37,7 +37,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         address _to,                //@notice - _to is original parameter of mintTo() function
         address _itemOwnerAddr,     //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         string memory _itemName,
-        //string memory _itemDescription,
+        string memory _itemDescription,
         uint256 _itemPrice,
         ItemType _itemType
     ) public {
@@ -52,6 +52,8 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                      //_itemDescription, 
                      _itemPrice, 
                      _itemType);
+        
+        itemDetailRegistry(newItemId, _itemDescription);
 
         _incrementItemId();
     }
@@ -101,6 +103,15 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                 item.itemPrice,
                 item.itemType);
     }
+
+    function itemDetailRegistry(
+        uint256 _itemId,
+        string memory _itemDescription
+    ) internal returns (string memory) {
+        ItemDetail storage itemDetail = itemDetails[_itemId];
+        itemDetail.itemDescription = _itemDescription;
+    }
+    
 
 
 
