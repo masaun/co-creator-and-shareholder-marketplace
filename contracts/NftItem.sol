@@ -16,6 +16,7 @@ import "./storage/OpConstants.sol";
  */
 contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
 
+    using SafeMath for uint256;
     using Strings for string;
 
     address proxyRegistryAddress;
@@ -213,8 +214,10 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
      * @return - instance of Item struct
      **/
     function getAllOfItems() public view returns (Item memory) {
-        uint256 currentItemIdCount = _currentItemId + 1;
-        uint256 i = 0;
+        uint256 currentItemIdCount = _currentItemId.add(1);
+
+        //@dev - itemId is started from 1
+        uint256 i = 1;
         do {
             Item memory item = items[i]; 
             return item;
