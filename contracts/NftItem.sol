@@ -3,6 +3,7 @@ pragma experimental ABIEncoderV2;
 
 import "./opensea/TradeableERC721Token.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 // Storage
 import "./storage/OpStorage.sol";
