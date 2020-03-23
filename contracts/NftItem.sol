@@ -82,52 +82,52 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         ItemDetail memory _itemDetails;
 
         //@dev - Save value in Item struct
-        Item memory item = Item({
-            itemId: _itemId,
-            itemProposerAddr: _itemProposerAddr,  //@notice - _itemProposerAddr is a player who propose idea
-            itemOwnerAddr: _itemOwnerAddr,        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
-            itemName: _itemName,
-            itemDetails: _itemDetails,
-            itemPrice: _itemPrice,
-            itemType: _itemType
-        });
-        items.push(item);
+        // Item memory item = Item({
+        //     itemId: _itemId,
+        //     itemProposerAddr: _itemProposerAddr,  //@notice - _itemProposerAddr is a player who propose idea
+        //     itemOwnerAddr: _itemOwnerAddr,        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        //     itemName: _itemName,
+        //     itemDetails: _itemDetails,
+        //     itemPrice: _itemPrice,
+        //     itemType: _itemType
+        // });
+        // items.push(item);
 
-        // Item storage item = items[_itemId];
-        // item.itemId = _itemId;
-        // item.itemProposerAddr = _itemProposerAddr;  //@notice - _itemProposerAddr is a player who propose idea
-        // item.itemOwnerAddr = _itemOwnerAddr;        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
-        // item.itemName = _itemName;
-        // item.itemPrice = _itemPrice;
-        // item.itemType = _itemType;
+        Item storage item = items[_itemId];
+        item.itemId = _itemId;
+        item.itemProposerAddr = _itemProposerAddr;  //@notice - _itemProposerAddr is a player who propose idea
+        item.itemOwnerAddr = _itemOwnerAddr;        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        item.itemName = _itemName;
+        item.itemPrice = _itemPrice;
+        item.itemType = _itemType;
 
-        emit ItemRegistry(_itemId, 
-                          _itemProposerAddr,
-                          _itemOwnerAddr, 
-                          _itemName, 
-                          _itemPrice, 
-                          _itemType);
+        // emit ItemRegistry(_itemId, 
+        //                   _itemProposerAddr,
+        //                   _itemOwnerAddr, 
+        //                   _itemName, 
+        //                   _itemPrice, 
+        //                   _itemType);
 
-        // emit ItemRegistry(item.itemId, 
-        //                   item.itemProposerAddr,
-        //                   item.itemOwnerAddr, 
-        //                   item.itemName, 
-        //                   item.itemPrice, 
-        //                   item.itemType);
+        emit ItemRegistry(item.itemId, 
+                          item.itemProposerAddr,
+                          item.itemOwnerAddr, 
+                          item.itemName, 
+                          item.itemPrice, 
+                          item.itemType);
 
-        return (_itemId, 
-                _itemProposerAddr,
-                _itemOwnerAddr,
-                _itemName,
-                _itemPrice,
-                _itemType);
+        // return (_itemId, 
+        //         _itemProposerAddr,
+        //         _itemOwnerAddr,
+        //         _itemName,
+        //         _itemPrice,
+        //         _itemType);
 
-        // return (item.itemId, 
-        //         item.itemProposerAddr,
-        //         item.itemOwnerAddr,
-        //         item.itemName,
-        //         item.itemPrice,
-        //         item.itemType);
+        return (item.itemId, 
+                item.itemProposerAddr,
+                item.itemOwnerAddr,
+                item.itemName,
+                item.itemPrice,
+                item.itemType);
     }
 
     function itemDetailRegistry(
@@ -210,11 +210,13 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
 
     /***
      * @dev - Get all of items which are saved in Item struct
+     * @return - instance of Item struct
      **/
     function getAllOfItems() public returns (Item memory) {
-        for (uint256 i; i < items.length; i++) {
+        uint256 currentItemIdCount = _currentItemId + 1;
+        uint256 i = 0;
+        do {
             Item memory item = items[i]; 
-            return item;
-        }
+        } while (i < currentItemIdCount);
     }
 }
