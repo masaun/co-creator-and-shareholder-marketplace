@@ -45,9 +45,21 @@ export default class MarketplaceRegistry extends Component {
 
   mintTo = async () => {
       const { accounts, nft_item, web3 } = this.state;
-      const _publisherAddr = '0x718E3ea0B8C2911C5e54Cb4b9B2075fdd87B55a7'
+      const _to = '0x718E3ea0B8C2911C5e54Cb4b9B2075fdd87B55a7'
 
-      let response = await nft_item.methods.mintTo(_publisherAddr).send({ from: accounts[0] });
+      //@dev - parameter below are for executing itemRegistry function
+      const _itemOwnerAddr = '0x718E3ea0B8C2911C5e54Cb4b9B2075fdd87B55a7'   //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+      const _itemName = 'Sample Item';
+      //const _itemDescription = '';
+      const _itemPrice = 5;
+      const _itemType = 0;
+
+
+      let response = await nft_item.methods.mintTo(_to, 
+                                                   _itemOwnerAddr, 
+                                                   _itemName, 
+                                                   _itemPrice, 
+                                                   _itemType).send({ from: accounts[0] });
       console.log('=== response of _mintTo() function ===', response);
 
       var itemId = response.events.Transfer.returnValues.tokenId;
@@ -107,9 +119,10 @@ export default class MarketplaceRegistry extends Component {
       let response = await marketplace_registry.methods.stakeholderRegistry(_itemId, 
                                                                             _stakeholderAddr, 
                                                                             _stakeholderType,
-                                                                            _itemName,
-                                                                            _itemPrice,
-                                                                            _itemType).send({ from: accounts[0] });
+                                                                            //_itemName,
+                                                                            //_itemPrice,
+                                                                            //_itemType
+                                                                            ).send({ from: accounts[0] });
       console.log('=== response of stakeholderRegistry() function ===', response);
   }
 
