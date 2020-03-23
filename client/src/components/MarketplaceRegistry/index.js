@@ -34,6 +34,7 @@ export default class MarketplaceRegistry extends Component {
     this.ownershipTransferOrderedItem = this.ownershipTransferOrderedItem.bind(this);
     this.buyItem = this.buyItem.bind(this);
     this.stakeholderRegistry = this.stakeholderRegistry.bind(this);
+    this.getAllOfItems = this.getAllOfItems.bind(this);
   }
 
   getTestData = async () => {
@@ -133,6 +134,13 @@ export default class MarketplaceRegistry extends Component {
 
       let response = await marketplace_registry.methods.getStakeholdersGroup(_itemId).call();
       console.log('=== response of getStakeholdersGroup() function ===', response);      
+  }
+
+  getAllOfItems = async () => {
+      const { accounts, nft_item, web3 } = this.state;
+
+      let response = await nft_item.methods.getAllOfItems().call();
+      console.log('=== response of getAllOfItems() function ===', response);
   }
 
 
@@ -303,6 +311,9 @@ export default class MarketplaceRegistry extends Component {
 
               <Button size={'small'} mt={3} mb={2} onClick={this.buyItem}> ③ Buy Item </Button> <br />
 
+              <hr />
+
+              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.getAllOfItems}> Get All Of Items </Button> <br />
             </Card>
           </Grid>
 
