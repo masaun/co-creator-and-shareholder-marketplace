@@ -127,6 +127,14 @@ export default class MarketplaceRegistry extends Component {
       console.log('=== response of stakeholderRegistry() function ===', response);
   }
 
+  getStakeholdersGroup = async () => {
+      const { accounts, marketplace_registry, web3 } = this.state;
+      const _itemId = 1;
+
+      let response = await marketplace_registry.methods.getStakeholdersGroup(_itemId).call();
+      console.log('=== response of getStakeholdersGroup() function ===', response);      
+  }
+
 
   //////////////////////////////////// 
   ///// Refresh Values

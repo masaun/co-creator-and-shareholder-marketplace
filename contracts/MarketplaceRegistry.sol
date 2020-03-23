@@ -114,6 +114,5 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
             erc20.transfer(_stakeholdersGroups[i], distributedAmount);
         }
     }
-    
 
 }

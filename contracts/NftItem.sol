@@ -176,4 +176,15 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
     function transferFrom(address _from, address _to, uint256 _itemId) public {
         _transferFrom(_from, _to, _itemId);
     }
+
+
+    /***
+     * @dev - Get all of items which are saved in Item struct
+     **/
+    function getAllOfItems() public returns (Item memory) {
+        for (uint256 i; i < items.length; i++) {
+            Item memory item = items[i]; 
+            return item;
+        }
+    }
 }
