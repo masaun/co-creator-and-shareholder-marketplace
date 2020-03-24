@@ -235,19 +235,5 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         Item memory item = items[_itemId];
         return item;
     }
-    
-    /***
-     * @dev - Get all of items which are saved in Item struct
-     * @return - instance of Item struct
-     **/
-    function getAllOfItems() public view returns (Item memory) {
-        uint256 currentItemIdCount = _currentItemId.add(1);
 
-        //@dev - itemId is started from 1
-        uint256 i = 1;
-        do {
-            Item memory item = items[i];
-            return item;
-        } while (i < currentItemIdCount);
-    }
 }

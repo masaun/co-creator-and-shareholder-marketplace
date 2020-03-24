@@ -139,6 +139,14 @@ export default class MarketplaceRegistry extends Component {
 
   getItem = async () => {
       const { accounts, nft_item, web3 } = this.state;
+      const _itemId = 1;
+
+      let response = await nft_item.methods.getItem(_itemId).call();
+      console.log('=== response of getItem() function ===', response);
+  }
+
+  getAllOfItems = async () => {
+      const { accounts, nft_item, web3 } = this.state;
 
       const currentItemIdCount = await nft_item.methods.getCurrentItemIdCount().call();
       console.log('=== currentItemIdCount ===', currentItemIdCount);
@@ -146,16 +154,8 @@ export default class MarketplaceRegistry extends Component {
       //@dev - itemId is started from 1. That's why variable of "i" is also started from 1.
       for (let i = 1; i < currentItemIdCount; i++) {
           let response = await nft_item.methods.getItem(i).call();
-          console.log('=== response of getItem() function ===', response);
+          console.log('=== response of getAllOfItems ===', response);
       }
-  }
-
-  getAllOfItems = async () => {
-      const { accounts, nft_item, web3 } = this.state;
-
-      //let response = await nft_item.methods.getAllOfItems().call();
-      let response = await nft_item.methods.getAllOfItems().call();
-      console.log('=== response of getAllOfItems() function ===', response);
   }
 
 
