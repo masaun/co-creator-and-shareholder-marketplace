@@ -34,6 +34,7 @@ export default class MarketplaceRegistry extends Component {
     this.ownershipTransferOrderedItem = this.ownershipTransferOrderedItem.bind(this);
     this.buyItem = this.buyItem.bind(this);
     this.stakeholderRegistry = this.stakeholderRegistry.bind(this);
+    this.getItem = this.getItem.bind(this);
     this.getAllOfItems = this.getAllOfItems.bind(this);
   }
 
@@ -136,9 +137,18 @@ export default class MarketplaceRegistry extends Component {
       console.log('=== response of getStakeholdersGroup() function ===', response);      
   }
 
+  getItem = async () => {
+      const { accounts, nft_item, web3 } = this.state;
+
+      const _itemId = 1;
+      let response = await nft_item.methods.getItem(_itemId).call();
+      console.log('=== response of getItem() function ===', response);
+  }
+
   getAllOfItems = async () => {
       const { accounts, nft_item, web3 } = this.state;
 
+      //let response = await nft_item.methods.getAllOfItems().call();
       let response = await nft_item.methods.getAllOfItems().call();
       console.log('=== response of getAllOfItems() function ===', response);
   }
@@ -312,6 +322,8 @@ export default class MarketplaceRegistry extends Component {
               <Button size={'small'} mt={3} mb={2} onClick={this.buyItem}> ③ Buy Item </Button> <br />
 
               <hr />
+
+              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.getItem}> Get Item </Button> <br />
 
               <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.getAllOfItems}> Get All Of Items </Button> <br />
             </Card>

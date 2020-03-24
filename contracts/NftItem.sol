@@ -23,6 +23,12 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
     address proxyRegistryAddress;
     uint256 private _currentItemId = 0;
 
+    //@dev - List for getting all of value which are saved in Item struct
+    uint256[] itemIdList;
+    address[] itemProposerAddrList;
+    address[] itemOwnerAddrList;
+
+
     constructor(
         address _proxyRegistryAddress
     ) 
@@ -103,12 +109,12 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         item.itemPrice = _itemPrice;
         item.itemType = _itemType;
 
-        // emit ItemRegistry(_itemId, 
-        //                   _itemProposerAddr,
-        //                   _itemOwnerAddr, 
-        //                   _itemName, 
-        //                   _itemPrice, 
-        //                   _itemType);
+        emit ItemRegistry(_itemId, 
+                          _itemProposerAddr,
+                          _itemOwnerAddr, 
+                          _itemName, 
+                          _itemPrice, 
+                          _itemType);
 
         emit ItemRegistry(item.itemId, 
                           item.itemProposerAddr,
@@ -136,6 +142,12 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         uint256 _itemId,
         string memory _itemDescription
     ) internal returns (uint256, string memory) {
+
+        // ItemDetail memory itemDetail = ItemDetail({
+        //     itemDescription: _itemDescription
+        // });
+        // itemDetails.push(itemDetail);
+
         ItemDetail storage itemDetail = itemDetails[_itemId];
         itemDetail.itemDescription = _itemDescription;
 
@@ -211,6 +223,15 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
 
 
     /***
+     * @dev - Get item which is specified by _itemId 
+     * @return - instance of Item struct
+     **/
+    function getItem(uint256 _itemId) public view returns (Item memory) {
+        Item memory item = items[_itemId];
+        return item;
+    }
+    
+    /***
      * @dev - Get all of items which are saved in Item struct
      * @return - instance of Item struct
      **/
@@ -220,7 +241,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         //@dev - itemId is started from 1
         uint256 i = 1;
         do {
-            Item memory item = items[i]; 
+            Item memory item = items[i];
             return item;
         } while (i < currentItemIdCount);
     }
