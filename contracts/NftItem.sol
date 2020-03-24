@@ -21,7 +21,8 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
     using Strings for string;
 
     address proxyRegistryAddress;
-    uint256 private _currentItemId = 0;
+    uint256 public _currentItemId = 0;
+    //uint256 private _currentItemId = 0;
 
     //@dev - List for getting all of value which are saved in Item struct
     uint256[] itemIdList;

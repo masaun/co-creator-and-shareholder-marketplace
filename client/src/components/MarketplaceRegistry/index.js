@@ -140,9 +140,19 @@ export default class MarketplaceRegistry extends Component {
   getItem = async () => {
       const { accounts, nft_item, web3 } = this.state;
 
-      const _itemId = 1;
-      let response = await nft_item.methods.getItem(_itemId).call();
-      console.log('=== response of getItem() function ===', response);
+      const _currentItemIdCount = await nft_item.methods._currentItemId().call();
+      const currentItemIdCount = await _currentItemIdCount + 1;
+      console.log('=== currentItemIdCount ===', currentItemIdCount);
+   
+      for (const i=0; i < currentItemIdCount; i++) {
+          const _itemId = 1;
+          let response = await nft_item.methods.getItem(_itemId).call();
+          console.log('=== response of getItem() function ===', response);
+      } 
+
+      // const _itemId = 1;
+      // let response = await nft_item.methods.getItem(_itemId).call();
+      // console.log('=== response of getItem() function ===', response);
   }
 
   getAllOfItems = async () => {
