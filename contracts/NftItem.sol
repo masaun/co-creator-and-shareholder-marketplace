@@ -21,8 +21,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
     using Strings for string;
 
     address proxyRegistryAddress;
-    uint256 public _currentItemId = 0;
-    //uint256 private _currentItemId = 0;
+    uint256 private _currentItemId = 0;
 
     //@dev - List for getting all of value which are saved in Item struct
     uint256[] itemIdList;
@@ -222,6 +221,11 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         _transferFrom(_from, _to, _itemId);
     }
 
+
+
+    function getCurrentItemIdCount() public view returns (uint256) {
+        return _currentItemId.add(1);
+    }
 
     /***
      * @dev - Get item which is specified by _itemId 

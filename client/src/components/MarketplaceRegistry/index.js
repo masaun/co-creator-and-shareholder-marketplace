@@ -140,13 +140,12 @@ export default class MarketplaceRegistry extends Component {
   getItem = async () => {
       const { accounts, nft_item, web3 } = this.state;
 
-      const _currentItemIdCount = await nft_item.methods._currentItemId().call();
-      const currentItemIdCount = await _currentItemIdCount + 1;
+      const currentItemIdCount = await nft_item.methods.getCurrentItemIdCount().call();
       console.log('=== currentItemIdCount ===', currentItemIdCount);
-   
-      for (const i=0; i < currentItemIdCount; i++) {
-          const _itemId = 1;
-          let response = await nft_item.methods.getItem(_itemId).call();
+
+      const i=0;
+      for (i=0; i < currentItemIdCount; i++) {
+          let response = await nft_item.methods.getItem(i).call();
           console.log('=== response of getItem() function ===', response);
       } 
 
@@ -314,7 +313,7 @@ export default class MarketplaceRegistry extends Component {
                 borderRadius={8}
                 height="100%"
                 maxWidth='100%'
-                src="https://siasky.net/vAPszlRA6sQoA7nzuYwFoEuLhWLcSOqCcECqLBYxyhRUmw"
+                src=""
               />
 
               <Button size={'small'} mt={3} mb={2} onClick={this.getTestData}> Get TestData </Button> <br />
