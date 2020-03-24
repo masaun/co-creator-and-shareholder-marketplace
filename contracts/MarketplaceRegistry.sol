@@ -1,4 +1,5 @@
 pragma solidity ^0.5.10;
+pragma experimental ABIEncoderV2;
 
 import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/IERC721.sol";
@@ -43,11 +44,6 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         uint256 _itemId,
         address _stakeholderAddr, 
         StakeholderType _stakeholderType
-        //@dev - parameter below are for executing itemRegistry function
-        //string memory _itemName,
-        //string memory _itemDescription,
-        //uint256 _itemPrice,
-        //ItemType _itemType
     ) public returns (address, StakeholderType) {
         Stakeholder memory stakeholder = Stakeholder({
             itemId: _itemId,  // It mean is initialize (equal to "null")
@@ -58,43 +54,8 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
 
         emit StakeholderRegistry(_stakeholderAddr, _stakeholderType);
 
-        //@dev - Call internal function
-        //itemRegistry(_itemId, _stakeholderAddr, _itemName, _itemDescription, _itemPrice, _itemType);
-
         return (_stakeholderAddr, _stakeholderType);
     }
-
-    // function itemRegistry(
-    //     uint256 _itemId,
-    //     address _itemOwnerAddr,  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
-    //     string memory _itemName,
-    //     string memory _itemDescription,
-    //     uint256 _itemPrice,
-    //     ItemType _itemType
-    // ) internal returns (uint256, address, string memory, string memory, uint256, ItemType) {
-    //     Item storage item = items[_itemId];
-    //     item.itemId = _itemId;
-    //     item.itemOwnerAddr = _itemOwnerAddr;  //@notice - _itemOwnerAddr is equal to _stakeholderAddr
-    //     item.itemName = _itemName;
-    //     item.itemDescription = _itemDescription;
-    //     item.itemPrice = _itemPrice;
-    //     item.itemType = _itemType;
-
-    //     emit ItemRegistry(item.itemId, 
-    //                       item.itemOwnerAddr, 
-    //                       item.itemName, 
-    //                       item.itemDescription,
-    //                       item.itemPrice, 
-    //                       item.itemType);
-
-    //     return (item.itemId, 
-    //             item.itemOwnerAddr,
-    //             item.itemName,
-    //             item.itemDescription,
-    //             item.itemPrice,
-    //             item.itemType);
-    // }
-    
 
 
     /***
@@ -126,8 +87,8 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     }
 
     function itemOwnerOf(uint256 _itemId) public view returns (address)  {
-        return nftItem._itemOwnerOf(_itemId);
-        //return nftItem.ownerOf(_itemId);
+        //return nftItem._itemOwnerOf(_itemId);
+        return nftItem.ownerOf(_itemId);
     }
 
     function itemTransferFrom(address _oldOwner, address _newOwner, uint256 _itemId) public returns (bool) {
@@ -154,6 +115,5 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
             erc20.transfer(_stakeholdersGroups[i], distributedAmount);
         }
     }
-    
 
 }

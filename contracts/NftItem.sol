@@ -1,7 +1,9 @@
 pragma solidity ^0.5.10;
+pragma experimental ABIEncoderV2;
 
 import "./opensea/TradeableERC721Token.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 // Storage
 import "./storage/OpStorage.sol";
@@ -15,10 +17,17 @@ import "./storage/OpConstants.sol";
  */
 contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
 
+    using SafeMath for uint256;
     using Strings for string;
 
     address proxyRegistryAddress;
     uint256 private _currentItemId = 0;
+
+    //@dev - List for getting all of value which are saved in Item struct
+    uint256[] itemIdList;
+    address[] itemProposerAddrList;
+    address[] itemOwnerAddrList;
+
 
     constructor(
         address _proxyRegistryAddress
@@ -37,7 +46,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         address _to,                //@notice - _to is original parameter of mintTo() function
         address _itemOwnerAddr,     //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         string memory _itemName,
-        //string memory _itemDescription,
+        string memory _itemDescription,
         uint256 _itemPrice,
         ItemType _itemType
     ) public {
@@ -52,6 +61,8 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                      //_itemDescription, 
                      _itemPrice, 
                      _itemType);
+        
+        itemDetailRegistry(newItemId, _itemDescription);
 
         _incrementItemId();
     }
@@ -65,7 +76,6 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         address _itemProposerAddr,  //@notice - _itemProposerAddr is a player who propose idea
         address _itemOwnerAddr,     //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         string memory _itemName,
-        //string memory _itemDescription,
         uint256 _itemPrice,
         ItemType _itemType
     ) internal returns (uint256, 
@@ -76,31 +86,76 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                         uint256, 
                         ItemType) 
     {
+        //@dev - Value below is empty value of itemDescription property in ItemDetail struct
+        ItemDetail memory _itemDetails;
+
+        //@dev - Save value in Item struct
+        // Item memory item = Item({
+        //     itemId: _itemId,
+        //     itemProposerAddr: _itemProposerAddr,  //@notice - _itemProposerAddr is a player who propose idea
+        //     itemOwnerAddr: _itemOwnerAddr,        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        //     itemName: _itemName,
+        //     itemDetails: _itemDetails,
+        //     itemPrice: _itemPrice,
+        //     itemType: _itemType
+        // });
+        // items.push(item);
+
         Item storage item = items[_itemId];
         item.itemId = _itemId;
         item.itemProposerAddr = _itemProposerAddr;  //@notice - _itemProposerAddr is a player who propose idea
         item.itemOwnerAddr = _itemOwnerAddr;        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         item.itemName = _itemName;
-        //item.itemDescription = _itemDescription;
         item.itemPrice = _itemPrice;
         item.itemType = _itemType;
+
+        emit ItemRegistry(_itemId, 
+                          _itemProposerAddr,
+                          _itemOwnerAddr, 
+                          _itemName, 
+                          _itemPrice, 
+                          _itemType);
 
         emit ItemRegistry(item.itemId, 
                           item.itemProposerAddr,
                           item.itemOwnerAddr, 
                           item.itemName, 
-                          //item.itemDescription,
                           item.itemPrice, 
                           item.itemType);
+
+        // return (_itemId, 
+        //         _itemProposerAddr,
+        //         _itemOwnerAddr,
+        //         _itemName,
+        //         _itemPrice,
+        //         _itemType);
 
         return (item.itemId, 
                 item.itemProposerAddr,
                 item.itemOwnerAddr,
                 item.itemName,
-                //item.itemDescription,
                 item.itemPrice,
                 item.itemType);
     }
+
+    function itemDetailRegistry(
+        uint256 _itemId,
+        string memory _itemDescription
+    ) internal returns (uint256, string memory) {
+
+        // ItemDetail memory itemDetail = ItemDetail({
+        //     itemDescription: _itemDescription
+        // });
+        // itemDetails.push(itemDetail);
+
+        ItemDetail storage itemDetail = itemDetails[_itemId];
+        itemDetail.itemDescription = _itemDescription;
+
+        emit ItemDetailRegistry(_itemId, _itemDescription);
+
+        return (_itemId, itemDetail.itemDescription);
+    }
+    
 
 
 
@@ -120,10 +175,10 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
     }
 
 
-    function _itemOwnerOf(uint256 _itemId) public view returns (address) {
-        address _itemOwner = ownerOf(_itemId);
-        return _itemOwner;
-    }
+    // function _itemOwnerOf(uint256 _itemId) public view returns (address) {
+    //     address _itemOwner = ownerOf(_itemId);
+    //     return _itemOwner;
+    // }
     
 
 
@@ -164,5 +219,35 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
      **/
     function transferFrom(address _from, address _to, uint256 _itemId) public {
         _transferFrom(_from, _to, _itemId);
+    }
+
+
+
+    function getCurrentItemIdCount() public view returns (uint256) {
+        return _currentItemId.add(1);
+    }
+
+    /***
+     * @dev - Get item which is specified by _itemId 
+     * @return - instance of Item struct
+     **/
+    function getItem(uint256 _itemId) public view returns (Item memory) {
+        Item memory item = items[_itemId];
+        return item;
+    }
+    
+    /***
+     * @dev - Get all of items which are saved in Item struct
+     * @return - instance of Item struct
+     **/
+    function getAllOfItems() public view returns (Item memory) {
+        uint256 currentItemIdCount = _currentItemId.add(1);
+
+        //@dev - itemId is started from 1
+        uint256 i = 1;
+        do {
+            Item memory item = items[i];
+            return item;
+        } while (i < currentItemIdCount);
     }
 }

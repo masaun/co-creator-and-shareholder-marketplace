@@ -1,4 +1,5 @@
 pragma solidity ^0.5.11;
+pragma experimental ABIEncoderV2;
 
 
 contract OpObjects {
@@ -18,10 +19,15 @@ contract OpObjects {
         address itemProposerAddr;
         address itemOwnerAddr;
         string itemName;
-        //string itemDescription;
+        ItemDetail itemDetails;
         uint256 itemPrice;
         ItemType itemType;
     }
+
+    struct ItemDetail {
+        string itemDescription;
+    }
+
 
     struct ExampleObject {
         address addr;

@@ -15,11 +15,14 @@ contract OpEvents {
         address _itemProposerAddr, //@notice - _itemProposerAddr is a player who propose idea
         address _itemOwnerAddr,    //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         string _itemName,
-        //string _itemDescription,
         uint256 _itemPrice,
         OpObjects.ItemType _itemType
     );
     
+    event ItemDetailRegistry(
+        uint256 _itemId,
+        string _itemDescription
+    );
 
     event Example(
         uint256 indexed Id, 

@@ -34,6 +34,8 @@ export default class MarketplaceRegistry extends Component {
     this.ownershipTransferOrderedItem = this.ownershipTransferOrderedItem.bind(this);
     this.buyItem = this.buyItem.bind(this);
     this.stakeholderRegistry = this.stakeholderRegistry.bind(this);
+    this.getItem = this.getItem.bind(this);
+    this.getAllOfItems = this.getAllOfItems.bind(this);
   }
 
   getTestData = async () => {
@@ -50,14 +52,15 @@ export default class MarketplaceRegistry extends Component {
       //@dev - parameter below are for executing itemRegistry function
       const _itemOwnerAddr = '0x718E3ea0B8C2911C5e54Cb4b9B2075fdd87B55a7'   //@notice - _itemOwnerAddr is equal to _stakeholderAddr
       const _itemName = 'Sample Item';
-      //const _itemDescription = '';
+      const _itemDescription = "My idea is this item. The name of this item is Sample Item. The color of this item is green. Are any designers interested in which design this idea?";
       const _itemPrice = 5;
       const _itemType = 0;
 
 
       let response = await nft_item.methods.mintTo(_to, 
                                                    _itemOwnerAddr, 
-                                                   _itemName, 
+                                                   _itemName,
+                                                   _itemDescription, 
                                                    _itemPrice, 
                                                    _itemType).send({ from: accounts[0] });
       console.log('=== response of _mintTo() function ===', response);
@@ -124,6 +127,35 @@ export default class MarketplaceRegistry extends Component {
                                                                             //_itemType
                                                                             ).send({ from: accounts[0] });
       console.log('=== response of stakeholderRegistry() function ===', response);
+  }
+
+  getStakeholdersGroup = async () => {
+      const { accounts, marketplace_registry, web3 } = this.state;
+      const _itemId = 1;
+
+      let response = await marketplace_registry.methods.getStakeholdersGroup(_itemId).call();
+      console.log('=== response of getStakeholdersGroup() function ===', response);      
+  }
+
+  getItem = async () => {
+      const { accounts, nft_item, web3 } = this.state;
+
+      const currentItemIdCount = await nft_item.methods.getCurrentItemIdCount().call();
+      console.log('=== currentItemIdCount ===', currentItemIdCount);
+
+      //@dev - itemId is started from 1. That's why variable of "i" is also started from 1.
+      for (let i = 1; i < currentItemIdCount; i++) {
+          let response = await nft_item.methods.getItem(i).call();
+          console.log('=== response of getItem() function ===', response);
+      }
+  }
+
+  getAllOfItems = async () => {
+      const { accounts, nft_item, web3 } = this.state;
+
+      //let response = await nft_item.methods.getAllOfItems().call();
+      let response = await nft_item.methods.getAllOfItems().call();
+      console.log('=== response of getAllOfItems() function ===', response);
   }
 
 
@@ -277,7 +309,7 @@ export default class MarketplaceRegistry extends Component {
                 borderRadius={8}
                 height="100%"
                 maxWidth='100%'
-                src="https://siasky.net/vAPszlRA6sQoA7nzuYwFoEuLhWLcSOqCcECqLBYxyhRUmw"
+                src=""
               />
 
               <Button size={'small'} mt={3} mb={2} onClick={this.getTestData}> Get TestData </Button> <br />
@@ -294,6 +326,11 @@ export default class MarketplaceRegistry extends Component {
 
               <Button size={'small'} mt={3} mb={2} onClick={this.buyItem}> ③ Buy Item </Button> <br />
 
+              <hr />
+
+              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.getItem}> Get Item </Button> <br />
+
+              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.getAllOfItems}> Get All Of Items </Button> <br />
             </Card>
           </Grid>
 
