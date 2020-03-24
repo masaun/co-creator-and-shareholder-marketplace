@@ -224,7 +224,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
 
 
     function getCurrentItemIdCount() public view returns (uint256) {
-        return _currentItemId.add(1);
+        return _currentItemId;
     }
 
     /***
