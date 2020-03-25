@@ -269,6 +269,9 @@ export default class MarketplaceRegistry extends Component {
               this.refreshValues(instanceMarketplaceRegistry, instanceNftItem);
             }, 5000);
           });
+
+          //@dev - Call all of struct of Item via getAllOfItems() function
+          this.getAllOfItems();
         }
         else {
           this.setState({ web3, ganacheAccounts, accounts, balance, networkId, networkType, hotLoaderDisabled, isMetaMask });
