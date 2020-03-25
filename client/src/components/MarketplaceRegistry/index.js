@@ -152,10 +152,19 @@ export default class MarketplaceRegistry extends Component {
       console.log('=== currentItemIdCount ===', currentItemIdCount);
 
       //@dev - itemId is started from 1. That's why variable of "i" is also started from 1.
+      const itemIds = []
       for (let i = 1; i < currentItemIdCount; i++) {
           let response = await nft_item.methods.getItem(i).call();
           console.log('=== response of getAllOfItems ===', response);
+
+          itemIds.push(i);
       }
+
+      //@dev - For displaying panels each itemId
+      const listItems = itemIds.map((itemId) =>
+        <li>{itemId}</li>
+      );
+      this.setState({ listItems: listItems });
   }
 
 
@@ -270,7 +279,7 @@ export default class MarketplaceRegistry extends Component {
             }, 5000);
           });
 
-          //@dev - Call all of struct of Item via getAllOfItems() function
+          //@dev - Call all of struct of Item every time
           this.getAllOfItems();
         }
         else {
@@ -289,6 +298,8 @@ export default class MarketplaceRegistry extends Component {
 
 
   render() {
+    const { listItems } = this.state;
+
     return (
 
       <div className={styles.widgets}>
@@ -343,6 +354,34 @@ export default class MarketplaceRegistry extends Component {
           <Grid item xs={4}>
           </Grid>
         </Grid>
+
+        <hr />
+
+        <Grid container style={{ marginTop: 32 }}>
+
+          <Grid item xs={12}>
+
+            <h4>List of Items</h4>
+
+            <Card width={"auto"} 
+                  maxWidth={"420px"} 
+                  mx={"auto"} 
+                  my={5} 
+                  p={20} 
+                  borderColor={"#E8E8E8"}
+            >
+              <h4>Item Id { listItems }</h4>
+
+            </Card>
+          </Grid>
+
+          <Grid item xs={4}>
+          </Grid>
+
+          <Grid item xs={4}>
+          </Grid>
+        </Grid>
+
       </div>
     );
   }
