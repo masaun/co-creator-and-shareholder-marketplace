@@ -98,10 +98,11 @@ export default class MarketplaceRegistry extends Component {
       console.log('=== response of ownershipTransferOrderedItem() function ===', response);
   }
 
-  buyItem = async () => {
+  buyItem = async (_itemId) => {
       const { accounts, marketplace_registry, web3 } = this.state;
-      const _itemId = 1
-      const _buyer = walletAddressList.addressList.address1;
+      //const _itemId = 1  
+      const _buyer = accounts[0];  //@dev - Current User's wallet address
+      //const _buyer = walletAddressList.addressList.address1;
 
       let response = await marketplace_registry.methods.buyItem(_itemId, _buyer).send({ from: accounts[0] })
       console.log('=== response of buyItem() function ===', response);
@@ -110,7 +111,7 @@ export default class MarketplaceRegistry extends Component {
   stakeholderRegistry = async () => {
       const { accounts, marketplace_registry, web3 } = this.state;
 
-      const _itemId = 1;
+      const _itemId = 2;
       const _stakeholderAddr = accounts[0];
       const _stakeholderType = 0;
 
@@ -152,10 +153,41 @@ export default class MarketplaceRegistry extends Component {
       console.log('=== currentItemIdCount ===', currentItemIdCount);
 
       //@dev - itemId is started from 1. That's why variable of "i" is also started from 1.
+      //const itemIds = []
+      const itemObjects = []
       for (let i = 1; i < currentItemIdCount; i++) {
           let response = await nft_item.methods.getItem(i).call();
           console.log('=== response of getAllOfItems ===', response);
+          itemObjects.push(response);
+
+          //itemIds.push(i);
       }
+
+      //@dev - For displaying panels each itemId
+      // const listItems = itemIds.map((itemId) =>
+      //   <li>{itemId}</li>
+      // );
+      // this.setState({ listItems: listItems });
+
+      const listItemObjects = itemObjects.map((itemObject) =>
+        <Card width={"auto"} 
+                  maxWidth={"420px"} 
+                  mx={"auto"} 
+                  my={5} 
+                  p={20} 
+                  borderColor={"#E8E8E8"}
+          >
+          <p>itemId: {itemObject.itemId}</p>
+          <p>itemName: {itemObject.itemName}</p>
+          <p>itemOwnerAddr: {itemObject.itemOwnerAddr}</p>
+          <p>itemPrice: {itemObject.itemPrice}</p>
+          <p>itemProposerAddr: {itemObject.itemProposerAddr}</p>
+          <p>itemType: {itemObject.itemType}</p> <br />
+
+          <Button size={'small'} mt={3} mb={2} onClick={() => this.buyItem(itemObject.itemId)}> Buy Item </Button> <br />
+        </Card>
+      );
+      this.setState({ listItemObjects: listItemObjects });
   }
 
 
@@ -269,6 +301,9 @@ export default class MarketplaceRegistry extends Component {
               this.refreshValues(instanceMarketplaceRegistry, instanceNftItem);
             }, 5000);
           });
+
+          //@dev - Call all of struct of Item every time
+          this.getAllOfItems();
         }
         else {
           this.setState({ web3, ganacheAccounts, accounts, balance, networkId, networkType, hotLoaderDisabled, isMetaMask });
@@ -286,6 +321,8 @@ export default class MarketplaceRegistry extends Component {
 
 
   render() {
+    const { listItems, listItemObjects } = this.state;
+
     return (
 
       <div className={styles.widgets}>
@@ -340,6 +377,25 @@ export default class MarketplaceRegistry extends Component {
           <Grid item xs={4}>
           </Grid>
         </Grid>
+
+        <hr />
+
+        <Grid container style={{ marginTop: 32 }}>
+
+          <Grid item xs={12}>
+
+            <h4>List of Items</h4>
+
+            <h4> { listItemObjects }</h4>
+          </Grid>
+
+          <Grid item xs={4}>
+          </Grid>
+
+          <Grid item xs={4}>
+          </Grid>
+        </Grid>
+
       </div>
     );
   }

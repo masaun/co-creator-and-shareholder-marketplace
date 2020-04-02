@@ -4,7 +4,7 @@ pragma experimental ABIEncoderV2;
 
 contract OpObjects {
 
-    enum StakeholderType { Player, Worker, Organizer }
+    enum StakeholderType { Player, Developer }
     
     struct Stakeholder {
         uint256 itemId;
