@@ -153,9 +153,11 @@ export default class MarketplaceRegistry extends Component {
 
       //@dev - itemId is started from 1. That's why variable of "i" is also started from 1.
       const itemIds = []
+      const itemObjects = []
       for (let i = 1; i < currentItemIdCount; i++) {
           let response = await nft_item.methods.getItem(i).call();
           console.log('=== response of getAllOfItems ===', response);
+          itemObjects.push(response);
 
           itemIds.push(i);
       }
@@ -165,6 +167,18 @@ export default class MarketplaceRegistry extends Component {
         <li>{itemId}</li>
       );
       this.setState({ listItems: listItems });
+
+      const listItemObjects = itemObjects.map((itemObject) =>
+        <ul>
+          <li>{itemObject.itemId}</li>
+          <li>{itemObject.itemName}</li>
+          <li>{itemObject.itemOwnerAddr}</li>
+          <li>{itemObject.itemPrice}</li>
+          <li>{itemObject.itemProposerAddr}</li>
+          <li>{itemObject.itemType}</li>
+        </ul>
+      );
+      this.setState({ listItemObjects: listItemObjects });
   }
 
 
@@ -298,7 +312,7 @@ export default class MarketplaceRegistry extends Component {
 
 
   render() {
-    const { listItems } = this.state;
+    const { listItems, listItemObjects } = this.state;
 
     return (
 
@@ -371,6 +385,7 @@ export default class MarketplaceRegistry extends Component {
                   borderColor={"#E8E8E8"}
             >
               <h4>Item Id { listItems }</h4>
+              <h4>Item Object { listItemObjects }</h4>
 
             </Card>
           </Grid>
