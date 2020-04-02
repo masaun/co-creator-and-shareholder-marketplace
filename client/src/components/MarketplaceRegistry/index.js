@@ -152,31 +152,39 @@ export default class MarketplaceRegistry extends Component {
       console.log('=== currentItemIdCount ===', currentItemIdCount);
 
       //@dev - itemId is started from 1. That's why variable of "i" is also started from 1.
-      const itemIds = []
+      //const itemIds = []
       const itemObjects = []
       for (let i = 1; i < currentItemIdCount; i++) {
           let response = await nft_item.methods.getItem(i).call();
           console.log('=== response of getAllOfItems ===', response);
           itemObjects.push(response);
 
-          itemIds.push(i);
+          //itemIds.push(i);
       }
 
       //@dev - For displaying panels each itemId
-      const listItems = itemIds.map((itemId) =>
-        <li>{itemId}</li>
-      );
-      this.setState({ listItems: listItems });
+      // const listItems = itemIds.map((itemId) =>
+      //   <li>{itemId}</li>
+      // );
+      // this.setState({ listItems: listItems });
 
       const listItemObjects = itemObjects.map((itemObject) =>
-        <ul>
-          <li>{itemObject.itemId}</li>
-          <li>{itemObject.itemName}</li>
-          <li>{itemObject.itemOwnerAddr}</li>
-          <li>{itemObject.itemPrice}</li>
-          <li>{itemObject.itemProposerAddr}</li>
-          <li>{itemObject.itemType}</li>
-        </ul>
+        <Card width={"auto"} 
+                  maxWidth={"420px"} 
+                  mx={"auto"} 
+                  my={5} 
+                  p={20} 
+                  borderColor={"#E8E8E8"}
+            >
+          <ul>
+            <li>{itemObject.itemId}</li>
+            <li>{itemObject.itemName}</li>
+            <li>{itemObject.itemOwnerAddr}</li>
+            <li>{itemObject.itemPrice}</li>
+            <li>{itemObject.itemProposerAddr}</li>
+            <li>{itemObject.itemType}</li>
+          </ul>
+        </Card>
       );
       this.setState({ listItemObjects: listItemObjects });
   }
@@ -377,17 +385,7 @@ export default class MarketplaceRegistry extends Component {
 
             <h4>List of Items</h4>
 
-            <Card width={"auto"} 
-                  maxWidth={"420px"} 
-                  mx={"auto"} 
-                  my={5} 
-                  p={20} 
-                  borderColor={"#E8E8E8"}
-            >
-              <h4>Item Id { listItems }</h4>
-              <h4>Item Object { listItemObjects }</h4>
-
-            </Card>
+            <h4> { listItemObjects }</h4>
           </Grid>
 
           <Grid item xs={4}>
