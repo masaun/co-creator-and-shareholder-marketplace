@@ -175,15 +175,13 @@ export default class MarketplaceRegistry extends Component {
                   my={5} 
                   p={20} 
                   borderColor={"#E8E8E8"}
-            >
-          <ul>
-            <li>{itemObject.itemId}</li>
-            <li>{itemObject.itemName}</li>
-            <li>{itemObject.itemOwnerAddr}</li>
-            <li>{itemObject.itemPrice}</li>
-            <li>{itemObject.itemProposerAddr}</li>
-            <li>{itemObject.itemType}</li>
-          </ul>
+          >
+          <p>itemId: {itemObject.itemId}</p>
+          <p>itemName: {itemObject.itemName}</p>
+          <p>itemOwnerAddr: {itemObject.itemOwnerAddr}</p>
+          <p>itemPrice: {itemObject.itemPrice}</p>
+          <p>itemProposerAddr: {itemObject.itemProposerAddr}</p>
+          <p>itemType: {itemObject.itemType}</p>
         </Card>
       );
       this.setState({ listItemObjects: listItemObjects });
