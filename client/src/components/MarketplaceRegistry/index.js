@@ -111,7 +111,7 @@ export default class MarketplaceRegistry extends Component {
   stakeholderRegistry = async () => {
       const { accounts, marketplace_registry, web3 } = this.state;
 
-      const _itemId = 1;
+      const _itemId = 2;
       const _stakeholderAddr = accounts[0];
       const _stakeholderType = 0;
 
