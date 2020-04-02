@@ -36,6 +36,8 @@ export default class MarketplaceRegistry extends Component {
     this.stakeholderRegistry = this.stakeholderRegistry.bind(this);
     this.getItem = this.getItem.bind(this);
     this.getAllOfItems = this.getAllOfItems.bind(this);
+
+    this.handleInputStakeholderRegistry = this.handleInputStakeholderRegistry.bind(this);
   }
 
   getTestData = async () => {
@@ -108,10 +110,16 @@ export default class MarketplaceRegistry extends Component {
       console.log('=== response of buyItem() function ===', response);
   }
 
-  stakeholderRegistry = async () => {
-      const { accounts, marketplace_registry, web3 } = this.state;
 
-      const _itemId = 2;
+  handleInputStakeholderRegistry({ target: { value } }) {
+      this.setState({ valueOfStakeholderRegistry: Number(value) });
+  }
+
+  stakeholderRegistry = async () => {
+      const { accounts, marketplace_registry, web3, valueOfStakeholderRegistry } = this.state;
+
+      const _itemId = valueOfStakeholderRegistry;
+      //const _itemId = 2;
       const _stakeholderAddr = accounts[0];
       const _stakeholderType = 0;
 
@@ -128,6 +136,8 @@ export default class MarketplaceRegistry extends Component {
                                                                             //_itemType
                                                                             ).send({ from: accounts[0] });
       console.log('=== response of stakeholderRegistry() function ===', response);
+
+      this.setState({ valueOfStakeholderRegistry: '' });
   }
 
   getStakeholdersGroup = async () => {
@@ -359,7 +369,13 @@ export default class MarketplaceRegistry extends Component {
 
               <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.ownershipTransferOrderedItem}> Ownership Transfer Ordered Item </Button> <br />
 
+
+
+              <p>Stakeholder Registry （Please input itemId below）</p>
+              <input type="text" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} />
               <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button> <br />
+
+
 
               <Button size={'small'} mt={3} mb={2} onClick={this.buyItem}> ③ Buy Item </Button> <br />
 

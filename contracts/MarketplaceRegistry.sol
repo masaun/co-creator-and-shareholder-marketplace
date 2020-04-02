@@ -105,7 +105,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
 
     function distributeReward(uint256 _itemId, uint256 _itemPrice) public returns (bool) {
         //@dev - Display the cause of error in etherscan
-        require (getStakeholdersGroup(_itemId).length == 0, "This itemId has not registerd stakeholders yet. So that user need to execute stakeholderRegistry in advance");
+        require (getStakeholdersGroup(_itemId).length == 0, "This itemId has not registerd stakeholders yet. So that user need stakeholderRegistry in advance");
 
         //@dev - Sorts stakeholders who receive reward 
         address[] memory _stakeholdersGroups = getStakeholdersGroup(_itemId);
