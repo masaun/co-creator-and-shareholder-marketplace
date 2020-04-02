@@ -98,10 +98,11 @@ export default class MarketplaceRegistry extends Component {
       console.log('=== response of ownershipTransferOrderedItem() function ===', response);
   }
 
-  buyItem = async () => {
+  buyItem = async (_itemId) => {
       const { accounts, marketplace_registry, web3 } = this.state;
-      const _itemId = 1
-      const _buyer = walletAddressList.addressList.address1;
+      //const _itemId = 1  
+      const _buyer = accounts[0];  //@dev - Current User's wallet address
+      //const _buyer = walletAddressList.addressList.address1;
 
       let response = await marketplace_registry.methods.buyItem(_itemId, _buyer).send({ from: accounts[0] })
       console.log('=== response of buyItem() function ===', response);
@@ -181,7 +182,9 @@ export default class MarketplaceRegistry extends Component {
           <p>itemOwnerAddr: {itemObject.itemOwnerAddr}</p>
           <p>itemPrice: {itemObject.itemPrice}</p>
           <p>itemProposerAddr: {itemObject.itemProposerAddr}</p>
-          <p>itemType: {itemObject.itemType}</p>
+          <p>itemType: {itemObject.itemType}</p> <br />
+
+          <Button size={'small'} mt={3} mb={2} onClick={() => this.buyItem(itemObject.itemId)}> Buy Item </Button> <br />
         </Card>
       );
       this.setState({ listItemObjects: listItemObjects });
