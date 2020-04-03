@@ -37,6 +37,12 @@ export default class MarketplaceRegistry extends Component {
     this.getItem = this.getItem.bind(this);
     this.getAllOfItems = this.getAllOfItems.bind(this);
 
+    this.handleInputItemProposerAddress = this.handleInputItemProposerAddress.bind(this);
+    this.handleInputItemName = this.handleInputItemName.bind(this);
+    this.handleInputItemDescription = this.handleInputItemDescription.bind(this);
+    this.handleInputItemPrice = this.handleInputItemPrice.bind(this);
+    this.handleInputItemType = this.handleInputItemType.bind(this);
+
     this.handleInputStakeholderRegistry = this.handleInputStakeholderRegistry.bind(this);
   }
 
@@ -45,6 +51,27 @@ export default class MarketplaceRegistry extends Component {
 
       let response = await marketplace_registry.methods.testFunc().send({ from: accounts[0] })
       console.log('=== response of testFunc() function ===', response);
+  }
+
+
+  handleInputItemProposerAddress({ target: { value } }) {
+      this.setState({ valueOfItemProposerAddress: value });
+  }
+
+  handleInputItemName({ target: { value } }) {
+      this.setState({ valueOfItemName: value });
+  }
+
+  handleInputItemDescription({ target: { value } }) {
+      this.setState({ valueOfItemDescription: value });
+  }
+
+  handleInputItemPrice({ target: { value } }) {
+      this.setState({ valueOfItemPrice: Number(value) });
+  }
+
+  handleInputItemType({ target: { value } }) {
+      this.setState({ valueOfItemType: Number(value) });
   }
 
   mintTo = async () => {
@@ -368,24 +395,24 @@ export default class MarketplaceRegistry extends Component {
                       >
                           <Table>
                               <tr>
-                                  <td><p>Item Proposer Address</p></td>
-                                  <td><Input type="text" placeholder="Please input item proposer address here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                                  <td><p>Item Proposer Address（Current Login Address）</p></td>
+                                  <td><Input type="text" placeholder={ `${this.state.accounts[0]}` } value={this.state.valueOfItemProposerAddress} onChange={this.handleInputItemProposerAddress} /></td>
                               </tr>
                               <tr>
                                   <td><p>Item Name</p></td>
-                                  <td><Input type="text" placeholder="Please input item name here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                                  <td><Input type="text" placeholder="Please input item name here" value={this.state.valueOfItemName} onChange={this.handleInputItemName} /></td>
                               </tr>
                               <tr>
                                   <td><p>Item Description</p></td>
-                                  <td><Input type="text" placeholder="Please input item description here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                                  <td><Input type="text" placeholder="Please input item description here" value={this.state.valueOfItemDescription} onChange={this.handleInputItemDescription} /></td>
                               </tr>
                               <tr>
                                   <td><p>Item Price</p></td>
-                                  <td><Input type="text" placeholder="Please input item price here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                                  <td><Input type="text" placeholder="Please input item price here" value={this.state.valueOfItemPrice} onChange={this.handleInputItemPrice} /></td>
                               </tr>
                               <tr>
                                   <td><p>Item Type</p></td>
-                                  <td><Input type="text" placeholder="Please input item type here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                                  <td><Input type="text" placeholder="Please input item type here" value={this.state.valueOfItemType} onChange={this.handleInputItemType} /></td>
                               </tr>
                           </Table>
 
