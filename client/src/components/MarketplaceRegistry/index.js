@@ -363,7 +363,7 @@ export default class MarketplaceRegistry extends Component {
             <h4>Item Marketplace Registry</h4>
 
             <Card width={"auto"} 
-                  maxWidth={"640px"} 
+                  maxWidth={"800px"} 
                   mx={"auto"} 
                   my={5} 
                   p={20} 
@@ -373,8 +373,8 @@ export default class MarketplaceRegistry extends Component {
 
               <Table>
                   <tr>
-                      <td><p>Stakeholder Registry</p><p>（Please input itemId）</p></td>
-                      <td><input type="text" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                      <td><p>Stakeholder Registry</p></td>
+                      <td><Input type="text" placeholder="Please input itemId here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
                       <td><Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button></td>
                   </tr>
               </Table>
