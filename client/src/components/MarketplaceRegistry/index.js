@@ -187,12 +187,32 @@ export default class MarketplaceRegistry extends Component {
                     p={20} 
                     borderColor={"#E8E8E8"}
           >
-              <p>itemId: {itemObject.itemId}</p>
-              <p>itemName: {itemObject.itemName}</p>
-              <p>itemOwnerAddr: {itemObject.itemOwnerAddr}</p>
-              <p>itemPrice: {itemObject.itemPrice}</p>
-              <p>itemProposerAddr: {itemObject.itemProposerAddr}</p>
-              <p>itemType: {itemObject.itemType}</p> <br />
+              <table>
+                  <tr>
+                      <td>itemId: </td>
+                      <td>{ itemObject.itemId }</td>
+                  </tr>
+                  <tr>
+                      <td>itemName: </td>                           
+                      <td>{ itemObject.itemName }</td>
+                  </tr>
+                  <tr>                    
+                      <td>itemOwnerAddr: </td>
+                      <td>{ itemObject.itemOwnerAddr }</td>
+                  </tr>
+                  <tr>                    
+                      <td>itemPrice: </td>
+                      <td>{ itemObject.itemPrice }</td>
+                  </tr>
+                  <tr>                    
+                      <td>itemProposerAddr: </td>
+                      <td>{ itemObject.itemProposerAddr }</td>
+                  </tr>
+                  <tr>                    
+                      <td>itemType: </td>
+                      <td>{ itemObject.itemType }</td>
+                  </tr>
+              </table>
 
               <Button size={'small'} mt={3} mb={2} onClick={() => this.buyItem(itemObject.itemId)}> Buy Item </Button> <br />
           </Card>
