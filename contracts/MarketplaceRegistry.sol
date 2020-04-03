@@ -80,7 +80,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         Item memory item = items[_itemId];
 
         //@dev - buyer buy item from seller with DAI
-        purchaseItem(_itemId, _newOwner, _itemPrice);
+        purchaseItem(_itemId, _buyer, item.itemPrice);
 
         //@dev - Ordered item is bought by buyer (It is equal to be done Ownership transfer)
         ownershipTransferOrderedItem(_itemId, _buyer);
@@ -95,7 +95,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         address _oldOwner = itemOwnerOf(_itemId);
 
         //@dev - new owner buy item from old owner with DAI
-        erc20.transferFrom(_oldOwner, _newOwner, _itemPrice);
+        erc20.transferFrom(_newOwner, _oldOwner, _itemPrice);
     }
     
 
