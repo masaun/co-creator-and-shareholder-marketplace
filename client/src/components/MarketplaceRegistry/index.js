@@ -181,7 +181,7 @@ export default class MarketplaceRegistry extends Component {
 
       const listItemObjects = itemObjects.map((itemObject) =>
           <Card width={"auto"} 
-                    maxWidth={"420px"} 
+                    maxWidth={"640px"} 
                     mx={"auto"} 
                     my={5} 
                     p={20} 
@@ -363,7 +363,7 @@ export default class MarketplaceRegistry extends Component {
             <h4>Item Marketplace Registry</h4>
 
             <Card width={"auto"} 
-                  maxWidth={"420px"} 
+                  maxWidth={"640px"} 
                   mx={"auto"} 
                   my={5} 
                   p={20} 
@@ -371,9 +371,13 @@ export default class MarketplaceRegistry extends Component {
             >
               <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> ① Publish NFT Item（Mint To） </Button> <br />
 
-              <p>Stakeholder Registry （Please input itemId below）</p>
-              <input type="text" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} />
-              <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button> <br />
+              <table>
+                  <tr>
+                      <td><p>Stakeholder Registry</p><p>（Please input itemId）</p></td>
+                      <td><input type="text" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                      <td><Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button></td>
+                  </tr>
+              </table>
 
             </Card>
           </Grid>
@@ -390,7 +394,6 @@ export default class MarketplaceRegistry extends Component {
         <Grid container style={{ marginTop: 32 }}>
 
           <Grid item xs={12}>
-
             <h4>List of Items</h4>
 
             <h4> { listItemObjects }</h4>
