@@ -351,95 +351,89 @@ export default class MarketplaceRegistry extends Component {
 
 
   render() {
-    const { listItems, listItemObjects } = this.state;
+      const { listItems, listItemObjects } = this.state;
 
-    return (
+      return (
+          <div className={styles.widgets}>
+              <Grid container style={{ marginTop: 32 }}>
+                  <Grid item xs={12}>
+                      <h4>Item Marketplace Registry</h4>
 
-      <div className={styles.widgets}>
-        <Grid container style={{ marginTop: 32 }}>
+                      <Card width={"auto"} 
+                            maxWidth={"800px"} 
+                            mx={"auto"} 
+                            my={5} 
+                            p={20} 
+                            borderColor={"#E8E8E8"}
+                      >
+                          <Table>
+                              <tr>
+                                  <td><p>Item Proposer Address</p></td>
+                                  <td><Input type="text" placeholder="Please input item proposer address here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                              </tr>
+                              <tr>
+                                  <td><p>Item Name</p></td>
+                                  <td><Input type="text" placeholder="Please input item name here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                              </tr>
+                              <tr>
+                                  <td><p>Item Description</p></td>
+                                  <td><Input type="text" placeholder="Please input item description here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                              </tr>
+                              <tr>
+                                  <td><p>Item Price</p></td>
+                                  <td><Input type="text" placeholder="Please input item price here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                              </tr>
+                              <tr>
+                                  <td><p>Item Type</p></td>
+                                  <td><Input type="text" placeholder="Please input item type here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                              </tr>
+                          </Table>
 
-          <Grid item xs={12}>
+                          <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> ① Publish NFT Item（Mint To） </Button>
+                      </Card>
 
-            <h4>Item Marketplace Registry</h4>
+                      <Card width={"auto"} 
+                            maxWidth={"800px"} 
+                            mx={"auto"} 
+                            my={5} 
+                            p={20} 
+                            borderColor={"#E8E8E8"}
+                      >
+                          <Table>
+                              <tr>
+                                  <td><p>Stakeholder Registry</p></td>
+                                  <td><Input type="text" placeholder="Please input itemId here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                                  <td><Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button></td>
+                              </tr>
+                          </Table>
+                      </Card>
+                  </Grid>
 
-            <Card width={"auto"} 
-                  maxWidth={"800px"} 
-                  mx={"auto"} 
-                  my={5} 
-                  p={20} 
-                  borderColor={"#E8E8E8"}
-            >
-                <Table>
-                    <tr>
-                        <td><p>Item Proposer Address</p></td>
-                        <td><Input type="text" placeholder="Please input item proposer address here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
-                    </tr>
-                    <tr>
-                        <td><p>Item Name</p></td>
-                        <td><Input type="text" placeholder="Please input item name here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
-                    </tr>
-                    <tr>
-                        <td><p>Item Description</p></td>
-                        <td><Input type="text" placeholder="Please input item description here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
-                    </tr>
-                    <tr>
-                        <td><p>Item Price</p></td>
-                        <td><Input type="text" placeholder="Please input item price here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
-                    </tr>
-                    <tr>
-                        <td><p>Item Type</p></td>
-                        <td><Input type="text" placeholder="Please input item type here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
-                    </tr>
-                </Table>
+                  <Grid item xs={4}>
+                  </Grid>
 
-                <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> ① Publish NFT Item（Mint To） </Button>
-            </Card>
+                  <Grid item xs={4}>
+                  </Grid>
+              </Grid>
 
-            <Card width={"auto"} 
-                  maxWidth={"800px"} 
-                  mx={"auto"} 
-                  my={5} 
-                  p={20} 
-                  borderColor={"#E8E8E8"}
-            >            
+              <hr />
 
-              <Table>
-                  <tr>
-                      <td><p>Stakeholder Registry</p></td>
-                      <td><Input type="text" placeholder="Please input itemId here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
-                      <td><Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button></td>
-                  </tr>
-              </Table>
+              <Grid container style={{ marginTop: 32 }}>
+                  <Grid item xs={12}>
+                      <h4>List of Items</h4>
 
-            </Card>
-          </Grid>
+                      <h4> { listItemObjects }</h4>
+                  </Grid>
 
-          <Grid item xs={4}>
-          </Grid>
+                  <Grid item xs={4}>
+                  </Grid>
 
-          <Grid item xs={4}>
-          </Grid>
-        </Grid>
+                  <Grid item xs={4}>
+                  </Grid>
+              </Grid>
 
-        <hr />
-
-        <Grid container style={{ marginTop: 32 }}>
-
-          <Grid item xs={12}>
-            <h4>List of Items</h4>
-
-            <h4> { listItemObjects }</h4>
-          </Grid>
-
-          <Grid item xs={4}>
-          </Grid>
-
-          <Grid item xs={4}>
-          </Grid>
-        </Grid>
-
-      </div>
-    );
+          </div>
+      );
   }
 
 }
