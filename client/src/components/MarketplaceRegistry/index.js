@@ -369,7 +369,39 @@ export default class MarketplaceRegistry extends Component {
                   p={20} 
                   borderColor={"#E8E8E8"}
             >
-              <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> ① Publish NFT Item（Mint To） </Button> <br />
+                <Table>
+                    <tr>
+                        <td><p>Item Proposer Address</p></td>
+                        <td><Input type="text" placeholder="Please input item proposer address here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                    </tr>
+                    <tr>
+                        <td><p>Item Name</p></td>
+                        <td><Input type="text" placeholder="Please input item name here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                    </tr>
+                    <tr>
+                        <td><p>Item Description</p></td>
+                        <td><Input type="text" placeholder="Please input item description here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                    </tr>
+                    <tr>
+                        <td><p>Item Price</p></td>
+                        <td><Input type="text" placeholder="Please input item price here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                    </tr>
+                    <tr>
+                        <td><p>Item Type</p></td>
+                        <td><Input type="text" placeholder="Please input item type here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                    </tr>
+                </Table>
+
+                <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> ① Publish NFT Item（Mint To） </Button>
+            </Card>
+
+            <Card width={"auto"} 
+                  maxWidth={"800px"} 
+                  mx={"auto"} 
+                  my={5} 
+                  p={20} 
+                  borderColor={"#E8E8E8"}
+            >            
 
               <Table>
                   <tr>
