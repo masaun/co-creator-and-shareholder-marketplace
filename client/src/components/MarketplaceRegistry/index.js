@@ -187,7 +187,7 @@ export default class MarketplaceRegistry extends Component {
                     p={20} 
                     borderColor={"#E8E8E8"}
           >
-              <table>
+              <Table>
                   <tr>
                       <td>itemId: </td>
                       <td>{ itemObject.itemId }</td>
@@ -212,7 +212,7 @@ export default class MarketplaceRegistry extends Component {
                       <td>itemType: </td>
                       <td>{ itemObject.itemType }</td>
                   </tr>
-              </table>
+              </Table>
 
               <Button size={'small'} mt={3} mb={2} onClick={() => this.buyItem(itemObject.itemId)}> Buy Item </Button> <br />
           </Card>
@@ -371,13 +371,13 @@ export default class MarketplaceRegistry extends Component {
             >
               <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> ① Publish NFT Item（Mint To） </Button> <br />
 
-              <table>
+              <Table>
                   <tr>
                       <td><p>Stakeholder Registry</p><p>（Please input itemId）</p></td>
                       <td><input type="text" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
                       <td><Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button></td>
                   </tr>
-              </table>
+              </Table>
 
             </Card>
           </Grid>
