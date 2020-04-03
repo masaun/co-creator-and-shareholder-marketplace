@@ -180,22 +180,22 @@ export default class MarketplaceRegistry extends Component {
       // this.setState({ listItems: listItems });
 
       const listItemObjects = itemObjects.map((itemObject) =>
-        <Card width={"auto"} 
-                  maxWidth={"420px"} 
-                  mx={"auto"} 
-                  my={5} 
-                  p={20} 
-                  borderColor={"#E8E8E8"}
+          <Card width={"auto"} 
+                    maxWidth={"420px"} 
+                    mx={"auto"} 
+                    my={5} 
+                    p={20} 
+                    borderColor={"#E8E8E8"}
           >
-          <p>itemId: {itemObject.itemId}</p>
-          <p>itemName: {itemObject.itemName}</p>
-          <p>itemOwnerAddr: {itemObject.itemOwnerAddr}</p>
-          <p>itemPrice: {itemObject.itemPrice}</p>
-          <p>itemProposerAddr: {itemObject.itemProposerAddr}</p>
-          <p>itemType: {itemObject.itemType}</p> <br />
+              <p>itemId: {itemObject.itemId}</p>
+              <p>itemName: {itemObject.itemName}</p>
+              <p>itemOwnerAddr: {itemObject.itemOwnerAddr}</p>
+              <p>itemPrice: {itemObject.itemPrice}</p>
+              <p>itemProposerAddr: {itemObject.itemProposerAddr}</p>
+              <p>itemType: {itemObject.itemType}</p> <br />
 
-          <Button size={'small'} mt={3} mb={2} onClick={() => this.buyItem(itemObject.itemId)}> Buy Item </Button> <br />
-        </Card>
+              <Button size={'small'} mt={3} mb={2} onClick={() => this.buyItem(itemObject.itemId)}> Buy Item </Button> <br />
+          </Card>
       );
       this.setState({ listItemObjects: listItemObjects });
   }
@@ -340,7 +340,7 @@ export default class MarketplaceRegistry extends Component {
 
           <Grid item xs={12}>
 
-            <h4>Game Is Built By Every Stake-Holders</h4>
+            <h4>Item Marketplace Registry</h4>
 
             <Card width={"auto"} 
                   maxWidth={"420px"} 
@@ -349,8 +349,6 @@ export default class MarketplaceRegistry extends Component {
                   p={20} 
                   borderColor={"#E8E8E8"}
             >
-              <h4>Marketplace Registry</h4>
-
               <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> ① Publish NFT Item（Mint To） </Button> <br />
 
               <p>Stakeholder Registry （Please input itemId below）</p>
