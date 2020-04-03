@@ -351,39 +351,12 @@ export default class MarketplaceRegistry extends Component {
             >
               <h4>Marketplace Registry</h4>
 
-              <Image
-                alt="random unsplash image"
-                borderRadius={8}
-                height="100%"
-                maxWidth='100%'
-                src=""
-              />
-
-              <Button size={'small'} mt={3} mb={2} onClick={this.getTestData}> Get TestData </Button> <br />
-
               <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> ① Publish NFT Item（Mint To） </Button> <br />
-
-              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.itemOwnerOf}> Item Owner Of </Button> <br />
-
-              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.itemTransferFrom}> Item TransferFrom </Button> <br />
-
-              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.ownershipTransferOrderedItem}> Ownership Transfer Ordered Item </Button> <br />
-
-
 
               <p>Stakeholder Registry （Please input itemId below）</p>
               <input type="text" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} />
               <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button> <br />
 
-
-
-              <Button size={'small'} mt={3} mb={2} onClick={this.buyItem}> ③ Buy Item </Button> <br />
-
-              <hr />
-
-              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.getItem}> Get Item </Button> <br />
-
-              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.getAllOfItems}> Get All Of Items </Button> <br />
             </Card>
           </Grid>
 
