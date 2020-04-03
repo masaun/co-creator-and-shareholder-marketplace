@@ -75,16 +75,23 @@ export default class MarketplaceRegistry extends Component {
   }
 
   mintTo = async () => {
-      const { accounts, nft_item, web3 } = this.state;
-      const _to = '0x718E3ea0B8C2911C5e54Cb4b9B2075fdd87B55a7'
+      const { accounts, 
+              nft_item, 
+              web3, 
+              valueOfItemProposerAddress, 
+              valueOfItemName,
+              valueOfItemDescription,
+              valueOfItemPrice,
+              valueOfItemType } = this.state;
+
+      const _to = accounts[0];  //@dev - Current Login User
 
       //@dev - parameter below are for executing itemRegistry function
-      const _itemOwnerAddr = '0x718E3ea0B8C2911C5e54Cb4b9B2075fdd87B55a7'   //@notice - _itemOwnerAddr is equal to _stakeholderAddr
-      const _itemName = 'Sample Item';
-      const _itemDescription = "My idea is this item. The name of this item is Sample Item. The color of this item is green. Are any designers interested in which design this idea?";
-      const _itemPrice = 5;
-      const _itemType = 0;
-
+      const _itemOwnerAddr = accounts[0]   //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+      const _itemName = valueOfItemName;
+      const _itemDescription = valueOfItemDescription;
+      const _itemPrice = valueOfItemPrice;
+      const _itemType = valueOfItemType;
 
       let response = await nft_item.methods.mintTo(_to, 
                                                    _itemOwnerAddr, 
@@ -96,6 +103,12 @@ export default class MarketplaceRegistry extends Component {
 
       var itemId = response.events.Transfer.returnValues.tokenId;
       console.log('=== itemId of event of _mintTo() function ===', itemId);
+
+      this.setState({ valueOfItemProposerAddress: '',
+                      valueOfItemName: '', 
+                      valueOfItemDescription: '',
+                      valueOfItemPrice: '',
+                      valueOfItemType: '' });
   }
 
   itemOwnerOf = async () => {
@@ -378,7 +391,7 @@ export default class MarketplaceRegistry extends Component {
 
 
   render() {
-      const { listItems, listItemObjects } = this.state;
+      const { listItems, listItemObjects, accounts } = this.state;
 
       return (
           <div className={styles.widgets}>
@@ -396,7 +409,7 @@ export default class MarketplaceRegistry extends Component {
                           <Table>
                               <tr>
                                   <td><p>Item Proposer Address（Current Login Address）</p></td>
-                                  <td><Input type="text" placeholder={ `${this.state.accounts[0]}` } value={this.state.valueOfItemProposerAddress} onChange={this.handleInputItemProposerAddress} /></td>
+                                  <td><Input type="text" placeholder="Please input item proposer address here" value={this.state.valueOfItemProposerAddress} onChange={this.handleInputItemProposerAddress} /></td>
                               </tr>
                               <tr>
                                   <td><p>Item Name</p></td>
