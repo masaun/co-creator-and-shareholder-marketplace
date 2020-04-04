@@ -247,6 +247,10 @@ export default class MarketplaceRegistry extends Component {
                       <td>itemName: </td>                           
                       <td>{ itemObject.itemName }</td>
                   </tr>
+                  <tr>
+                      <td>itemDescription: </td>                           
+                      <td>{ itemObject.itemDetail.itemDescription }</td>
+                  </tr>
                   <tr>                    
                       <td>itemPrice: </td>
                       <td>{ itemObject.itemPrice }</td>
