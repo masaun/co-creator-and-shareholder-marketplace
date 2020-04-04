@@ -221,7 +221,12 @@ export default class MarketplaceRegistry extends Component {
       // this.setState({ listItems: listItems });
 
       const listItemDetailObjects = itemDetailObjects.map((itemDetailObject) => 
-          <td>{ itemDetailObject.itemDescription }</td> 
+          <Table>
+              <tr>
+                  <td>itemDescription: </td>   
+                  <td>{ itemDetailObject.itemDescription }</td> 
+              </tr>
+          </Table>
       );
       this.setState({ listItemDetailObjects: listItemDetailObjects });
 
@@ -241,10 +246,6 @@ export default class MarketplaceRegistry extends Component {
                   <tr>
                       <td>itemName: </td>                           
                       <td>{ itemObject.itemName }</td>
-                  </tr>
-                  <tr>
-                      <td>itemDescription: </td>                           
-                      { listItemDetailObjects }
                   </tr>
                   <tr>                    
                       <td>itemPrice: </td>
@@ -401,7 +402,7 @@ export default class MarketplaceRegistry extends Component {
 
 
   render() {
-      const { listItems, listItemObjects, accounts } = this.state;
+      const { listItemObjects, listItemDetailObjects, accounts } = this.state;
 
       return (
           <div className={styles.widgets}>
@@ -477,7 +478,7 @@ export default class MarketplaceRegistry extends Component {
                   <Grid item xs={12}>
                       <h4>List of Items</h4>
 
-                      <h4> { listItemObjects }</h4>
+                      <h4> { listItemObjects } </h4>
                   </Grid>
 
                   <Grid item xs={4}>
