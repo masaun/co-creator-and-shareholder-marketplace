@@ -43,7 +43,8 @@ export default class MarketplaceRegistry extends Component {
     this.handleInputItemPrice = this.handleInputItemPrice.bind(this);
     this.handleInputItemType = this.handleInputItemType.bind(this);
 
-    this.handleInputStakeholderRegistry = this.handleInputStakeholderRegistry.bind(this);
+    this.handleInputStakeholderItemId = this.handleInputStakeholderItemId.bind(this);
+    this.handleInputStakeholderType = this.handleInputStakeholderType.bind(this);
   }
 
   getTestData = async () => {
@@ -151,33 +152,29 @@ export default class MarketplaceRegistry extends Component {
   }
 
 
-  handleInputStakeholderRegistry({ target: { value } }) {
-      this.setState({ valueOfStakeholderRegistry: Number(value) });
+  handleInputStakeholderItemId({ target: { value } }) {
+      this.setState({ valueOfStakeholderItemId: Number(value) });
+  }
+
+  handleInputStakeholderType({ target: { value } }) {
+      this.setState({ valueOfStakeholderType: Number(value) });
   }
 
   stakeholderRegistry = async () => {
-      const { accounts, marketplace_registry, web3, valueOfStakeholderRegistry } = this.state;
+      const { accounts, marketplace_registry, web3, valueOfStakeholderItemId, valueOfStakeholderType } = this.state;
 
-      const _itemId = valueOfStakeholderRegistry;
+      const _itemId = valueOfStakeholderItemId;
       //const _itemId = 2;
       const _stakeholderAddr = accounts[0];
       const _stakeholderType = 0;
 
-      //@dev - parameter below are for executing itemRegistry function
-      const _itemName = 'Sample Item';
-      const _itemPrice = 5;
-      const _itemType = 0;
-
       let response = await marketplace_registry.methods.stakeholderRegistry(_itemId, 
                                                                             _stakeholderAddr, 
-                                                                            _stakeholderType,
-                                                                            //_itemName,
-                                                                            //_itemPrice,
-                                                                            //_itemType
-                                                                            ).send({ from: accounts[0] });
+                                                                            _stakeholderType).send({ from: accounts[0] });
       console.log('=== response of stakeholderRegistry() function ===', response);
 
-      this.setState({ valueOfStakeholderRegistry: '' });
+      this.setState({ valueOfStakeholderItemId: '', 
+                      valueOfStakeholderType: '' });
   }
 
   getStakeholdersGroup = async () => {
@@ -439,13 +436,19 @@ export default class MarketplaceRegistry extends Component {
                             p={20} 
                             borderColor={"#E8E8E8"}
                       >
+                          <h4>Stakeholder Registry</h4>
                           <Table>
                               <tr>
-                                  <td><p>Stakeholder Registry</p></td>
-                                  <td><Input type="text" placeholder="Please input itemId here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
-                                  <td><Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button></td>
+                                  <td><p>Item Id</p></td>
+                                  <td><Input type="text" placeholder="Please input item id here" value={this.state.valueOfStakeholderItemId} onChange={this.handleInputStakeholderItemId} /></td>
+                              </tr>
+                              <tr>
+                                  <td><p>Stakeholder Type</p></td>
+                                  <td><Input type="text" placeholder="Please input stakeholder type here" value={this.state.valueOfStakeholderType} onChange={this.handleInputStakeholderType} /></td>
                               </tr>
                           </Table>
+
+                          <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button>
                       </Card>
                   </Grid>
 
