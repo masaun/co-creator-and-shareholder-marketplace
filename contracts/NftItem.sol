@@ -240,9 +240,9 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
      * @dev - Get itemDetail which is specified by _itemId 
      * @return - instance of ItemDetail struct
      **/
-    function getItemDetail(uint256 _itemId) public view returns (ItemDetail memory) {
-        ItemDetail memory itemDetail = itemDetails[_itemId];
-        return itemDetail;
+    function getItemDetail(uint256 _itemId) public view returns (string memory _itemDescription) {
+        Item memory item = items[_itemId];
+        return item.itemDetails.itemDescription;
     }
 
 }
