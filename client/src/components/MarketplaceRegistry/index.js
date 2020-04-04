@@ -166,7 +166,7 @@ export default class MarketplaceRegistry extends Component {
       const _itemId = valueOfStakeholderItemId;
       //const _itemId = 2;
       const _stakeholderAddr = accounts[0];
-      const _stakeholderType = 0;
+      const _stakeholderType = valueOfStakeholderType;
 
       let response = await marketplace_registry.methods.stakeholderRegistry(_itemId, 
                                                                             _stakeholderAddr, 
