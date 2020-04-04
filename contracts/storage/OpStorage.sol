@@ -26,7 +26,7 @@ contract OpStorage is OpObjects, OpEvents {
     mapping (uint256 => Item) items;
 
     //ItemDetail[] public itemDetails;
-    //mapping (uint256 => ItemDetail) itemDetails;
+    mapping (uint256 => ItemDetail) itemDetails;
     
 
 }
