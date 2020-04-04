@@ -237,20 +237,20 @@ export default class MarketplaceRegistry extends Component {
                       <td>{ itemObject.itemName }</td>
                   </tr>
                   <tr>                    
-                      <td>itemOwnerAddr: </td>
-                      <td>{ itemObject.itemOwnerAddr }</td>
-                  </tr>
-                  <tr>                    
                       <td>itemPrice: </td>
                       <td>{ itemObject.itemPrice }</td>
+                  </tr>
+                  <tr>                    
+                      <td>itemType: </td>
+                      <td>{ itemObject.itemType }</td>
                   </tr>
                   <tr>                    
                       <td>itemProposerAddr: </td>
                       <td>{ itemObject.itemProposerAddr }</td>
                   </tr>
                   <tr>                    
-                      <td>itemType: </td>
-                      <td>{ itemObject.itemType }</td>
+                      <td>itemOwnerAddr: </td>
+                      <td>{ itemObject.itemOwnerAddr }</td>
                   </tr>
               </Table>
 
