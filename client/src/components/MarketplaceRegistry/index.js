@@ -36,6 +36,14 @@ export default class MarketplaceRegistry extends Component {
     this.stakeholderRegistry = this.stakeholderRegistry.bind(this);
     this.getItem = this.getItem.bind(this);
     this.getAllOfItems = this.getAllOfItems.bind(this);
+
+    this.handleInputItemProposerAddress = this.handleInputItemProposerAddress.bind(this);
+    this.handleInputItemName = this.handleInputItemName.bind(this);
+    this.handleInputItemDescription = this.handleInputItemDescription.bind(this);
+    this.handleInputItemPrice = this.handleInputItemPrice.bind(this);
+    this.handleInputItemType = this.handleInputItemType.bind(this);
+
+    this.handleInputStakeholderRegistry = this.handleInputStakeholderRegistry.bind(this);
   }
 
   getTestData = async () => {
@@ -45,17 +53,45 @@ export default class MarketplaceRegistry extends Component {
       console.log('=== response of testFunc() function ===', response);
   }
 
+
+  handleInputItemProposerAddress({ target: { value } }) {
+      this.setState({ valueOfItemProposerAddress: value });
+  }
+
+  handleInputItemName({ target: { value } }) {
+      this.setState({ valueOfItemName: value });
+  }
+
+  handleInputItemDescription({ target: { value } }) {
+      this.setState({ valueOfItemDescription: value });
+  }
+
+  handleInputItemPrice({ target: { value } }) {
+      this.setState({ valueOfItemPrice: Number(value) });
+  }
+
+  handleInputItemType({ target: { value } }) {
+      this.setState({ valueOfItemType: Number(value) });
+  }
+
   mintTo = async () => {
-      const { accounts, nft_item, web3 } = this.state;
-      const _to = '0x718E3ea0B8C2911C5e54Cb4b9B2075fdd87B55a7'
+      const { accounts, 
+              nft_item, 
+              web3, 
+              valueOfItemProposerAddress, 
+              valueOfItemName,
+              valueOfItemDescription,
+              valueOfItemPrice,
+              valueOfItemType } = this.state;
+
+      const _to = accounts[0];  //@dev - Current Login User
 
       //@dev - parameter below are for executing itemRegistry function
-      const _itemOwnerAddr = '0x718E3ea0B8C2911C5e54Cb4b9B2075fdd87B55a7'   //@notice - _itemOwnerAddr is equal to _stakeholderAddr
-      const _itemName = 'Sample Item';
-      const _itemDescription = "My idea is this item. The name of this item is Sample Item. The color of this item is green. Are any designers interested in which design this idea?";
-      const _itemPrice = 5;
-      const _itemType = 0;
-
+      const _itemOwnerAddr = accounts[0]   //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+      const _itemName = valueOfItemName;
+      const _itemDescription = valueOfItemDescription;
+      const _itemPrice = valueOfItemPrice;
+      const _itemType = valueOfItemType;
 
       let response = await nft_item.methods.mintTo(_to, 
                                                    _itemOwnerAddr, 
@@ -67,6 +103,12 @@ export default class MarketplaceRegistry extends Component {
 
       var itemId = response.events.Transfer.returnValues.tokenId;
       console.log('=== itemId of event of _mintTo() function ===', itemId);
+
+      this.setState({ valueOfItemProposerAddress: '',
+                      valueOfItemName: '', 
+                      valueOfItemDescription: '',
+                      valueOfItemPrice: '',
+                      valueOfItemType: '' });
   }
 
   itemOwnerOf = async () => {
@@ -108,10 +150,16 @@ export default class MarketplaceRegistry extends Component {
       console.log('=== response of buyItem() function ===', response);
   }
 
-  stakeholderRegistry = async () => {
-      const { accounts, marketplace_registry, web3 } = this.state;
 
-      const _itemId = 2;
+  handleInputStakeholderRegistry({ target: { value } }) {
+      this.setState({ valueOfStakeholderRegistry: Number(value) });
+  }
+
+  stakeholderRegistry = async () => {
+      const { accounts, marketplace_registry, web3, valueOfStakeholderRegistry } = this.state;
+
+      const _itemId = valueOfStakeholderRegistry;
+      //const _itemId = 2;
       const _stakeholderAddr = accounts[0];
       const _stakeholderType = 0;
 
@@ -128,6 +176,8 @@ export default class MarketplaceRegistry extends Component {
                                                                             //_itemType
                                                                             ).send({ from: accounts[0] });
       console.log('=== response of stakeholderRegistry() function ===', response);
+
+      this.setState({ valueOfStakeholderRegistry: '' });
   }
 
   getStakeholdersGroup = async () => {
@@ -170,22 +220,42 @@ export default class MarketplaceRegistry extends Component {
       // this.setState({ listItems: listItems });
 
       const listItemObjects = itemObjects.map((itemObject) =>
-        <Card width={"auto"} 
-                  maxWidth={"420px"} 
-                  mx={"auto"} 
-                  my={5} 
-                  p={20} 
-                  borderColor={"#E8E8E8"}
+          <Card width={"auto"} 
+                    maxWidth={"640px"} 
+                    mx={"auto"} 
+                    my={5} 
+                    p={20} 
+                    borderColor={"#E8E8E8"}
           >
-          <p>itemId: {itemObject.itemId}</p>
-          <p>itemName: {itemObject.itemName}</p>
-          <p>itemOwnerAddr: {itemObject.itemOwnerAddr}</p>
-          <p>itemPrice: {itemObject.itemPrice}</p>
-          <p>itemProposerAddr: {itemObject.itemProposerAddr}</p>
-          <p>itemType: {itemObject.itemType}</p> <br />
+              <Table>
+                  <tr>
+                      <td>itemId: </td>
+                      <td>{ itemObject.itemId }</td>
+                  </tr>
+                  <tr>
+                      <td>itemName: </td>                           
+                      <td>{ itemObject.itemName }</td>
+                  </tr>
+                  <tr>                    
+                      <td>itemOwnerAddr: </td>
+                      <td>{ itemObject.itemOwnerAddr }</td>
+                  </tr>
+                  <tr>                    
+                      <td>itemPrice: </td>
+                      <td>{ itemObject.itemPrice }</td>
+                  </tr>
+                  <tr>                    
+                      <td>itemProposerAddr: </td>
+                      <td>{ itemObject.itemProposerAddr }</td>
+                  </tr>
+                  <tr>                    
+                      <td>itemType: </td>
+                      <td>{ itemObject.itemType }</td>
+                  </tr>
+              </Table>
 
-          <Button size={'small'} mt={3} mb={2} onClick={() => this.buyItem(itemObject.itemId)}> Buy Item </Button> <br />
-        </Card>
+              <Button size={'small'} mt={3} mb={2} onClick={() => this.buyItem(itemObject.itemId)}> Buy Item </Button> <br />
+          </Card>
       );
       this.setState({ listItemObjects: listItemObjects });
   }
@@ -321,83 +391,89 @@ export default class MarketplaceRegistry extends Component {
 
 
   render() {
-    const { listItems, listItemObjects } = this.state;
+      const { listItems, listItemObjects, accounts } = this.state;
 
-    return (
+      return (
+          <div className={styles.widgets}>
+              <Grid container style={{ marginTop: 32 }}>
+                  <Grid item xs={12}>
+                      <h4>Item Marketplace Registry</h4>
 
-      <div className={styles.widgets}>
-        <Grid container style={{ marginTop: 32 }}>
+                      <Card width={"auto"} 
+                            maxWidth={"800px"} 
+                            mx={"auto"} 
+                            my={5} 
+                            p={20} 
+                            borderColor={"#E8E8E8"}
+                      >
+                          <Table>
+                              <tr>
+                                  <td><p>Item Proposer Address（Current Login Address）</p></td>
+                                  <td><Input type="text" placeholder="Please input item proposer address here" value={this.state.valueOfItemProposerAddress} onChange={this.handleInputItemProposerAddress} /></td>
+                              </tr>
+                              <tr>
+                                  <td><p>Item Name</p></td>
+                                  <td><Input type="text" placeholder="Please input item name here" value={this.state.valueOfItemName} onChange={this.handleInputItemName} /></td>
+                              </tr>
+                              <tr>
+                                  <td><p>Item Description</p></td>
+                                  <td><Input type="text" placeholder="Please input item description here" value={this.state.valueOfItemDescription} onChange={this.handleInputItemDescription} /></td>
+                              </tr>
+                              <tr>
+                                  <td><p>Item Price</p></td>
+                                  <td><Input type="text" placeholder="Please input item price here" value={this.state.valueOfItemPrice} onChange={this.handleInputItemPrice} /></td>
+                              </tr>
+                              <tr>
+                                  <td><p>Item Type</p></td>
+                                  <td><Input type="text" placeholder="Please input item type here" value={this.state.valueOfItemType} onChange={this.handleInputItemType} /></td>
+                              </tr>
+                          </Table>
 
-          <Grid item xs={12}>
+                          <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> ① Publish NFT Item（Mint To） </Button>
+                      </Card>
 
-            <h4>Game Is Built By Every Stake-Holders</h4>
+                      <Card width={"auto"} 
+                            maxWidth={"800px"} 
+                            mx={"auto"} 
+                            my={5} 
+                            p={20} 
+                            borderColor={"#E8E8E8"}
+                      >
+                          <Table>
+                              <tr>
+                                  <td><p>Stakeholder Registry</p></td>
+                                  <td><Input type="text" placeholder="Please input itemId here" value={this.state.valueOfStakeholderRegistry} onChange={this.handleInputStakeholderRegistry} /></td>
+                                  <td><Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button></td>
+                              </tr>
+                          </Table>
+                      </Card>
+                  </Grid>
 
-            <Card width={"auto"} 
-                  maxWidth={"420px"} 
-                  mx={"auto"} 
-                  my={5} 
-                  p={20} 
-                  borderColor={"#E8E8E8"}
-            >
-              <h4>Marketplace Registry</h4>
+                  <Grid item xs={4}>
+                  </Grid>
 
-              <Image
-                alt="random unsplash image"
-                borderRadius={8}
-                height="100%"
-                maxWidth='100%'
-                src=""
-              />
-
-              <Button size={'small'} mt={3} mb={2} onClick={this.getTestData}> Get TestData </Button> <br />
-
-              <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> ① Publish NFT Item（Mint To） </Button> <br />
-
-              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.itemOwnerOf}> Item Owner Of </Button> <br />
-
-              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.itemTransferFrom}> Item TransferFrom </Button> <br />
-
-              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.ownershipTransferOrderedItem}> Ownership Transfer Ordered Item </Button> <br />
-
-              <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button> <br />
-
-              <Button size={'small'} mt={3} mb={2} onClick={this.buyItem}> ③ Buy Item </Button> <br />
+                  <Grid item xs={4}>
+                  </Grid>
+              </Grid>
 
               <hr />
 
-              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.getItem}> Get Item </Button> <br />
+              <Grid container style={{ marginTop: 32 }}>
+                  <Grid item xs={12}>
+                      <h4>List of Items</h4>
 
-              <Button mainColor="DarkCyan" size={'small'} mt={3} mb={2} onClick={this.getAllOfItems}> Get All Of Items </Button> <br />
-            </Card>
-          </Grid>
+                      <h4> { listItemObjects }</h4>
+                  </Grid>
 
-          <Grid item xs={4}>
-          </Grid>
+                  <Grid item xs={4}>
+                  </Grid>
 
-          <Grid item xs={4}>
-          </Grid>
-        </Grid>
+                  <Grid item xs={4}>
+                  </Grid>
+              </Grid>
 
-        <hr />
-
-        <Grid container style={{ marginTop: 32 }}>
-
-          <Grid item xs={12}>
-
-            <h4>List of Items</h4>
-
-            <h4> { listItemObjects }</h4>
-          </Grid>
-
-          <Grid item xs={4}>
-          </Grid>
-
-          <Grid item xs={4}>
-          </Grid>
-        </Grid>
-
-      </div>
-    );
+          </div>
+      );
   }
 
 }

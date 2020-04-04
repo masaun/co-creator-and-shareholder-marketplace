@@ -78,13 +78,27 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     function buyItem(uint256 _itemId, address _buyer) public returns (bool) {
         //@dev - Identify ordered item
         Item memory item = items[_itemId];
+        uint256 _itemPrice = item.itemPrice.div(10**18);
+
+        //@dev - buyer buy item from seller with DAI
+        purchaseItem(_itemId, _buyer, _itemPrice);
 
         //@dev - Ordered item is bought by buyer (It is equal to be done Ownership transfer)
         ownershipTransferOrderedItem(_itemId, _buyer);
 
         //@dev - Distribute rewards to stakeholders
-        distributeReward(_itemId, item.itemPrice);
+        distributeReward(_itemId, _itemPrice);
     }
+
+
+    function purchaseItem(uint256 _itemId, address _newOwner, uint256 _itemPrice) public returns (bool) {
+        //@return - current owner address
+        address _oldOwner = itemOwnerOf(_itemId);
+
+        //@dev - new owner buy item from old owner with DAI
+        erc20.transferFrom(_newOwner, _oldOwner, _itemPrice);
+    }
+    
 
     function itemOwnerOf(uint256 _itemId) public view returns (address)  {
         //return nftItem._itemOwnerOf(_itemId);
@@ -104,6 +118,9 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     }
 
     function distributeReward(uint256 _itemId, uint256 _itemPrice) public returns (bool) {
+        //@dev - Display the cause of error in etherscan
+        require (getStakeholdersGroup(_itemId).length > 0, "This itemId has not registerd stakeholders yet. So that user need stakeholderRegistry in advance");
+
         //@dev - Sorts stakeholders who receive reward 
         address[] memory _stakeholdersGroups = getStakeholdersGroup(_itemId);
 
