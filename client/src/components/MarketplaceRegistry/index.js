@@ -394,8 +394,6 @@ export default class MarketplaceRegistry extends Component {
           <div className={styles.widgets}>
               <Grid container style={{ marginTop: 32 }}>
                   <Grid item xs={12}>
-                      <h4>Item Marketplace Registry</h4>
-
                       <Card width={"auto"} 
                             maxWidth={"800px"} 
                             mx={"auto"} 
@@ -403,6 +401,7 @@ export default class MarketplaceRegistry extends Component {
                             p={20} 
                             borderColor={"#E8E8E8"}
                       >
+                          <h4>Item Registry</h4>
                           <Table>
                               <tr>
                                   <td><p>Item Proposer Address（Current Login Address）</p></td>
