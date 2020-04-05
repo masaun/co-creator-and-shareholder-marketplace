@@ -8,7 +8,7 @@ contract OpEvents {
     event StakeholderRegistry(
         address _stakeholderAddr, 
         OpObjects.StakeholderType _stakeholderType,
-        address[] _ownerAddressList
+        address[] _itemOwnerAddrList
     );
 
     event ItemRegistry(

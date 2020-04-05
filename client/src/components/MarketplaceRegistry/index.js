@@ -194,10 +194,11 @@ export default class MarketplaceRegistry extends Component {
   }
 
   getAllOfItems = async () => {
-      const { accounts, nft_item, web3 } = this.state;
+      const { accounts, marketplace_registry, nft_item, web3 } = this.state;
 
       const currentItemIdCount = await nft_item.methods.getCurrentItemIdCount().call();
       console.log('=== currentItemIdCount ===', currentItemIdCount);
+
 
       //@dev - itemId is started from 1. That's why variable of "i" is also started from 1.
       const itemObjects = []
@@ -205,6 +206,12 @@ export default class MarketplaceRegistry extends Component {
           let itemObject = await nft_item.methods.getItem(i).call();
           itemObjects.push(itemObject);
           console.log('=== itemObject ===', itemObject);
+
+          let stakeholdersGroup = await marketplace_registry.methods.getStakeholdersGroup(i).call();
+          console.log('=== stakeholdersGroup ===', stakeholdersGroup); 
+          
+          let itemOwnerAddrList = itemObject.itemDetail.itemOwnerAddrList;
+          console.log('=== itemOwnerAddrList ===', itemOwnerAddrList); 
       }
 
       //@dev - For displaying panels each itemId
@@ -239,7 +246,7 @@ export default class MarketplaceRegistry extends Component {
                   </tr>
                   <tr>                    
                       <td>itemOwnerAddr: </td>
-                      <td>{ itemObject.itemDetail.ownerAddressList }</td>
+                      <td>{ itemObject.itemDetail.itemOwnerAddrList }</td>
                   </tr>
                   <tr>                    
                       <td>itemProposerAddr: </td>
