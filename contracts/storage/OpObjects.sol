@@ -17,7 +17,7 @@ contract OpObjects {
     struct Item {
         uint256 itemId;
         address itemProposerAddr;
-        address itemOwnerAddr;
+        address[] itemOwnerAddr;
         string itemName;
         ItemDetail itemDetail;
         uint256 itemPrice;

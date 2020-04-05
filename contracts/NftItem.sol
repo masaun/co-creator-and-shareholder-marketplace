@@ -83,7 +83,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         ItemType _itemType
     ) internal returns (uint256, 
                         address, 
-                        address, 
+                        address[] memory, 
                         string memory, 
                         //string memory, 
                         uint256, 
@@ -95,17 +95,12 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         Item storage item = items[_itemId];
         item.itemId = _itemId;
         item.itemProposerAddr = _itemProposerAddr;  //@notice - _itemProposerAddr is a player who propose idea
-        item.itemOwnerAddr = _itemOwnerAddr;        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+
+        //item.itemOwnerAddr = _itemOwnerAddr;        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        item.itemOwnerAddr.push(_itemOwnerAddr);        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         item.itemName = _itemName;
         item.itemPrice = _itemPrice;
         item.itemType = _itemType;
-
-        emit ItemRegistry(_itemId, 
-                          _itemProposerAddr,
-                          _itemOwnerAddr, 
-                          _itemName, 
-                          _itemPrice, 
-                          _itemType);
 
         emit ItemRegistry(item.itemId, 
                           item.itemProposerAddr,
@@ -143,13 +138,14 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
     function ownerAddressRegistry(
         uint256 _itemId,
         address _itemOwnerAddr
-    ) internal returns (uint256, address, address[] memory) {
+    ) internal returns (uint256, address[] memory, address[] memory) {
         Item storage item = items[_itemId];
+        item.itemOwnerAddr.push(_itemOwnerAddr);
         item.ownerAddress.ownerAddressList.push(_itemOwnerAddr);
 
-        emit OwnerAddressRegistry(_itemId, _itemOwnerAddr, item.ownerAddress.ownerAddressList);
+        emit OwnerAddressRegistry(_itemId, item.itemOwnerAddr, item.ownerAddress.ownerAddressList);
 
-        return (_itemId, _itemOwnerAddr, item.ownerAddress.ownerAddressList);   
+        return (_itemId, item.itemOwnerAddr, item.ownerAddress.ownerAddressList);   
     }
     
     
