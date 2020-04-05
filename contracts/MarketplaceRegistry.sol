@@ -61,11 +61,11 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
 
         //emit StakeholderRegistry(_stakeholderAddr, _stakeholderType);
         //emit StakeholderRegistry(_stakeholderAddr, _stakeholderType, item.itemDetail.ownerAddressList);
-        emit StakeholderRegistry(_stakeholderAddr, _stakeholderType, item.ownerAddress.ownerAddressList);
+        emit StakeholderRegistry(_stakeholderAddr, _stakeholderType, item.itemOwnerAddr);
 
         //return (_stakeholderAddr, _stakeholderType);
         //return (_stakeholderAddr, _stakeholderType, item.itemDetail.ownerAddressList);
-        return (_stakeholderAddr, _stakeholderType, item.ownerAddress.ownerAddressList);
+        return (_stakeholderAddr, _stakeholderType, item.itemOwnerAddr);
     }
 
 

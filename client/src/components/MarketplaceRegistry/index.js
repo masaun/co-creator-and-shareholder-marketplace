@@ -239,7 +239,7 @@ export default class MarketplaceRegistry extends Component {
                   </tr>
                   <tr>                    
                       <td>itemOwnerAddr: </td>
-                      <td>{ itemObject.ownerAddress.ownerAddressList }</td>
+                      <td>{ itemObject.itemOwnerAddr }</td>
                   </tr>
                   <tr>                    
                       <td>itemProposerAddr: </td>
