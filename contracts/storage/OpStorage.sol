@@ -19,15 +19,6 @@ contract OpStorage is OpObjects, OpEvents {
     ///////////////////////////////////
     Stakeholder[] public stakeholders;
 
-    //mapping (address => Stakeholder) stakeholders;
-    
-
-    //Item[] public items;
     mapping (uint256 => Item) items;
-
-    //ItemDetail[] public itemDetails;
-    //mapping (uint256 => ItemDetail) itemDetails;
-    
-
 }
 

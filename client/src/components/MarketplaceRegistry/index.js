@@ -200,36 +200,14 @@ export default class MarketplaceRegistry extends Component {
       console.log('=== currentItemIdCount ===', currentItemIdCount);
 
       //@dev - itemId is started from 1. That's why variable of "i" is also started from 1.
-      //const itemIds = []
       const itemObjects = []
-      const itemDetailObjects = []
       for (let i = 1; i < currentItemIdCount; i++) {
           let itemObject = await nft_item.methods.getItem(i).call();
           itemObjects.push(itemObject);
           console.log('=== itemObject ===', itemObject);
-
-          // nft_item.methods.getItemDetail(i).call().then((result) => { console.log('=== getItemDetail result ===', result); });
-          let itemDetailObject = await nft_item.methods.getItemDetail(i).call();
-          itemDetailObjects.push(itemDetailObject);
-          console.log('=== itemDetailObject ===', itemDetailObject);
       }
 
       //@dev - For displaying panels each itemId
-      // const listItems = itemIds.map((itemId) =>
-      //   <li>{itemId}</li>
-      // );
-      // this.setState({ listItems: listItems });
-
-      const listItemDetailObjects = itemDetailObjects.map((itemDetailObject) => 
-          <Table>
-              <tr>
-                  <td>itemDescription: </td>   
-                  <td>{ itemDetailObject.itemDescription }</td> 
-              </tr>
-          </Table>
-      );
-      this.setState({ listItemDetailObjects: listItemDetailObjects });
-
       const listItemObjects = itemObjects.map((itemObject) =>
           <Card width={"auto"} 
                     maxWidth={"640px"} 
