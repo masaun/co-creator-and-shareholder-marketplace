@@ -21,6 +21,7 @@ contract OpEvents {
     
     event ItemDetailRegistry(
         uint256 _itemId,
+        address[] _itemOwnerAddrList,
         string _itemDescription
     );
 

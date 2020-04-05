@@ -62,7 +62,8 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                      _itemPrice, 
                      _itemType);
         
-        itemDetailRegistry(newItemId, _itemDescription);
+        //itemDetailRegistry(newItemId, _itemDescription);
+        itemDetailRegistry(newItemId, _itemOwnerAddr, _itemDescription);
 
         _incrementItemId();
     }
@@ -121,14 +122,20 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
 
     function itemDetailRegistry(
         uint256 _itemId,
+        address _itemOwnerAddr,
         string memory _itemDescription
-    ) internal returns (uint256, string memory) {
+    ) internal returns (uint256, address[], string memory) {
+        //address _itemOwnerAddr = msg.sender;
+
         Item storage item = items[_itemId];
         item.itemDetail.itemDescription = _itemDescription;
+        item.itemDetail.ownerAddressList.push(_itemOwnerAddr);
 
-        emit ItemDetailRegistry(_itemId, _itemDescription);
+        //emit ItemDetailRegistry(_itemId, _itemDescription);
+        emit ItemDetailRegistry(_itemId, item.itemDetail.ownerAddressList, _itemDescription);
 
-        return (_itemId, item.itemDetail.itemDescription);
+        //return (_itemId, item.itemDetail.itemDescription);
+        return (_itemId, item.itemDetail.ownerAddressList, item.itemDetail.itemDescription);
     }
     
 
