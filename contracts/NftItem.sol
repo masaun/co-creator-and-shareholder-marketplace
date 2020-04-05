@@ -65,7 +65,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         //itemDetailRegistry(newItemId, _itemDescription);
         itemDetailRegistry(newItemId, _itemOwnerAddr, _itemDescription);
 
-        ownerAddressRegistry(newItemId, _itemOwnerAddr);
+        //ownerAddressRegistry(newItemId, _itemOwnerAddr);
 
         _incrementItemId();
     }
@@ -83,21 +83,16 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         ItemType _itemType
     ) internal returns (uint256, 
                         address, 
-                        address[] memory, 
+                        address, 
                         string memory, 
-                        //string memory, 
                         uint256, 
                         ItemType) 
     {
         //@dev - Value below is empty value of itemDescription property in ItemDetail struct
-        ItemDetail memory _itemDetails;
-
         Item storage item = items[_itemId];
         item.itemId = _itemId;
         item.itemProposerAddr = _itemProposerAddr;  //@notice - _itemProposerAddr is a player who propose idea
-
-        //item.itemOwnerAddr = _itemOwnerAddr;        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
-        item.itemOwnerAddr.push(_itemOwnerAddr);        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        item.itemOwnerAddr = _itemOwnerAddr;        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
         item.itemName = _itemName;
         item.itemPrice = _itemPrice;
         item.itemType = _itemType;
@@ -121,32 +116,33 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         uint256 _itemId,
         address _itemOwnerAddr,
         string memory _itemDescription
-    ) internal returns (uint256, string memory) {
+    ) internal returns (uint256, string memory, address[] memory) {
         //address _itemOwnerAddr = msg.sender;
 
         Item storage item = items[_itemId];
         item.itemDetail.itemDescription = _itemDescription;
-        //item.itemDetail.ownerAddressList.push(_itemOwnerAddr);
+        item.itemDetail.ownerAddressList.push(_itemOwnerAddr);
 
-        emit ItemDetailRegistry(_itemId, item.itemDetail.itemDescription);
-        //emit ItemDetailRegistry(_itemId, item.itemDetail.ownerAddressList, _itemDescription);
+        emit ItemDetailRegistry(_itemId, 
+                                item.itemDetail.itemDescription, 
+                                item.itemDetail.ownerAddressList);
 
-        return (_itemId, item.itemDetail.itemDescription);
-        //return (_itemId, item.itemDetail.ownerAddressList, item.itemDetail.itemDescription);
+        return (_itemId, 
+                item.itemDetail.itemDescription, 
+                item.itemDetail.ownerAddressList);
     }
 
-    function ownerAddressRegistry(
-        uint256 _itemId,
-        address _itemOwnerAddr
-    ) internal returns (uint256, address[] memory, address[] memory) {
-        Item storage item = items[_itemId];
-        item.itemOwnerAddr.push(_itemOwnerAddr);
-        item.ownerAddress.ownerAddressList.push(_itemOwnerAddr);
+    // function ownerAddressRegistry(
+    //     uint256 _itemId,
+    //     address _itemOwnerAddr
+    // ) internal returns (uint256, address, address[] memory) {
+    //     Item storage item = items[_itemId];
+    //     item.itemDetail.ownerAddressList.push(_itemOwnerAddr);
 
-        emit OwnerAddressRegistry(_itemId, item.itemOwnerAddr, item.ownerAddress.ownerAddressList);
+    //     emit OwnerAddressRegistry(_itemId, _itemOwnerAddr, item.itemDetail.ownerAddressList);
 
-        return (_itemId, item.itemOwnerAddr, item.ownerAddress.ownerAddressList);   
-    }
+    //     return (_itemId, _itemOwnerAddr, item.itemDetail.ownerAddressList);   
+    // }
     
     
 
