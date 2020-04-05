@@ -124,7 +124,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         uint256 _itemId,
         address _itemOwnerAddr,
         string memory _itemDescription
-    ) internal returns (uint256, address[], string memory) {
+    ) internal returns (uint256, address[] memory, string memory) {
         //address _itemOwnerAddr = msg.sender;
 
         Item storage item = items[_itemId];
