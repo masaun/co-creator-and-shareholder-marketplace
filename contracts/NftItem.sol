@@ -89,18 +89,6 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         //@dev - Value below is empty value of itemDescription property in ItemDetail struct
         ItemDetail memory _itemDetails;
 
-        //@dev - Save value in Item struct
-        // Item memory item = Item({
-        //     itemId: _itemId,
-        //     itemProposerAddr: _itemProposerAddr,  //@notice - _itemProposerAddr is a player who propose idea
-        //     itemOwnerAddr: _itemOwnerAddr,        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
-        //     itemName: _itemName,
-        //     itemDetails: _itemDetails,
-        //     itemPrice: _itemPrice,
-        //     itemType: _itemType
-        // });
-        // items.push(item);
-
         Item storage item = items[_itemId];
         item.itemId = _itemId;
         item.itemProposerAddr = _itemProposerAddr;  //@notice - _itemProposerAddr is a player who propose idea
@@ -123,13 +111,6 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                           item.itemPrice, 
                           item.itemType);
 
-        // return (_itemId, 
-        //         _itemProposerAddr,
-        //         _itemOwnerAddr,
-        //         _itemName,
-        //         _itemPrice,
-        //         _itemType);
-
         return (item.itemId, 
                 item.itemProposerAddr,
                 item.itemOwnerAddr,
@@ -142,18 +123,12 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         uint256 _itemId,
         string memory _itemDescription
     ) internal returns (uint256, string memory) {
-
-        // ItemDetail memory itemDetail = ItemDetail({
-        //     itemDescription: _itemDescription
-        // });
-        // itemDetails.push(itemDetail);
-
-        ItemDetail storage itemDetail = itemDetails[_itemId];
-        itemDetail.itemDescription = _itemDescription;
+        Item storage item = items[_itemId];
+        item.itemDetail.itemDescription = _itemDescription;
 
         emit ItemDetailRegistry(_itemId, _itemDescription);
 
-        return (_itemId, itemDetail.itemDescription);
+        return (_itemId, item.itemDetail.itemDescription);
     }
     
 
@@ -235,12 +210,5 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         Item memory item = items[_itemId];
         return item;
     }
-
-
-    function getItemDetail(uint256 _itemId) public view returns (ItemDetail memory) {
-        ItemDetail memory itemDetail = itemDetails[_itemId];
-        return itemDetail;
-    }
-    
 
 }

@@ -200,31 +200,14 @@ export default class MarketplaceRegistry extends Component {
       console.log('=== currentItemIdCount ===', currentItemIdCount);
 
       //@dev - itemId is started from 1. That's why variable of "i" is also started from 1.
-      //const itemIds = []
       const itemObjects = []
-      const itemDetailObjects = []
       for (let i = 1; i < currentItemIdCount; i++) {
           let itemObject = await nft_item.methods.getItem(i).call();
           itemObjects.push(itemObject);
           console.log('=== itemObject ===', itemObject);
-
-          // nft_item.methods.getItemDetail(i).call().then((result) => { console.log('=== getItemDetail result ===', result); });
-          let itemDetailObject = await nft_item.methods.getItemDetail(i).call();
-          itemDetailObjects.push(itemDetailObject);
-          console.log('=== itemDetailObject ===', itemDetailObject);
       }
 
       //@dev - For displaying panels each itemId
-      // const listItems = itemIds.map((itemId) =>
-      //   <li>{itemId}</li>
-      // );
-      // this.setState({ listItems: listItems });
-
-      const listItemDetailObjects = itemDetailObjects.map((itemDetailObject) => 
-          <td>{ itemDetailObject.itemDescription }</td> 
-      );
-      this.setState({ listItemDetailObjects: listItemDetailObjects });
-
       const listItemObjects = itemObjects.map((itemObject) =>
           <Card width={"auto"} 
                     maxWidth={"640px"} 
@@ -244,7 +227,7 @@ export default class MarketplaceRegistry extends Component {
                   </tr>
                   <tr>
                       <td>itemDescription: </td>                           
-                      { listItemDetailObjects }
+                      <td>{ itemObject.itemDetail.itemDescription }</td>
                   </tr>
                   <tr>                    
                       <td>itemPrice: </td>
@@ -401,7 +384,7 @@ export default class MarketplaceRegistry extends Component {
 
 
   render() {
-      const { listItems, listItemObjects, accounts } = this.state;
+      const { listItemObjects, listItemDetailObjects, accounts } = this.state;
 
       return (
           <div className={styles.widgets}>
@@ -477,7 +460,7 @@ export default class MarketplaceRegistry extends Component {
                   <Grid item xs={12}>
                       <h4>List of Items</h4>
 
-                      <h4> { listItemObjects }</h4>
+                      <h4> { listItemObjects } </h4>
                   </Grid>
 
                   <Grid item xs={4}>
