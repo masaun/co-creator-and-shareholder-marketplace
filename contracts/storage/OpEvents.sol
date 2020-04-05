@@ -7,7 +7,8 @@ contract OpEvents {
 
     event StakeholderRegistry(
         address _stakeholderAddr, 
-        OpObjects.StakeholderType _stakeholderType
+        OpObjects.StakeholderType _stakeholderType,
+        address[] _ownerAddressList
     );
 
     event ItemRegistry(
@@ -21,8 +22,15 @@ contract OpEvents {
     
     event ItemDetailRegistry(
         uint256 _itemId,
-        string _itemDescription
+        string _itemDescription,
+        address[] _itemOwnerAddrList
     );
+
+    // event OwnerAddressRegistry(
+    //     uint256 _itemId,
+    //     address[] _itemOwnerAddr,
+    //     address[] _itemOwnerAddrList
+    // );    
 
     event Example(
         uint256 indexed Id, 

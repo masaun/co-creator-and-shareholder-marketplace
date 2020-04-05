@@ -62,7 +62,10 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                      _itemPrice, 
                      _itemType);
         
-        itemDetailRegistry(newItemId, _itemDescription);
+        //itemDetailRegistry(newItemId, _itemDescription);
+        itemDetailRegistry(newItemId, _itemOwnerAddr, _itemDescription);
+
+        //ownerAddressRegistry(newItemId, _itemOwnerAddr);
 
         _incrementItemId();
     }
@@ -82,13 +85,10 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                         address, 
                         address, 
                         string memory, 
-                        //string memory, 
                         uint256, 
                         ItemType) 
     {
         //@dev - Value below is empty value of itemDescription property in ItemDetail struct
-        ItemDetail memory _itemDetails;
-
         Item storage item = items[_itemId];
         item.itemId = _itemId;
         item.itemProposerAddr = _itemProposerAddr;  //@notice - _itemProposerAddr is a player who propose idea
@@ -96,13 +96,6 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         item.itemName = _itemName;
         item.itemPrice = _itemPrice;
         item.itemType = _itemType;
-
-        emit ItemRegistry(_itemId, 
-                          _itemProposerAddr,
-                          _itemOwnerAddr, 
-                          _itemName, 
-                          _itemPrice, 
-                          _itemType);
 
         emit ItemRegistry(item.itemId, 
                           item.itemProposerAddr,
@@ -121,15 +114,36 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
 
     function itemDetailRegistry(
         uint256 _itemId,
+        address _itemOwnerAddr,
         string memory _itemDescription
-    ) internal returns (uint256, string memory) {
+    ) internal returns (uint256, string memory, address[] memory) {
+        //address _itemOwnerAddr = msg.sender;
+
         Item storage item = items[_itemId];
         item.itemDetail.itemDescription = _itemDescription;
+        item.itemDetail.ownerAddressList.push(_itemOwnerAddr);
 
-        emit ItemDetailRegistry(_itemId, _itemDescription);
+        emit ItemDetailRegistry(_itemId, 
+                                item.itemDetail.itemDescription, 
+                                item.itemDetail.ownerAddressList);
 
-        return (_itemId, item.itemDetail.itemDescription);
+        return (_itemId, 
+                item.itemDetail.itemDescription, 
+                item.itemDetail.ownerAddressList);
     }
+
+    // function ownerAddressRegistry(
+    //     uint256 _itemId,
+    //     address _itemOwnerAddr
+    // ) internal returns (uint256, address, address[] memory) {
+    //     Item storage item = items[_itemId];
+    //     item.itemDetail.ownerAddressList.push(_itemOwnerAddr);
+
+    //     emit OwnerAddressRegistry(_itemId, _itemOwnerAddr, item.itemDetail.ownerAddressList);
+
+    //     return (_itemId, _itemOwnerAddr, item.itemDetail.ownerAddressList);   
+    // }
+    
     
 
 
