@@ -178,11 +178,14 @@ export default class MarketplaceRegistry extends Component {
   }
 
   getStakeholdersGroup = async () => {
-      const { accounts, marketplace_registry, web3 } = this.state;
-      const _itemId = 1;
+      const { accounts, marketplace_registry, nft_item, web3 } = this.state;
 
-      let response = await marketplace_registry.methods.getStakeholdersGroup(_itemId).call();
-      console.log('=== response of getStakeholdersGroup() function ===', response);      
+      const currentItemIdCount = await nft_item.methods.getCurrentItemIdCount().call();
+
+      for (let i = 1; i < currentItemIdCount; i++) {
+          let stakeholdersGroup = await marketplace_registry.methods.getStakeholdersGroup(i).call();
+          console.log('=== stakeholdersGroup ===', stakeholdersGroup); 
+      }
   }
 
   getItem = async () => {
