@@ -182,10 +182,37 @@ export default class MarketplaceRegistry extends Component {
 
       const currentItemIdCount = await nft_item.methods.getCurrentItemIdCount().call();
 
+      //@dev - itemId is started from 1. That's why variable of "i" is also started from 1.
+      const stakeholdersGroups = []
       for (let i = 1; i < currentItemIdCount; i++) {
           let stakeholdersGroup = await marketplace_registry.methods.getStakeholdersGroup(i).call();
-          console.log('=== stakeholdersGroup ===', stakeholdersGroup); 
+          console.log('=== stakeholdersGroup ===', stakeholdersGroup);
+
+          stakeholdersGroups.push(stakeholdersGroup);
       }
+
+      //@dev - For displaying panels each itemId
+      const listStakeholdersGroups = stakeholdersGroups.map((stakeholdersGroup, i) =>
+          <Card width={"auto"} 
+                    maxWidth={"640px"} 
+                    mx={"auto"} 
+                    my={5} 
+                    p={20} 
+                    borderColor={"#E8E8E8"}
+          >
+              <Table key={i}>
+                  <tr>
+                      <td>Item ID: </td>
+                      <td>{ i + 1 }</td>
+                  </tr>
+                  <tr>
+                      <td>Stakeholder's List: </td>
+                      <td>{ stakeholdersGroup }</td>
+                  </tr>
+              </Table>
+          </Card>
+      );
+      this.setState({ listStakeholdersGroups: listStakeholdersGroups });
   }
 
   getItem = async () => {
@@ -202,7 +229,6 @@ export default class MarketplaceRegistry extends Component {
       const currentItemIdCount = await nft_item.methods.getCurrentItemIdCount().call();
       console.log('=== currentItemIdCount ===', currentItemIdCount);
 
-
       //@dev - itemId is started from 1. That's why variable of "i" is also started from 1.
       const itemObjects = []
       for (let i = 1; i < currentItemIdCount; i++) {
@@ -210,9 +236,6 @@ export default class MarketplaceRegistry extends Component {
           itemObjects.push(itemObject);
           console.log('=== itemObject ===', itemObject);
 
-          let stakeholdersGroup = await marketplace_registry.methods.getStakeholdersGroup(i).call();
-          console.log('=== stakeholdersGroup ===', stakeholdersGroup); 
-          
           let itemOwnerAddrList = itemObject.itemDetail.itemOwnerAddrList;
           console.log('=== itemOwnerAddrList ===', itemOwnerAddrList); 
       }
@@ -377,6 +400,9 @@ export default class MarketplaceRegistry extends Component {
 
           //@dev - Call all of struct of Item every time
           this.getAllOfItems();
+
+          //@dev - Call stakeholdersGroups every time
+          this.getStakeholdersGroup();
         }
         else {
           this.setState({ web3, ganacheAccounts, accounts, balance, networkId, networkType, hotLoaderDisabled, isMetaMask });
@@ -394,7 +420,7 @@ export default class MarketplaceRegistry extends Component {
 
 
   render() {
-      const { listItemObjects, listItemDetailObjects, accounts } = this.state;
+      const { listItemObjects, listItemDetailObjects, listStakeholdersGroups, accounts } = this.state;
 
       return (
           <div className={styles.widgets}>
@@ -455,6 +481,8 @@ export default class MarketplaceRegistry extends Component {
 
                           <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button>
                       </Card>
+
+                      <h4> { listStakeholdersGroups } </h4>
                   </Grid>
 
                   <Grid item xs={4}>
