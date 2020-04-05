@@ -44,10 +44,11 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         uint256 _itemId,
         address _stakeholderAddr, 
         StakeholderType _stakeholderType
-    ) public returns (address, StakeholderType) {
+    ) public returns (address, StakeholderType, address[] memory) {
         //@dev - Save ownerAddressList in ItemDetail struct
         Item storage item = items[_itemId];
-        item.itemDetail.ownerAddressList.push(_stakeholderAddr);
+        //item.itemDetail.ownerAddressList.push(_stakeholderAddr);
+        item.ownerAddress.ownerAddressList.push(_stakeholderAddr);
 
         //@dev - Save ownerAddressList in Stakeholder struct
         Stakeholder memory stakeholder = Stakeholder({
@@ -57,9 +58,13 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         });
         stakeholders.push(stakeholder);
 
-        emit StakeholderRegistry(_stakeholderAddr, _stakeholderType);
+        //emit StakeholderRegistry(_stakeholderAddr, _stakeholderType);
+        //emit StakeholderRegistry(_stakeholderAddr, _stakeholderType, item.itemDetail.ownerAddressList);
+        emit StakeholderRegistry(_stakeholderAddr, _stakeholderType, item.ownerAddress.ownerAddressList);
 
-        return (_stakeholderAddr, _stakeholderType);
+        //return (_stakeholderAddr, _stakeholderType);
+        //return (_stakeholderAddr, _stakeholderType, item.itemDetail.ownerAddressList);
+        return (_stakeholderAddr, _stakeholderType, item.ownerAddress.ownerAddressList);
     }
 
 

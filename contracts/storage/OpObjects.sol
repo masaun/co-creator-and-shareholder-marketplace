@@ -22,17 +22,18 @@ contract OpObjects {
         ItemDetail itemDetail;
         uint256 itemPrice;
         ItemType itemType;
-        //OwnerAddress ownerAddress;
+        
+        OwnerAddress ownerAddress;
     }
 
     struct ItemDetail {
         string itemDescription;
-        address[] ownerAddressList;
+        //address[] ownerAddressList;
     }
 
-    // struct OwnerAddress {
-    //     address[] ownerAddressList;        
-    // }
+    struct OwnerAddress {
+        address[] ownerAddressList;        
+    }
     
 
 

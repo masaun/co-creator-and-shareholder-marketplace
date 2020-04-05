@@ -65,6 +65,8 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         //itemDetailRegistry(newItemId, _itemDescription);
         itemDetailRegistry(newItemId, _itemOwnerAddr, _itemDescription);
 
+        ownerAddressRegistry(newItemId, _itemOwnerAddr);
+
         _incrementItemId();
     }
 
@@ -124,19 +126,32 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         uint256 _itemId,
         address _itemOwnerAddr,
         string memory _itemDescription
-    ) internal returns (uint256, address[] memory, string memory) {
+    ) internal returns (uint256, string memory) {
         //address _itemOwnerAddr = msg.sender;
 
         Item storage item = items[_itemId];
         item.itemDetail.itemDescription = _itemDescription;
-        item.itemDetail.ownerAddressList.push(_itemOwnerAddr);
+        //item.itemDetail.ownerAddressList.push(_itemOwnerAddr);
 
-        //emit ItemDetailRegistry(_itemId, _itemDescription);
-        emit ItemDetailRegistry(_itemId, item.itemDetail.ownerAddressList, _itemDescription);
+        emit ItemDetailRegistry(_itemId, item.itemDetail.itemDescription);
+        //emit ItemDetailRegistry(_itemId, item.itemDetail.ownerAddressList, _itemDescription);
 
-        //return (_itemId, item.itemDetail.itemDescription);
-        return (_itemId, item.itemDetail.ownerAddressList, item.itemDetail.itemDescription);
+        return (_itemId, item.itemDetail.itemDescription);
+        //return (_itemId, item.itemDetail.ownerAddressList, item.itemDetail.itemDescription);
     }
+
+    function ownerAddressRegistry(
+        uint256 _itemId,
+        address _itemOwnerAddr
+    ) internal returns (uint256, address, address[] memory) {
+        Item storage item = items[_itemId];
+        item.ownerAddress.ownerAddressList.push(_itemOwnerAddr);
+
+        emit OwnerAddressRegistry(_itemId, _itemOwnerAddr, item.ownerAddress.ownerAddressList);
+
+        return (_itemId, _itemOwnerAddr, item.ownerAddress.ownerAddressList);   
+    }
+    
     
 
 
