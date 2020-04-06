@@ -121,15 +121,15 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
 
         Item storage item = items[_itemId];
         item.itemDetail.itemDescription = _itemDescription;
-        item.itemDetail.ownerAddressList.push(_itemOwnerAddr);
+        item.itemDetail.itemOwnerAddrList.push(_itemOwnerAddr);
 
         emit ItemDetailRegistry(_itemId, 
                                 item.itemDetail.itemDescription, 
-                                item.itemDetail.ownerAddressList);
+                                item.itemDetail.itemOwnerAddrList);
 
         return (_itemId, 
                 item.itemDetail.itemDescription, 
-                item.itemDetail.ownerAddressList);
+                item.itemDetail.itemOwnerAddrList);
     }
 
     // function ownerAddressRegistry(

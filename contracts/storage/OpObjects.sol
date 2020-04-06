@@ -27,7 +27,7 @@ contract OpObjects {
 
     struct ItemDetail {
         string itemDescription;
-        address[] ownerAddressList;
+        address[] itemOwnerAddrList;
     }
 
     // struct OwnerAddress {
