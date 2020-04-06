@@ -102,5 +102,5 @@ http://127.0.0.1:3000
 <br>
 
 - KyberSwap on Ropsten  
-  - If you want to get DAI( `"0xaD6D458402F60fD3Bd25163575031ACDce07538D"` ) on ropsten, you can get it here.  
+  - If you want to get DAI( `"0xaD6D458402F60fD3Bd25163575031ACDce07538D"` ) on ropsten, you can get it from here.  
     https://ropsten.kyber.network/swap/eth-dai

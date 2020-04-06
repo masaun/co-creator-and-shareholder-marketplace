@@ -236,9 +236,8 @@ export default class MarketplaceRegistry extends Component {
           let itemObject = await nft_item.methods.getItem(i).call();
           itemObjects.push(itemObject);
           console.log('=== itemObject ===', itemObject);
-
-          let itemOwnerAddrList = itemObject.itemDetail.itemOwnerAddrList;
-          console.log('=== itemOwnerAddrList ===', itemOwnerAddrList); 
+          // let itemOwnerAddrList = itemObject.itemDetail.itemOwnerAddrList;
+          // console.log('=== itemOwnerAddrList ===', itemOwnerAddrList); 
       }
 
       //@dev - For displaying panels each itemId

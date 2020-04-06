@@ -47,7 +47,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     ) public returns (address, StakeholderType, address[] memory) {
         //@dev - Save ownerAddressList in ItemDetail struct
         Item storage item = items[_itemId];
-        item.itemDetail.ownerAddressList.push(_stakeholderAddr);
+        item.itemDetail.itemOwnerAddrList.push(_stakeholderAddr);
         //item.ownerAddress.ownerAddressList.push(_stakeholderAddr);
 
         //@dev - Save ownerAddressList in Stakeholder struct
@@ -58,9 +58,9 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         });
         stakeholders.push(stakeholder);
 
-        emit StakeholderRegistry(_stakeholderAddr, _stakeholderType, item.itemDetail.ownerAddressList);
+        emit StakeholderRegistry(_stakeholderAddr, _stakeholderType, item.itemDetail.itemOwnerAddrList);
 
-        return (_stakeholderAddr, _stakeholderType, item.itemDetail.ownerAddressList);
+        return (_stakeholderAddr, _stakeholderType, item.itemDetail.itemOwnerAddrList);
     }
 
 
