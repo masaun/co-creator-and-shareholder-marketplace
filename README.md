@@ -1,14 +1,14 @@
-# Co-creator and shareholoder marketplace
+# Co-creator and shareholder marketplace
 
 ***
-## 【Introduction of Co-creator and shareholoder marketplace】
+## 【Introduction of Co-creator and shareholder marketplace】
 - Co-creator marketplace is a smart contract for increating engagement of game players and incentivize them in game dApps.
   - This smart contract provides `"profit share system"` in game dApps through buy/sell items which is created by players.
 
 <br>
 
 
-- Players can work with another players as `"Co-creater"` and can get shared profit from items which is created by themself as `"shareholoders"` .
+- Players can work with another players as `"Co-creater"` and can get shared profit from items which is created by themself as `"shareholders"` .
   - Game players can propose idea of items they want to realize in game dApp they play.
     - Items are things which is used in the game. (e.g. Weapon) 
     - Proposed idea of item is published as Non-Fungible token.
