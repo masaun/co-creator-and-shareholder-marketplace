@@ -4,7 +4,7 @@ pragma experimental ABIEncoderV2;
 
 contract OpObjects {
 
-    enum ShareholderType { Player, Developer }
+    enum ShareholderType { Proposer, Designer, Programmer, Other }
     
     struct Shareholder {
         uint256 itemId;
