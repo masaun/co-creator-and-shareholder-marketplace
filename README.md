@@ -1,21 +1,55 @@
-# Game Is Built By Every Stake-Holders
+# Co-creator marketplace（Profits can share between every shareholders）
 
 ***
 ## 【Introduction of game-is-built-by-every-stake-holders】
-- This is a dApp of game-is-built-by-every-stake-holders.
-- Specified percentage of profit amount in advance is distributed to each co-worker by using SmartContract.
-  - Players who proposed idea (on Wish-List ) is included in "Co-Workers"
-  - That's why they also has right to receive profit amount.
+- Co-creator marketplace is a ethereum based smart contract for increating engagement of game players in game dApps.
+  - This smart contract provides profit share system in game dApp through buy/sell items which is created by players.
+
+- Game players can propose idea of items they want to realize and publish their proposed idea of items as Non-Fungible token.
+  - Items are things which is used in the game. (e.g. Weapon)  
+
+- Published items can buy/sell on marketplace. 
+  - If someone buy items, profits from bought amount are distributed into players which joined creating process of that item. (by smart contract)
 
 <br>
 
-- Next generation's game is created by "every Stack-Holders"（like Players / Wockers / Organizers）
 
+## 【Work Frow】
+1. Game players proposes ideas of item (e.g. Weapon) 
+2. Proposed idea is listed on marketplace.
+   - If players proposes idea of item, they need to register from `"Item Registry"` (Put several information by following form and push submit button) 
+3. Another players choose idea which they want to realize and create together in that list and join creating process of item.
+   - Players who joined creating process of item are called `"Shareholders"` . 
+   - If Another players want to join creating process, they need to register from `"shareholder registry"` (Just put Item ID and push submit button) 
+4. Some players get together and create that item and listed on specific marketplace for buying/selling item created by players.    
+5. If someone buy items in this specific marketplace, profits from bought amount are distributed into players which joined creating process of that item. (by smart contract)
+   - If someone buy listed item, they need to push `"Buy Item"` button at item ID which correspond to item they want to buy.
+   - Pay with `DAI` .
+
+<br>
+
+## 【Advantage for game players and game developers】
+- For game players
+  - Players can propose ideas which are used in the game freely.
+  - Players who joined creating process of item can get shared profit if that item was bought. 
+  （※ Players who joined creating process of item are called `"Shareholders"` ）
+
+<br>
+
+- For game developers
+  - Developers can reuse this structure and integrate their games by utilizing interface file.
+  （I have been in progress to prepare interface file for reusing codes of smart contract yet...）
+
+<br>
+
+## 【Remaining tasks】
+- Prepare interface file for integrating this smart contract with game dApps.
+- Integrate `idleDAI` at payment process.
 
 
 ***
 
-## 【Setup】
+## 【Setup sample dApp】
 ### Setup wallet by using Metamask
 1. Add MetaMask to browser (Chrome or FireFox or Opera or Brave)    
 https://metamask.io/  
@@ -24,14 +58,18 @@ https://metamask.io/
 2. Adjust appropriate newwork below 
 ```
 Ropsten Test Network
-
 ```
 
 &nbsp;
 
 
 ### Setup backend
-1. Deploy contracts to Ropsten Test Network
+1. Transfer `DAI (on ropsten)` from your wallet address to `deployer's address` on ropsten network. 
+  - If you want to get DAI( `"0xaD6D458402F60fD3Bd25163575031ACDce07538D"` ) on ropsten, you can get it by swapping in `KyberSwap on Ropsten` below.  
+    https://ropsten.kyber.network/swap/eth-dai
+
+
+2. Deploy contracts to Ropsten Test Network
 ```
 (root directory)
 
@@ -55,12 +93,7 @@ http://127.0.0.1:3000
 
 &nbsp;
 
-***
 
-
-## 【Work flow】
-
-&nbsp;
 
 ***
 
