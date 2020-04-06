@@ -148,6 +148,7 @@ export default class MarketplaceRegistry extends Component {
       //const _buyer = walletAddressList.addressList.address1;
 
       let response = await marketplace_registry.methods.buyItem(_itemId, _buyer).send({ from: accounts[0] })
+      //let response = await marketplace_registry.methods.buyItem(_itemId, _buyer).send({ from: accounts[0] })
       console.log('=== response of buyItem() function ===', response);
   }
 
@@ -236,9 +237,8 @@ export default class MarketplaceRegistry extends Component {
           let itemObject = await nft_item.methods.getItem(i).call();
           itemObjects.push(itemObject);
           console.log('=== itemObject ===', itemObject);
-
-          let itemOwnerAddrList = itemObject.itemDetail.itemOwnerAddrList;
-          console.log('=== itemOwnerAddrList ===', itemOwnerAddrList); 
+          // let itemOwnerAddrList = itemObject.itemDetail.itemOwnerAddrList;
+          // console.log('=== itemOwnerAddrList ===', itemOwnerAddrList); 
       }
 
       //@dev - For displaying panels each itemId

@@ -1,6 +1,7 @@
 pragma solidity ^0.5.10;
 pragma experimental ABIEncoderV2;
 
+//import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/IERC721.sol";
 
@@ -21,6 +22,7 @@ import "./NftItem.sol";
 contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     using SafeMath for uint;
 
+    //ERC20 public erc20;
     IERC20 public erc20;
     IERC721 public erc721;
 
@@ -28,6 +30,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
 
 
     constructor(address _erc20, address _nftItem) public {
+        //erc20 = ERC20(_erc20);
         erc20 = IERC20(_erc20);
         nftItem = NftItem(_nftItem);
     }
@@ -47,7 +50,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     ) public returns (address, StakeholderType, address[] memory) {
         //@dev - Save ownerAddressList in ItemDetail struct
         Item storage item = items[_itemId];
-        item.itemDetail.ownerAddressList.push(_stakeholderAddr);
+        item.itemDetail.itemOwnerAddrList.push(_stakeholderAddr);
         //item.ownerAddress.ownerAddressList.push(_stakeholderAddr);
 
         //@dev - Save ownerAddressList in Stakeholder struct
@@ -58,9 +61,9 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         });
         stakeholders.push(stakeholder);
 
-        emit StakeholderRegistry(_stakeholderAddr, _stakeholderType, item.itemDetail.ownerAddressList);
+        emit StakeholderRegistry(_stakeholderAddr, _stakeholderType, item.itemDetail.itemOwnerAddrList);
 
-        return (_stakeholderAddr, _stakeholderType, item.itemDetail.ownerAddressList);
+        return (_stakeholderAddr, _stakeholderType, item.itemDetail.itemOwnerAddrList);
     }
 
 
@@ -87,7 +90,8 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         uint256 _itemPrice = item.itemPrice.div(10**18);
 
         //@dev - buyer buy item from seller with DAI
-        purchaseItem(_itemId, _buyer, _itemPrice);
+        purchaseItem(_itemId, _itemPrice);
+        //purchaseItem(_itemId, _buyer, _itemPrice);
 
         //@dev - Ordered item is bought by buyer (It is equal to be done Ownership transfer)
         ownershipTransferOrderedItem(_itemId, _buyer);
@@ -97,12 +101,17 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     }
 
 
-    function purchaseItem(uint256 _itemId, address _newOwner, uint256 _itemPrice) public returns (bool) {
+    function purchaseItem(uint256 _itemId, uint256 _itemPrice) public returns (bool) {
         //@return - current owner address
+        address _newOwner = msg.sender;
         address _oldOwner = itemOwnerOf(_itemId);
 
+        //uint256 _testPrice = 5000000000000000;
+
         //@dev - new owner buy item from old owner with DAI
-        erc20.transferFrom(_newOwner, _oldOwner, _itemPrice);
+        erc20.transferFrom(_newOwner, _oldOwner, _itemPrice);                 // Original
+        //erc20.transferFrom(_newOwner, _oldOwner, _testPrice.div(10**18));   // Test
+        //erc20.transfer(_oldOwner, _testPrice.div(10**18));                  // Test
     }
     
 
