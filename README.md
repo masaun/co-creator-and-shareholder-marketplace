@@ -1,15 +1,21 @@
-# Co-creator marketplace（Profits can share between every shareholders）
+# Co-creator and shareholoder marketplace
 
 ***
-## 【Introduction of game-is-built-by-every-stake-holders】
-- Co-creator marketplace is a ethereum based smart contract for increating engagement of game players in game dApps.
-  - This smart contract provides profit share system in game dApp through buy/sell items which is created by players.
+## 【Introduction of Co-creator and shareholoder marketplace】
+- Co-creator marketplace is a smart contract for increating engagement of game players and incentivize them in game dApps.
+  - This smart contract provides `"profit share system"` in game dApps through buy/sell items which is created by players.
 
-- Game players can propose idea of items they want to realize and publish their proposed idea of items as Non-Fungible token.
-  - Items are things which is used in the game. (e.g. Weapon)  
+<br>
 
-- Published items can buy/sell on marketplace. 
-  - If someone buy items, profits from bought amount are distributed into players which joined creating process of that item. (by smart contract)
+
+- Players can work with another players as `"Co-creater"` and can get shared profit from items which is created by themself as `"shareholoders"` .
+  - Game players can propose idea of items they want to realize in game dApp they play.
+    - Items are things which is used in the game. (e.g. Weapon) 
+    - Proposed idea of item is published as Non-Fungible token.
+  
+  - Published items is listed and any players can buy/sell on marketplace. 
+    - If someone buy item, profits from bought amount are distributed into players which joined creating process of that item. (by smart contract)
+   （Profits are shared between every shareholders）
 
 <br>
 
@@ -31,6 +37,7 @@
 ## 【Advantage for game players and game developers】
 - For game players
   - Players can propose ideas which are used in the game freely.
+     - So that players are not only just play game, but also enjoy creating process of item and get rights for getting income from item which created by them.
   - Players who joined creating process of item can get shared profit if that item was bought. 
   （※ Players who joined creating process of item are called `"Shareholders"` ）
 
@@ -44,8 +51,8 @@
 
 ## 【Remaining tasks】
 - Prepare interface file for integrating this smart contract with game dApps.
-- Integrate `idleDAI` at payment process.
-
+- Integrate `idleDAI` into payment process.  
+https://idle.finance/
 
 ***
 
@@ -82,7 +89,6 @@ $ npm run migrate:ropsten
 ### Setup frontend
 1. Execute command below in root directory.
 ```
-
 $ npm run client
 ```
 
@@ -123,11 +129,11 @@ http://127.0.0.1:3000
   - Website    
     https://outplay.games
 
-  - Medium   
-    https://medium.com/alto-io
-
   - Discord  
     https://discordapp.com/invite/nvqqmrP
+
+  - Medium   
+    https://medium.com/alto-io
 
   - Twitter  
     https://twitter.com/Outplay_Games
