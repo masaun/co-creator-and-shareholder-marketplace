@@ -176,7 +176,7 @@ class App extends Component {
     );
   }
 
-  renderMarketplaceRegistry() {
+  renderCoCreatorAndShareholderMarketplace() {
     return (
       <div className={styles.wrapper}>
         <MarketplaceRegistry />
@@ -189,7 +189,7 @@ class App extends Component {
       <div className={styles.App}>
         <Header />
           {this.state.route === '' && this.renderInstructions()}
-          {this.state.route === 'marketplace_registry' && this.renderMarketplaceRegistry()} 
+          {this.state.route === 'co-creator-and-shareholder-marketplace' && this.renderCoCreatorAndShareholderMarketplace()} 
         <Footer />
       </div>
     );

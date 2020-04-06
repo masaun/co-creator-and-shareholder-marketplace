@@ -35,49 +35,45 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         nftItem = NftItem(_nftItem);
     }
 
-    function testFunc() public returns (bool) {
-        return OpConstants.CONFIRMED;
-    }
-
 
     /***
-     * @dev - This is registry for all of stakeholders
+     * @dev - This is registry for all of shareholders
      **/
-    function stakeholderRegistry(
+    function shareholderRegistry(
         uint256 _itemId,
-        address _stakeholderAddr, 
-        StakeholderType _stakeholderType
-    ) public returns (address, StakeholderType, address[] memory) {
+        address _shareholderAddr, 
+        ShareholderType _shareholderType
+    ) public returns (address, ShareholderType, address[] memory) {
         //@dev - Save ownerAddressList in ItemDetail struct
         Item storage item = items[_itemId];
-        item.itemDetail.itemOwnerAddrList.push(_stakeholderAddr);
-        //item.ownerAddress.ownerAddressList.push(_stakeholderAddr);
+        item.itemDetail.itemOwnerAddrList.push(_shareholderAddr);
+        //item.ownerAddress.ownerAddressList.push(_shareholderAddr);
 
-        //@dev - Save ownerAddressList in Stakeholder struct
-        Stakeholder memory stakeholder = Stakeholder({
+        //@dev - Save ownerAddressList in Shareholder struct
+        Shareholder memory shareholder = Shareholder({
             itemId: _itemId,  // It mean is initialize (equal to "null")
-            stakeholderAddr: _stakeholderAddr,
-            stakeholderType: _stakeholderType
+            shareholderAddr: _shareholderAddr,
+            shareholderType: _shareholderType
         });
-        stakeholders.push(stakeholder);
+        shareholders.push(shareholder);
 
-        emit StakeholderRegistry(_stakeholderAddr, _stakeholderType, item.itemDetail.itemOwnerAddrList);
+        emit ShareholderRegistry(_shareholderAddr, _shareholderType, item.itemDetail.itemOwnerAddrList);
 
-        return (_stakeholderAddr, _stakeholderType, item.itemDetail.itemOwnerAddrList);
+        return (_shareholderAddr, _shareholderType, item.itemDetail.itemOwnerAddrList);
     }
 
 
     /***
-     * @dev - Get stakeholders who work in same item design process by sorting by itemId
+     * @dev - Get shareholders who work in same item design process by sorting by itemId
      **/
-    function getStakeholdersGroup(uint256 _itemId) public returns (address[] memory) {
-        //@dev - Do grouping of stakeholders by specified itemId
-        for (uint i; i < stakeholders.length; i++) {
-            if (stakeholders[i].itemId == _itemId) {
-                stakeholdersGroups.push(stakeholders[i].stakeholderAddr);
+    function getShareholdersGroup(uint256 _itemId) public returns (address[] memory) {
+        //@dev - Do grouping of shareholders by specified itemId
+        for (uint i; i < shareholders.length; i++) {
+            if (shareholders[i].itemId == _itemId) {
+                shareholdersGroups.push(shareholders[i].shareholderAddr);
             }
         }
-        return stakeholdersGroups;
+        return shareholdersGroups;
     }
 
 
@@ -96,7 +92,7 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         //@dev - Ordered item is bought by buyer (It is equal to be done Ownership transfer)
         ownershipTransferOrderedItem(_itemId, _buyer);
 
-        //@dev - Distribute rewards to stakeholders
+        //@dev - Distribute rewards to shareholders
         distributeReward(_itemId, _itemPrice);
     }
 
@@ -134,17 +130,17 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
 
     function distributeReward(uint256 _itemId, uint256 _itemPrice) public returns (bool) {
         //@dev - Display the cause of error in etherscan
-        require (getStakeholdersGroup(_itemId).length > 0, "This itemId has not registerd stakeholders yet. So that user need stakeholderRegistry in advance");
+        require (getShareholdersGroup(_itemId).length > 0, "This itemId has not registerd shareholders yet. So that user need shareholderRegistry in advance");
 
-        //@dev - Sorts stakeholders who receive reward 
-        address[] memory _stakeholdersGroups = getStakeholdersGroup(_itemId);
+        //@dev - Sorts shareholders who receive reward 
+        address[] memory _shareholdersGroups = getShareholdersGroup(_itemId);
 
-        //@dev - This is distributed amount each stakeholders
-        uint256 distributedAmount = _itemPrice.div(_stakeholdersGroups.length).div(10**18);
+        //@dev - This is distributed amount each shareholders
+        uint256 distributedAmount = _itemPrice.div(_shareholdersGroups.length).div(10**18);
 
-        //@dev - Transfer distributed amount to each stakeholders
-        for (uint256 i; i < _stakeholdersGroups.length; i++) {
-            erc20.transfer(_stakeholdersGroups[i], distributedAmount);
+        //@dev - Transfer distributed amount to each shareholders
+        for (uint256 i; i < _shareholdersGroups.length; i++) {
+            erc20.transfer(_shareholdersGroups[i], distributedAmount);
         }
     }
 

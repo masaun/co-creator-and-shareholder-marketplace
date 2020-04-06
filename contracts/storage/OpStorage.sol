@@ -11,13 +11,13 @@ contract OpStorage is OpObjects, OpEvents {
     ///////////////////////////////////
     // @dev - Define as memory
     ///////////////////////////////////
-    address[] stakeholdersGroups;
+    address[] shareholdersGroups;
 
     
     //////////////////////////////////
     // @dev - Define as storage
     ///////////////////////////////////
-    Stakeholder[] public stakeholders;
+    Shareholder[] public shareholders;
 
     mapping (uint256 => Item) items;
 }
