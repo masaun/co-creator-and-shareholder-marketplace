@@ -7,7 +7,7 @@ const Header = () => (
       <ul>
         <li><a href="/" className={styles.link}><span style={{ padding: "60px" }}> Home </span></a></li>
 
-        <li><a href="/marketplace_registry" className={styles.link}> Marketplace Registry</a></li>
+        <li><a href="/co-creator-and-shareholder-marketplace" className={styles.link}> Co-creator and shareholder marketplace </a></li>
       </ul>
     </nav>
   </div>

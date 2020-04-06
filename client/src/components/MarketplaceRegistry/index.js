@@ -263,10 +263,6 @@ export default class MarketplaceRegistry extends Component {
                       <td>{ itemObject.itemType }</td>
                   </tr>
                   <tr>                    
-                      <td>itemOwnerAddr: </td>
-                      <td>{ itemObject.itemDetail.itemOwnerAddrList }</td>
-                  </tr>
-                  <tr>                    
                       <td>itemProposerAddr: </td>
                       <td>{ itemObject.itemProposerAddr }</td>
                   </tr>
@@ -408,7 +404,6 @@ export default class MarketplaceRegistry extends Component {
       console.error(error);
     }
   }
-
 
 
   render() {
