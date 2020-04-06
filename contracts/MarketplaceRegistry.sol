@@ -1,7 +1,8 @@
 pragma solidity ^0.5.10;
 pragma experimental ABIEncoderV2;
 
-import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
+//import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/IERC721.sol";
 
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
@@ -21,14 +22,16 @@ import "./NftItem.sol";
 contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     using SafeMath for uint;
 
-    IERC20 public erc20;
+    ERC20 public erc20;
+    //IERC20 public erc20;
     IERC721 public erc721;
 
     NftItem public nftItem;
 
 
     constructor(address _erc20, address _nftItem) public {
-        erc20 = IERC20(_erc20);
+        erc20 = ERC20(_erc20);
+        //erc20 = IERC20(_erc20);
         nftItem = NftItem(_nftItem);
     }
 
