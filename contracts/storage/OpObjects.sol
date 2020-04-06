@@ -12,7 +12,7 @@ contract OpObjects {
         ShareholderType shareholderType;
     }
 
-    enum ItemType { Weapon, Character, Clothes, Others }
+    enum ItemType { Weapon, Clothes, Others }
 
     struct Item {
         uint256 itemId;
