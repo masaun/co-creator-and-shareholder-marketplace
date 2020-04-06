@@ -1,8 +1,8 @@
 pragma solidity ^0.5.10;
 pragma experimental ABIEncoderV2;
 
-import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
-//import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
+//import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/IERC721.sol";
 
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
@@ -22,16 +22,16 @@ import "./NftItem.sol";
 contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     using SafeMath for uint;
 
-    ERC20 public erc20;
-    //IERC20 public erc20;
+    //ERC20 public erc20;
+    IERC20 public erc20;
     IERC721 public erc721;
 
     NftItem public nftItem;
 
 
     constructor(address _erc20, address _nftItem) public {
-        erc20 = ERC20(_erc20);
-        //erc20 = IERC20(_erc20);
+        //erc20 = ERC20(_erc20);
+        erc20 = IERC20(_erc20);
         nftItem = NftItem(_nftItem);
     }
 
@@ -106,11 +106,12 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         address _newOwner = msg.sender;
         address _oldOwner = itemOwnerOf(_itemId);
 
-        uint256 _testPrice = 5;
+        //uint256 _testPrice = 5000000000000000;
 
         //@dev - new owner buy item from old owner with DAI
-        erc20.transferFrom(_newOwner, _oldOwner, _testPrice);
-        //erc20.transferFrom(_newOwner, _oldOwner, _itemPrice);
+        erc20.transferFrom(_newOwner, _oldOwner, _itemPrice);                 // Original
+        //erc20.transferFrom(_newOwner, _oldOwner, _testPrice.div(10**18));   // Test
+        //erc20.transfer(_oldOwner, _testPrice.div(10**18));                  // Test
     }
     
 
