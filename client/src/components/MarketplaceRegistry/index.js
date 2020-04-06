@@ -466,7 +466,7 @@ export default class MarketplaceRegistry extends Component {
                               </tr>
                           </Table>
 
-                          <Button size={'small'} mt={3} mb={2} onClick={this.shareholderRegistry}> Shareholder Registry </Button>
+                          <Button size={'small'} mt={3} mb={2} onClick={this.shareholderRegistry}> Register Shareholder </Button>
                       </Card>
 
                       <h4>Shareholders Lists</h4>

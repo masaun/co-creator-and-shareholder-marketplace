@@ -17,7 +17,6 @@ contract OpObjects {
     struct Item {
         uint256 itemId;
         address itemProposerAddr;
-        //address itemOwnerAddr;
         string itemName;
         ItemDetail itemDetail;
         uint256 itemPrice;
@@ -27,11 +26,6 @@ contract OpObjects {
     struct ItemDetail {
         string itemDescription;
         address[] itemOwnerAddrList;
-    }
-
-    struct ExampleObject {
-        address addr;
-        uint amount;
     }
     
 }
