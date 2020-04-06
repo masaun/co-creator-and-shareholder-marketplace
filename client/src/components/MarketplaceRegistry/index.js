@@ -147,7 +147,8 @@ export default class MarketplaceRegistry extends Component {
       const _buyer = accounts[0];  //@dev - Current User's wallet address
       //const _buyer = walletAddressList.addressList.address1;
 
-      let response = await marketplace_registry.methods.buyItem(_itemId, _buyer).send({ from: accounts[0] })
+      let response = await marketplace_registry.methods.buyItem(_itemId).send({ from: accounts[0] })
+      //let response = await marketplace_registry.methods.buyItem(_itemId, _buyer).send({ from: accounts[0] })
       console.log('=== response of buyItem() function ===', response);
   }
 

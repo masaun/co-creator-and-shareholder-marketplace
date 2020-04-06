@@ -90,7 +90,8 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         uint256 _itemPrice = item.itemPrice.div(10**18);
 
         //@dev - buyer buy item from seller with DAI
-        purchaseItem(_itemId, _buyer, _itemPrice);
+        purchaseItem(_itemId, _itemPrice);
+        //purchaseItem(_itemId, _buyer, _itemPrice);
 
         //@dev - Ordered item is bought by buyer (It is equal to be done Ownership transfer)
         ownershipTransferOrderedItem(_itemId, _buyer);
@@ -100,8 +101,9 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     }
 
 
-    function purchaseItem(uint256 _itemId, address _newOwner, uint256 _itemPrice) public returns (bool) {
+    function purchaseItem(uint256 _itemId, uint256 _itemPrice) public returns (bool) {
         //@return - current owner address
+        address _newOwner = msg.sender;
         address _oldOwner = itemOwnerOf(_itemId);
 
         //@dev - new owner buy item from old owner with DAI
