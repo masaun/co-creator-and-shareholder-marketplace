@@ -56,7 +56,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         //@dev - Call internal function (OverWritten)
         itemRegistry(newItemId, 
                      _to,  //@notice - _to is equal to _itemProposerAddr which is a player who propose idea
-                     _itemOwnerAddr, 
+                     //_itemOwnerAddr, 
                      _itemName, 
                      //_itemDescription, 
                      _itemPrice, 
@@ -74,13 +74,13 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
     function itemRegistry(
         uint256 _itemId,
         address _itemProposerAddr,  //@notice - _itemProposerAddr is a player who propose idea
-        address _itemOwnerAddr,     //@notice - _itemOwnerAddr is equal to _shareholderAddr
+        //address _itemOwnerAddr,
         string memory _itemName,
         uint256 _itemPrice,
         ItemType _itemType
     ) internal returns (uint256, 
                         address, 
-                        address, 
+                        //address, 
                         string memory, 
                         uint256, 
                         ItemType) 
@@ -89,21 +89,21 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         Item storage item = items[_itemId];
         item.itemId = _itemId;
         item.itemProposerAddr = _itemProposerAddr;  //@notice - _itemProposerAddr is a player who propose idea
-        item.itemOwnerAddr = _itemOwnerAddr;        //@notice - _itemOwnerAddr is equal to _shareholderAddr
+        //item.itemOwnerAddr = _itemOwnerAddr;
         item.itemName = _itemName;
         item.itemPrice = _itemPrice;
         item.itemType = _itemType;
 
         emit ItemRegistry(item.itemId, 
                           item.itemProposerAddr,
-                          item.itemOwnerAddr, 
+                          //item.itemOwnerAddr, 
                           item.itemName, 
                           item.itemPrice, 
                           item.itemType);
 
         return (item.itemId, 
                 item.itemProposerAddr,
-                item.itemOwnerAddr,
+                //item.itemOwnerAddr,
                 item.itemName,
                 item.itemPrice,
                 item.itemType);
@@ -177,9 +177,9 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         );
     }
 
-    // function baseItemURI() public view returns (string memory) {
-    //     return "https://opensea-creatures-api.herokuapp.com/api/nft-item-by-shareholders/";
-    // }
+    function baseItemURI() public view returns (string memory) {
+        return "https://opensea-creatures-api.herokuapp.com/api/nft-item-by-shareholders/";
+    }
 
 
     /**

@@ -87,7 +87,6 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
 
         //@dev - buyer buy item from seller with DAI
         purchaseItem(_itemId, _itemPrice);
-        //purchaseItem(_itemId, _buyer, _itemPrice);
 
         //@dev - Ordered item is bought by buyer (It is equal to be done Ownership transfer)
         ownershipTransferOrderedItem(_itemId, _buyer);
@@ -107,7 +106,6 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         //@dev - new owner buy item from old owner with DAI
         erc20.transferFrom(_newOwner, _oldOwner, _itemPrice);                 // Original
         //erc20.transferFrom(_newOwner, _oldOwner, _testPrice.div(10**18));   // Test
-        //erc20.transfer(_oldOwner, _testPrice.div(10**18));                  // Test
     }
     
 
