@@ -62,10 +62,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                      _itemPrice, 
                      _itemType);
         
-        //itemDetailRegistry(newItemId, _itemDescription);
         itemDetailRegistry(newItemId, _itemOwnerAddr, _itemDescription);
-
-        //ownerAddressRegistry(newItemId, _itemOwnerAddr);
 
         _incrementItemId();
     }
@@ -132,19 +129,29 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
                 item.itemDetail.itemOwnerAddrList);
     }
 
-    // function ownerAddressRegistry(
-    //     uint256 _itemId,
-    //     address _itemOwnerAddr
-    // ) internal returns (uint256, address, address[] memory) {
-    //     Item storage item = items[_itemId];
-    //     item.itemDetail.ownerAddressList.push(_itemOwnerAddr);
+    function getCurrentItemIdCount() public view returns (uint256) {
+        return _currentItemId.add(1);
+    }
 
-    //     emit OwnerAddressRegistry(_itemId, _itemOwnerAddr, item.itemDetail.ownerAddressList);
+    /***
+     * @dev - Get item which is specified by _itemId 
+     * @return - instance of Item struct
+     **/
+    function getItem(uint256 _itemId) public view returns (Item memory) {
+        Item memory item = items[_itemId];
+        return item;
+    }
 
-    //     return (_itemId, _itemOwnerAddr, item.itemDetail.ownerAddressList);   
-    // }
-    
-    
+    /***
+     * @dev - Overwritten
+     **/
+    function transferFrom(address _from, address _to, uint256 _itemId) public {
+        _transferFrom(_from, _to, _itemId);
+    }
+
+
+
+
 
 
 
@@ -163,14 +170,6 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         _currentItemId++;
     }
 
-
-    // function _itemOwnerOf(uint256 _itemId) public view returns (address) {
-    //     address _itemOwner = ownerOf(_itemId);
-    //     return _itemOwner;
-    // }
-    
-
-
     function itemURI(uint256 _itemId) external view returns (string memory) {
         return Strings.strConcat(
             baseItemURI(),
@@ -178,9 +177,9 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         );
     }
 
-    function baseItemURI() public view returns (string memory) {
-        return "https://opensea-creatures-api.herokuapp.com/api/nft-item-by-shareholders/";
-    }
+    // function baseItemURI() public view returns (string memory) {
+    //     return "https://opensea-creatures-api.herokuapp.com/api/nft-item-by-shareholders/";
+    // }
 
 
     /**
@@ -202,27 +201,5 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
 
         return super.isApprovedForAll(owner, operator);
     }    
-    
-    /***
-     * @dev - Overwritten
-     **/
-    function transferFrom(address _from, address _to, uint256 _itemId) public {
-        _transferFrom(_from, _to, _itemId);
-    }
-
-
-
-    function getCurrentItemIdCount() public view returns (uint256) {
-        return _currentItemId.add(1);
-    }
-
-    /***
-     * @dev - Get item which is specified by _itemId 
-     * @return - instance of Item struct
-     **/
-    function getItem(uint256 _itemId) public view returns (Item memory) {
-        Item memory item = items[_itemId];
-        return item;
-    }
 
 }
