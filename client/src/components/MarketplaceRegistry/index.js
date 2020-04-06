@@ -190,6 +190,7 @@ export default class MarketplaceRegistry extends Component {
 
           stakeholdersGroups.push(stakeholdersGroup);
       }
+      console.log('=== stakeholdersGroups ===', stakeholdersGroups);
 
       //@dev - For displaying panels each itemId
       const listStakeholdersGroups = stakeholdersGroups.map((stakeholdersGroup, i) =>
@@ -207,7 +208,7 @@ export default class MarketplaceRegistry extends Component {
                   </tr>
                   <tr>
                       <td>Stakeholder's List: </td>
-                      <td>{ stakeholdersGroup }</td>
+                      <td>{ stakeholdersGroup.map((stakeholder) => <li>{ stakeholder }</li>) }</td>
                   </tr>
               </Table>
           </Card>
