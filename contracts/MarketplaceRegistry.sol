@@ -106,8 +106,11 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         address _newOwner = msg.sender;
         address _oldOwner = itemOwnerOf(_itemId);
 
+        uint256 _testPrice = 5;
+
         //@dev - new owner buy item from old owner with DAI
-        erc20.transferFrom(_newOwner, _oldOwner, _itemPrice);
+        erc20.transferFrom(_newOwner, _oldOwner, _testPrice);
+        //erc20.transferFrom(_newOwner, _oldOwner, _itemPrice);
     }
     
 
