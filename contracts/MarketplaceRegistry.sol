@@ -1,7 +1,6 @@
 pragma solidity ^0.5.10;
 pragma experimental ABIEncoderV2;
 
-//import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/IERC721.sol";
 
@@ -22,7 +21,6 @@ import "./NftItem.sol";
 contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
     using SafeMath for uint;
 
-    //ERC20 public erc20;
     IERC20 public erc20;
     IERC721 public erc721;
 
@@ -30,7 +28,6 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
 
 
     constructor(address _erc20, address _nftItem) public {
-        //erc20 = ERC20(_erc20);
         erc20 = IERC20(_erc20);
         nftItem = NftItem(_nftItem);
     }
@@ -47,7 +44,6 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         //@dev - Save ownerAddressList in ItemDetail struct
         Item storage item = items[_itemId];
         item.itemDetail.itemOwnerAddrList.push(_shareholderAddr);
-        //item.ownerAddress.ownerAddressList.push(_shareholderAddr);
 
         //@dev - Save ownerAddressList in Shareholder struct
         Shareholder memory shareholder = Shareholder({
@@ -87,7 +83,6 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
 
         //@dev - buyer buy item from seller with DAI
         purchaseItem(_itemId, _itemPrice);
-        //purchaseItem(_itemId, _buyer, _itemPrice);
 
         //@dev - Ordered item is bought by buyer (It is equal to be done Ownership transfer)
         ownershipTransferOrderedItem(_itemId, _buyer);
@@ -107,12 +102,10 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         //@dev - new owner buy item from old owner with DAI
         erc20.transferFrom(_newOwner, _oldOwner, _itemPrice);                 // Original
         //erc20.transferFrom(_newOwner, _oldOwner, _testPrice.div(10**18));   // Test
-        //erc20.transfer(_oldOwner, _testPrice.div(10**18));                  // Test
     }
     
 
     function itemOwnerOf(uint256 _itemId) public view returns (address)  {
-        //return nftItem._itemOwnerOf(_itemId);
         return nftItem.ownerOf(_itemId);
     }
 

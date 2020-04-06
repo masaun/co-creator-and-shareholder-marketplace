@@ -243,27 +243,27 @@ export default class MarketplaceRegistry extends Component {
           >
               <Table>
                   <tr>
-                      <td>itemId: </td>
+                      <td>Item ID: </td>
                       <td>{ itemObject.itemId }</td>
                   </tr>
                   <tr>
-                      <td>itemName: </td>                           
+                      <td>Item Name: </td>                           
                       <td>{ itemObject.itemName }</td>
                   </tr>
                   <tr>
-                      <td>itemDescription: </td>                           
+                      <td>Item Description: </td>                           
                       <td>{ itemObject.itemDetail.itemDescription }</td>
                   </tr>
                   <tr>                    
-                      <td>itemPrice: </td>
+                      <td>Item Price: </td>
                       <td>{ itemObject.itemPrice }</td>
                   </tr>
                   <tr>                    
-                      <td>itemType: </td>
+                      <td>Item Type: </td>
                       <td>{ itemObject.itemType }</td>
                   </tr>
                   <tr>                    
-                      <td>itemProposerAddr: </td>
+                      <td>Item Proposer Address: </td>
                       <td>{ itemObject.itemProposerAddr }</td>
                   </tr>
               </Table>
@@ -414,7 +414,7 @@ export default class MarketplaceRegistry extends Component {
               <Grid container style={{ marginTop: 32 }}>
                   <Grid item xs={12}>
                       <Card width={"auto"} 
-                            maxWidth={"800px"} 
+                            maxWidth={"1280px"} 
                             mx={"auto"} 
                             my={5} 
                             p={20} 
@@ -423,7 +423,7 @@ export default class MarketplaceRegistry extends Component {
                           <h4>Item Registry</h4>
                           <Table>
                               <tr>
-                                  <td><p>Item Proposer Address（Current Login Address）</p></td>
+                                  <td><p>Item Proposer Address</p><p>（Current Address）</p></td>
                                   <td><Input type="text" placeholder="Please input item proposer address here" value={this.state.valueOfItemProposerAddress} onChange={this.handleInputItemProposerAddress} /></td>
                               </tr>
                               <tr>
@@ -439,8 +439,8 @@ export default class MarketplaceRegistry extends Component {
                                   <td><Input type="text" placeholder="Please input item price here" value={this.state.valueOfItemPrice} onChange={this.handleInputItemPrice} /></td>
                               </tr>
                               <tr>
-                                  <td><p>Item Type</p></td>
-                                  <td><Input type="text" placeholder="Please input item type here" value={this.state.valueOfItemType} onChange={this.handleInputItemType} /></td>
+                                  <td><p>Item Type</p><p>（Select Number / 1:Weapon, 2:Clothes, 3:Others）</p></td>
+                                  <td><Input type="text" placeholder="Please input item type by selected number" value={this.state.valueOfItemType} onChange={this.handleInputItemType} /></td>
                               </tr>
                           </Table>
 
@@ -448,7 +448,7 @@ export default class MarketplaceRegistry extends Component {
                       </Card>
 
                       <Card width={"auto"} 
-                            maxWidth={"800px"} 
+                            maxWidth={"1280px"} 
                             mx={"auto"} 
                             my={5} 
                             p={20} 
@@ -457,18 +457,19 @@ export default class MarketplaceRegistry extends Component {
                           <h4>Shareholder Registry</h4>
                           <Table>
                               <tr>
-                                  <td><p>Item Id</p></td>
+                                  <td><p>Item ID</p></td>
                                   <td><Input type="text" placeholder="Please input item id here" value={this.state.valueOfShareholderItemId} onChange={this.handleInputShareholderItemId} /></td>
                               </tr>
                               <tr>
-                                  <td><p>Shareholder Type</p></td>
-                                  <td><Input type="text" placeholder="Please input shareholder type here" value={this.state.valueOfShareholderType} onChange={this.handleInputShareholderType} /></td>
+                                  <td><p>Shareholder Type</p><p>（Select Number / 1:Proposer, 2:Designer, 3:Programmer, 4:Other）</p></td>
+                                  <td><Input type="text" placeholder="Please input shareholder type by selected number" value={this.state.valueOfShareholderType} onChange={this.handleInputShareholderType} /></td>
                               </tr>
                           </Table>
 
-                          <Button size={'small'} mt={3} mb={2} onClick={this.shareholderRegistry}> Shareholder Registry </Button>
+                          <Button size={'small'} mt={3} mb={2} onClick={this.shareholderRegistry}> Register Shareholder </Button>
                       </Card>
 
+                      <h4>Shareholders Lists</h4>
                       <h4> { listShareholdersGroups } </h4>
                   </Grid>
 
