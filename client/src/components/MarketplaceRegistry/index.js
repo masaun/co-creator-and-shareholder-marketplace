@@ -28,7 +28,6 @@ export default class MarketplaceRegistry extends Component {
       route: window.location.pathname.replace("/", "")
     };
 
-    this.getTestData = this.getTestData.bind(this);
     this.mintTo = this.mintTo.bind(this);
     this.itemOwnerOf = this.itemOwnerOf.bind(this);
     this.ownershipTransferOrderedItem = this.ownershipTransferOrderedItem.bind(this);
@@ -45,13 +44,6 @@ export default class MarketplaceRegistry extends Component {
 
     this.handleInputStakeholderItemId = this.handleInputStakeholderItemId.bind(this);
     this.handleInputStakeholderType = this.handleInputStakeholderType.bind(this);
-  }
-
-  getTestData = async () => {
-      const { accounts, marketplace_registry, web3 } = this.state;
-
-      let response = await marketplace_registry.methods.testFunc().send({ from: accounts[0] })
-      console.log('=== response of testFunc() function ===', response);
   }
 
 
@@ -130,7 +122,6 @@ export default class MarketplaceRegistry extends Component {
       let response = await marketplace_registry.methods.itemTransferFrom(_oldOwner, _newOwner, _itemId).send({ from: accounts[0] });
       console.log('=== response of itemTransferFrom() function ===', response);      
   }
-
 
   ownershipTransferOrderedItem = async () => {
       const { accounts, marketplace_registry, web3 } = this.state;
@@ -458,7 +449,7 @@ export default class MarketplaceRegistry extends Component {
                               </tr>
                           </Table>
 
-                          <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> ① Publish NFT Item（Mint To） </Button>
+                          <Button size={'small'} mt={3} mb={2} onClick={this.mintTo}> Publish NFT Item（Mint NFT Item） </Button>
                       </Card>
 
                       <Card width={"auto"} 
@@ -480,7 +471,7 @@ export default class MarketplaceRegistry extends Component {
                               </tr>
                           </Table>
 
-                          <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> ② Stakeholder Registry </Button>
+                          <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> Stakeholder Registry </Button>
                       </Card>
 
                       <h4> { listStakeholdersGroups } </h4>
@@ -497,7 +488,7 @@ export default class MarketplaceRegistry extends Component {
 
               <Grid container style={{ marginTop: 32 }}>
                   <Grid item xs={12}>
-                      <h4>List of Items</h4>
+                      <h4>Listed Items</h4>
 
                       <h4> { listItemObjects } </h4>
                   </Grid>

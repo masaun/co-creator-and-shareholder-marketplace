@@ -35,10 +35,6 @@ contract MarketplaceRegistry is Ownable, OpStorage, OpConstants {
         nftItem = NftItem(_nftItem);
     }
 
-    function testFunc() public returns (bool) {
-        return OpConstants.CONFIRMED;
-    }
-
 
     /***
      * @dev - This is registry for all of stakeholders
