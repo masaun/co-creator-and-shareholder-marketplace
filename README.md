@@ -31,6 +31,7 @@
 5. If someone buy items in this specific marketplace, profits from bought amount are distributed into players which joined creating process of that item. (by smart contract)
    - If someone buy listed item, they need to push `"Buy Item"` button at item ID which correspond to item they want to buy.
    - Pay with `DAI` .
+   - Each distributed amount for shareholders is that are divided bought amount (item price) by number of shareholders.
 
 <br>
 
