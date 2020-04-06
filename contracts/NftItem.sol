@@ -12,7 +12,7 @@ import "./storage/OpConstants.sol";
 
 /**
  * @title NftItem
- * @dev - This is a contract for non-fungible items which are created by stakeholders.
+ * @dev - This is a contract for non-fungible items which are created by shareholders.
  * @dev - This items are added to Wish-List
  */
 contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
@@ -32,7 +32,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
     constructor(
         address _proxyRegistryAddress
     ) 
-        TradeableERC721Token("Items which are created by stakeholders", "IBS", _proxyRegistryAddress) 
+        TradeableERC721Token("Items which are created by shareholders", "IBS", _proxyRegistryAddress) 
         public 
     {
         // Nothing   
@@ -44,7 +44,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
      */
     function mintTo(
         address _to,                //@notice - _to is original parameter of mintTo() function
-        address _itemOwnerAddr,     //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        address _itemOwnerAddr,     //@notice - _itemOwnerAddr is equal to _shareholderAddr
         string memory _itemName,
         string memory _itemDescription,
         uint256 _itemPrice,
@@ -77,7 +77,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
     function itemRegistry(
         uint256 _itemId,
         address _itemProposerAddr,  //@notice - _itemProposerAddr is a player who propose idea
-        address _itemOwnerAddr,     //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        address _itemOwnerAddr,     //@notice - _itemOwnerAddr is equal to _shareholderAddr
         string memory _itemName,
         uint256 _itemPrice,
         ItemType _itemType
@@ -92,7 +92,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
         Item storage item = items[_itemId];
         item.itemId = _itemId;
         item.itemProposerAddr = _itemProposerAddr;  //@notice - _itemProposerAddr is a player who propose idea
-        item.itemOwnerAddr = _itemOwnerAddr;        //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        item.itemOwnerAddr = _itemOwnerAddr;        //@notice - _itemOwnerAddr is equal to _shareholderAddr
         item.itemName = _itemName;
         item.itemPrice = _itemPrice;
         item.itemType = _itemType;
@@ -179,7 +179,7 @@ contract NftItem is TradeableERC721Token, OpStorage, OpConstants {
     }
 
     function baseItemURI() public view returns (string memory) {
-        return "https://opensea-creatures-api.herokuapp.com/api/nft-item-by-stakeholders/";
+        return "https://opensea-creatures-api.herokuapp.com/api/nft-item-by-shareholders/";
     }
 
 

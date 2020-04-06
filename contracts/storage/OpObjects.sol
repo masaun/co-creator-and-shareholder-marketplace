@@ -4,12 +4,12 @@ pragma experimental ABIEncoderV2;
 
 contract OpObjects {
 
-    enum StakeholderType { Player, Developer }
+    enum ShareholderType { Player, Developer }
     
-    struct Stakeholder {
+    struct Shareholder {
         uint256 itemId;
-        address stakeholderAddr;
-        StakeholderType stakeholderType;
+        address shareholderAddr;
+        ShareholderType shareholderType;
     }
 
     enum ItemType { Weapon, Character, Clothes, Others }
@@ -22,19 +22,12 @@ contract OpObjects {
         ItemDetail itemDetail;
         uint256 itemPrice;
         ItemType itemType;        
-        //OwnerAddress ownerAddress;
     }
 
     struct ItemDetail {
         string itemDescription;
         address[] itemOwnerAddrList;
     }
-
-    // struct OwnerAddress {
-    //     address[] ownerAddressList;        
-    // }
-    
-
 
     struct ExampleObject {
         address addr;

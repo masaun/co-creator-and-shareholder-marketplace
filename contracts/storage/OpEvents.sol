@@ -5,16 +5,16 @@ import "./OpObjects.sol";
 
 contract OpEvents {
 
-    event StakeholderRegistry(
-        address _stakeholderAddr, 
-        OpObjects.StakeholderType _stakeholderType,
+    event ShareholderRegistry(
+        address _shareholderAddr, 
+        OpObjects.ShareholderType _shareholderType,
         address[] _itemOwnerAddrList
     );
 
     event ItemRegistry(
         uint256 _itemId,
         address _itemProposerAddr, //@notice - _itemProposerAddr is a player who propose idea
-        address _itemOwnerAddr,    //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+        address _itemOwnerAddr,    //@notice - _itemOwnerAddr is equal to _shareholderAddr
         string _itemName,
         uint256 _itemPrice,
         OpObjects.ItemType _itemType

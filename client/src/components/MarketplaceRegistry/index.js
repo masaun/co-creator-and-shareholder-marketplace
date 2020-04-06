@@ -32,7 +32,7 @@ export default class MarketplaceRegistry extends Component {
     this.itemOwnerOf = this.itemOwnerOf.bind(this);
     this.ownershipTransferOrderedItem = this.ownershipTransferOrderedItem.bind(this);
     this.buyItem = this.buyItem.bind(this);
-    this.stakeholderRegistry = this.stakeholderRegistry.bind(this);
+    this.shareholderRegistry = this.shareholderRegistry.bind(this);
     this.getItem = this.getItem.bind(this);
     this.getAllOfItems = this.getAllOfItems.bind(this);
 
@@ -42,8 +42,8 @@ export default class MarketplaceRegistry extends Component {
     this.handleInputItemPrice = this.handleInputItemPrice.bind(this);
     this.handleInputItemType = this.handleInputItemType.bind(this);
 
-    this.handleInputStakeholderItemId = this.handleInputStakeholderItemId.bind(this);
-    this.handleInputStakeholderType = this.handleInputStakeholderType.bind(this);
+    this.handleInputShareholderItemId = this.handleInputShareholderItemId.bind(this);
+    this.handleInputShareholderType = this.handleInputShareholderType.bind(this);
   }
 
 
@@ -80,7 +80,7 @@ export default class MarketplaceRegistry extends Component {
       const _to = accounts[0];  //@dev - Current Login User
 
       //@dev - parameter below are for executing itemRegistry function
-      const _itemOwnerAddr = accounts[0]   //@notice - _itemOwnerAddr is equal to _stakeholderAddr
+      const _itemOwnerAddr = accounts[0]   //@notice - _itemOwnerAddr is equal to _shareholderAddr
       const _itemName = valueOfItemName;
       const _itemDescription = valueOfItemDescription;
       const _itemPrice = valueOfItemPrice;
@@ -144,48 +144,48 @@ export default class MarketplaceRegistry extends Component {
   }
 
 
-  handleInputStakeholderItemId({ target: { value } }) {
-      this.setState({ valueOfStakeholderItemId: Number(value) });
+  handleInputShareholderItemId({ target: { value } }) {
+      this.setState({ valueOfShareholderItemId: Number(value) });
   }
 
-  handleInputStakeholderType({ target: { value } }) {
-      this.setState({ valueOfStakeholderType: Number(value) });
+  handleInputShareholderType({ target: { value } }) {
+      this.setState({ valueOfShareholderType: Number(value) });
   }
 
-  stakeholderRegistry = async () => {
-      const { accounts, marketplace_registry, web3, valueOfStakeholderItemId, valueOfStakeholderType } = this.state;
+  shareholderRegistry = async () => {
+      const { accounts, marketplace_registry, web3, valueOfShareholderItemId, valueOfShareholderType } = this.state;
 
-      const _itemId = valueOfStakeholderItemId;
+      const _itemId = valueOfShareholderItemId;
       //const _itemId = 2;
-      const _stakeholderAddr = accounts[0];
-      const _stakeholderType = valueOfStakeholderType;
+      const _shareholderAddr = accounts[0];
+      const _shareholderType = valueOfShareholderType;
 
-      let response = await marketplace_registry.methods.stakeholderRegistry(_itemId, 
-                                                                            _stakeholderAddr, 
-                                                                            _stakeholderType).send({ from: accounts[0] });
-      console.log('=== response of stakeholderRegistry() function ===', response);
+      let response = await marketplace_registry.methods.shareholderRegistry(_itemId, 
+                                                                            _shareholderAddr, 
+                                                                            _shareholderType).send({ from: accounts[0] });
+      console.log('=== response of shareholderRegistry() function ===', response);
 
-      this.setState({ valueOfStakeholderItemId: '', 
-                      valueOfStakeholderType: '' });
+      this.setState({ valueOfShareholderItemId: '', 
+                      valueOfShareholderType: '' });
   }
 
-  getStakeholdersGroup = async () => {
+  getShareholdersGroup = async () => {
       const { accounts, marketplace_registry, nft_item, web3 } = this.state;
 
       const currentItemIdCount = await nft_item.methods.getCurrentItemIdCount().call();
 
       //@dev - itemId is started from 1. That's why variable of "i" is also started from 1.
-      const stakeholdersGroups = []
+      const shareholdersGroups = []
       for (let i = 1; i < currentItemIdCount; i++) {
-          let stakeholdersGroup = await marketplace_registry.methods.getStakeholdersGroup(i).call();
-          console.log('=== stakeholdersGroup ===', stakeholdersGroup);
+          let shareholdersGroup = await marketplace_registry.methods.getShareholdersGroup(i).call();
+          console.log('=== shareholdersGroup ===', shareholdersGroup);
 
-          stakeholdersGroups.push(stakeholdersGroup);
+          shareholdersGroups.push(shareholdersGroup);
       }
-      console.log('=== stakeholdersGroups ===', stakeholdersGroups);
+      console.log('=== shareholdersGroups ===', shareholdersGroups);
 
       //@dev - For displaying panels each itemId
-      const listStakeholdersGroups = stakeholdersGroups.map((stakeholdersGroup, i) =>
+      const listShareholdersGroups = shareholdersGroups.map((shareholdersGroup, i) =>
           <Card width={"auto"} 
                     maxWidth={"640px"} 
                     mx={"auto"} 
@@ -199,13 +199,13 @@ export default class MarketplaceRegistry extends Component {
                       <td>{ i + 1 }</td>
                   </tr>
                   <tr>
-                      <td>Stakeholder's List: </td>
-                      <td>{ stakeholdersGroup.map((stakeholder) => <li>{ stakeholder }</li>) }</td>
+                      <td>Shareholder's List: </td>
+                      <td>{ shareholdersGroup.map((shareholder) => <li>{ shareholder }</li>) }</td>
                   </tr>
               </Table>
           </Card>
       );
-      this.setState({ listStakeholdersGroups: listStakeholdersGroups });
+      this.setState({ listShareholdersGroups: listShareholdersGroups });
   }
 
   getItem = async () => {
@@ -393,8 +393,8 @@ export default class MarketplaceRegistry extends Component {
           //@dev - Call all of struct of Item every time
           this.getAllOfItems();
 
-          //@dev - Call stakeholdersGroups every time
-          this.getStakeholdersGroup();
+          //@dev - Call shareholdersGroups every time
+          this.getShareholdersGroup();
         }
         else {
           this.setState({ web3, ganacheAccounts, accounts, balance, networkId, networkType, hotLoaderDisabled, isMetaMask });
@@ -412,7 +412,7 @@ export default class MarketplaceRegistry extends Component {
 
 
   render() {
-      const { listItemObjects, listItemDetailObjects, listStakeholdersGroups, accounts } = this.state;
+      const { listItemObjects, listItemDetailObjects, listShareholdersGroups, accounts } = this.state;
 
       return (
           <div className={styles.widgets}>
@@ -459,22 +459,22 @@ export default class MarketplaceRegistry extends Component {
                             p={20} 
                             borderColor={"#E8E8E8"}
                       >
-                          <h4>Stakeholder Registry</h4>
+                          <h4>Shareholder Registry</h4>
                           <Table>
                               <tr>
                                   <td><p>Item Id</p></td>
-                                  <td><Input type="text" placeholder="Please input item id here" value={this.state.valueOfStakeholderItemId} onChange={this.handleInputStakeholderItemId} /></td>
+                                  <td><Input type="text" placeholder="Please input item id here" value={this.state.valueOfShareholderItemId} onChange={this.handleInputShareholderItemId} /></td>
                               </tr>
                               <tr>
-                                  <td><p>Stakeholder Type</p></td>
-                                  <td><Input type="text" placeholder="Please input stakeholder type here" value={this.state.valueOfStakeholderType} onChange={this.handleInputStakeholderType} /></td>
+                                  <td><p>Shareholder Type</p></td>
+                                  <td><Input type="text" placeholder="Please input shareholder type here" value={this.state.valueOfShareholderType} onChange={this.handleInputShareholderType} /></td>
                               </tr>
                           </Table>
 
-                          <Button size={'small'} mt={3} mb={2} onClick={this.stakeholderRegistry}> Stakeholder Registry </Button>
+                          <Button size={'small'} mt={3} mb={2} onClick={this.shareholderRegistry}> Shareholder Registry </Button>
                       </Card>
 
-                      <h4> { listStakeholdersGroups } </h4>
+                      <h4> { listShareholdersGroups } </h4>
                   </Grid>
 
                   <Grid item xs={4}>
